@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zad_almumin/core/utils/resources/app_sizes.dart';
 
 class AnimatedButtonTapping extends StatefulWidget {
   const AnimatedButtonTapping({required this.child, required this.onTap, required this.onTapUp});
@@ -51,13 +52,16 @@ class _AnimatedButtonTappingState extends State<AnimatedButtonTapping> with Sing
   Widget build(BuildContext context) {
     _scale = 1 - _controller.value;
 
-    return Center(
-      child: GestureDetector(
-        onTapDown: _onTapDown,
-        onTapUp: _onTapUp,
-        child: Transform.scale(
-          scale: _scale,
-          child: _animatedButtonUI,
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: AppSizes.cardPadding),
+      child: Center(
+        child: GestureDetector(
+          onTapDown: _onTapDown,
+          onTapUp: _onTapUp,
+          child: Transform.scale(
+            scale: _scale,
+            child: _animatedButtonUI,
+          ),
         ),
       ),
     );
