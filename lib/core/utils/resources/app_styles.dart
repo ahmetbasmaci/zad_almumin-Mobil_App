@@ -6,32 +6,32 @@ import '../../extentions/extentions.dart';
 
 class AppStyles {
   AppStyles._();
-  static TextStyle get title {
-    return AppConstants.context.theme.textTheme.titleLarge?.copyWith(
+  static TextStyle title(BuildContext context) {
+    return context.theme.textTheme.titleLarge?.copyWith(
           fontWeight: FontWeight.w800,
         ) ??
         const TextStyle();
   }
 
-  static TextStyle get title2 {
-    return AppConstants.context.theme.textTheme.titleMedium?.copyWith(
+  static TextStyle title2(BuildContext context) {
+    return context.theme.textTheme.titleMedium?.copyWith(
           fontWeight: FontWeight.w700,
         ) ??
         const TextStyle();
   }
 
-  static TextStyle get content {
-    return AppConstants.context.theme.textTheme.bodyMedium ?? const TextStyle();
+  static TextStyle content(BuildContext context) {
+    return context.theme.textTheme.bodyMedium ?? const TextStyle();
   }
 
-  static TextStyle get contentBold {
-    return content.copyWith(
+  static TextStyle contentBold(BuildContext context) {
+    return content(context).copyWith(
       fontWeight: FontWeight.w600,
     );
   }
 
-  static TextStyle get quran {
-    return content.copyWith(
+  static TextStyle quran(BuildContext context) {
+    return content(context).copyWith(
       fontSize: AppConstants.context.read<QuranCubit>().state.quranFontSize,
     );
   }

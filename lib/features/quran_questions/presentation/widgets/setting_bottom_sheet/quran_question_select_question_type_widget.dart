@@ -14,7 +14,7 @@ class QuranQuestionSelectQuestionTypeWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        _title(),
+        _title(context),
         BlocBuilder<QuranQuestionsCubit, QuranQuestionsState>(
           builder: (context, state) {
             return _ansertTypeDropDown(context);
@@ -24,7 +24,7 @@ class QuranQuestionSelectQuestionTypeWidget extends StatelessWidget {
     );
   }
 
-  Text _title() => Text('اختر طريقة الاجابة:', style: AppStyles.contentBold);
+  Text _title(BuildContext context) => Text('اختر طريقة الاجابة:', style: AppStyles.contentBold(context));
 
   DropdownButton<AyahsAnswersType> _ansertTypeDropDown(BuildContext context) {
     return DropdownButton<AyahsAnswersType>(

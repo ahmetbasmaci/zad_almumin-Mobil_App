@@ -18,14 +18,18 @@ class QuranEndDrawerPageCategoryHeaderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        color: _backgroundColor(context),
-        child: InkWell(
-          child: _iconAndText(context),
-          onTap: () {
-            context.read<QuranEndDrawerCubit>().goToPage(index);
-          },
-        ),
+      child: BlocBuilder<QuranEndDrawerCubit, QuranEndDrawerState>(
+        builder: (context, state) {
+          return Container(
+            color: _backgroundColor(context),
+            child: InkWell(
+              child: _iconAndText(context),
+              onTap: () {
+                context.read<QuranEndDrawerCubit>().goToPage(index);
+              },
+            ),
+          );
+        },
       ),
     );
   }
@@ -39,7 +43,7 @@ class QuranEndDrawerPageCategoryHeaderItem extends StatelessWidget {
         ),
         Text(
           title,
-          style: AppStyles.content.copyWith(
+          style: AppStyles.content(context).copyWith(
             color: _itemsColor(context),
           ),
         )

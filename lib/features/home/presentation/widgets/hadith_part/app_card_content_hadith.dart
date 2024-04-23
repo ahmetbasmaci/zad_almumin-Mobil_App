@@ -81,7 +81,7 @@ class AppCardContentHadith extends StatelessWidget {
   Widget _hadithPropItem(BuildContext context, String title, String value) {
     return Wrap(
       children: <Widget>[
-        Text('$title:', style: AppStyles.contentBold),
+        Text('$title:', style: AppStyles.contentBold(context)),
         const HorizontalSpace(20),
         Text(value),
       ],

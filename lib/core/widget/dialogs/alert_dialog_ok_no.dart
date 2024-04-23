@@ -24,7 +24,7 @@ class AlertDialogOkNo extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       contentPadding: EdgeInsets.all(AppSizes.screenPadding),
-      title: Text(title, style: AppStyles.title2),
+      title: Text(title, style: AppStyles.title2(context)),
       content: Text(content),
       actions: [
         TextButton(
@@ -36,7 +36,7 @@ class AlertDialogOkNo extends StatelessWidget {
           ),
           child: Text(
             okText ?? AppStrings.of(context).ok,
-            style: AppStyles.content.copyWith(
+            style: AppStyles.content(context).copyWith(
               color: context.theme.colorScheme.background,
             ),
           ),
@@ -45,7 +45,7 @@ class AlertDialogOkNo extends StatelessWidget {
           onPressed: () => onNo.call(),
           child: Text(
             noText ?? AppStrings.of(context).cancel,
-            style: AppStyles.content.copyWith(
+            style: AppStyles.content(context).copyWith(
               color: context.theme.colorScheme.error,
             ),
           ),

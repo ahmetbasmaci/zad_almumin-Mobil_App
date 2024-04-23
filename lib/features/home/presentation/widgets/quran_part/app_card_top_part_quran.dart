@@ -50,7 +50,7 @@ class AppCardTopPartQuran extends StatelessWidget {
       children: [
         Text(
           title,
-          style: AppStyles.title2,
+          style: AppStyles.title2(context),
         ),
         SizedBox(
           width: context.width * .8,

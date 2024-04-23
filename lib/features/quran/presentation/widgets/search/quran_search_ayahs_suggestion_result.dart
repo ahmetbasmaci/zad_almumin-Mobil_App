@@ -57,7 +57,7 @@ class QuranSearchAyahsSuggestionResult extends StatelessWidget {
           child: Text(
             ayah.text,
             textAlign: TextAlign.justify,
-            style: AppStyles.content.copyWith(
+            style: AppStyles.content(context).copyWith(
               fontFamily: AppFonts.uthmanic.name,
               fontSize: 25,
             ),
@@ -81,13 +81,13 @@ class QuranSearchAyahsSuggestionResult extends StatelessWidget {
         Text(
           '$text1:',
           textAlign: TextAlign.right,
-          style: AppStyles.quran.copyWith(color: context.themeColors.primary),
+          style: AppStyles.quran(context).copyWith(color: context.themeColors.primary),
         ),
         SizedBox(width: context.width * .03),
         Text(
           text2,
           textAlign: TextAlign.right,
-          style: AppStyles.quran.copyWith(),
+          style: AppStyles.quran(context).copyWith(),
         ),
       ],
     );

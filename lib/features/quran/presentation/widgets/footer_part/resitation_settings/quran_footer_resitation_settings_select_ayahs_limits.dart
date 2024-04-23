@@ -8,7 +8,6 @@ import 'package:zad_almumin/core/widget/space/vertical_space.dart';
 import '../../../../../../core/helpers/dialogs_helper.dart';
 import '../../../../quran.dart';
 
-
 class QuranFooterResitationSettingsSelectAyahsLimits extends StatelessWidget {
   const QuranFooterResitationSettingsSelectAyahsLimits({super.key});
 
@@ -43,13 +42,13 @@ class QuranFooterResitationSettingsSelectAyahsLimits extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('تحديد المقطع:', style: AppStyles.contentBold),
+        Text('تحديد المقطع:', style: AppStyles.contentBold(context)),
         Text(
           context
               .read<QuranCubit>()
               .getSurahByNumber(context.read<QuranCubit>().state.selectedPageInfo.surahNumber)
               .name,
-          style: AppStyles.contentBold,
+          style: AppStyles.contentBold(context),
         ),
       ],
     );
@@ -64,12 +63,12 @@ class QuranFooterResitationSettingsSelectAyahsLimits extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Text('$title:', style: AppStyles.contentBold),
+        Text('$title:', style: AppStyles.contentBold(context)),
         InkWell(
           onTap: () => _selectAyahFromDialogClick(context, ayah.text, isStartAyah),
           child: Row(
             children: [
-              Text('${ayah.number} - ', style: AppStyles.contentBold),
+              Text('${ayah.number} - ', style: AppStyles.contentBold(context)),
               SizedBox(
                 width: context.width * .3,
                 child: SingleChildScrollView(
@@ -81,7 +80,7 @@ class QuranFooterResitationSettingsSelectAyahsLimits extends StatelessWidget {
               // SingleChildScrollView(
               //           padding: null,
               //           scrollDirection: Axis.horizontal,
-              //           child: Text(ayah.text, style: AppStyles.content.copyWith(overflow: TextOverflow.ellipsis)),
+              //           child: Text(ayah.text, style: AppStyles.content(context).copyWith(overflow: TextOverflow.ellipsis)),
               //         ),
               AppIcons.downArrow,
             ],
@@ -97,8 +96,8 @@ class QuranFooterResitationSettingsSelectAyahsLimits extends StatelessWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('اختر الآية:  ', style: AppStyles.contentBold),
-          Text(context.read<QuranCubit>().state.selectedPageInfo.surahName, style: AppStyles.contentBold),
+          Text('اختر الآية:  ', style: AppStyles.contentBold(context)),
+          Text(context.read<QuranCubit>().state.selectedPageInfo.surahName, style: AppStyles.contentBold(context)),
         ],
       ),
       child: _selectAyahFromDialog(context, ayahText, isStartAyah),
@@ -133,7 +132,7 @@ class QuranFooterResitationSettingsSelectAyahsLimits extends StatelessWidget {
     required bool isStartAyah,
   }) {
     return ListTile(
-      leading: Text('${ayah.number} - ', style: AppStyles.contentBold),
+      leading: Text('${ayah.number} - ', style: AppStyles.contentBold(context)),
       title: SingleChildScrollView(
         padding: null,
         scrollDirection: Axis.horizontal,

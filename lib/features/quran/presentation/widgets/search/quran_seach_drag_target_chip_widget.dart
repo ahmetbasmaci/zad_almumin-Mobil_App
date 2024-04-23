@@ -51,7 +51,7 @@ class QuranSeachDragTargetChipWidget extends StatelessWidget {
     return FilterChip(
       label: Text(
         filterChipModel.text,
-        style: AppStyles.content.copyWith(
+        style: AppStyles.content(context).copyWith(
           color: filterChipModel.isSelected ? Colors.white : context.themeColors.onBackground,
         ),
       ),

@@ -48,8 +48,8 @@ class QuranSelectReaderDropDown extends StatelessWidget {
     return Text(
       item.translatedName,
       style: context.read<QuranReaderCubit>().state.selectedQuranReader == item
-          ? AppStyles.contentBold
-          : AppStyles.content,
+          ? AppStyles.contentBold(context)
+          : AppStyles.content(context),
     );
   }
 

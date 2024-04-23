@@ -21,7 +21,10 @@ class AppCardTopPart extends StatelessWidget {
           alignment: Alignment.topRight,
           child: startWidget,
         ),
-        centerWidget ?? Container(),
+        Align(
+          alignment: Alignment.topCenter,
+          child: centerWidget ?? Container(),
+        ),
         Align(
           alignment: Alignment.topLeft,
           child: endWidget,

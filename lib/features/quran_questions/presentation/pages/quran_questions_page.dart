@@ -17,31 +17,31 @@ class QuranQuestionsPage extends StatelessWidget {
       leading: const QuranQuestionOptionsButton(),
       body: BlocBuilder<QuranQuestionsCubit, QuranQuestionsState>(
         builder: (context, state) {
-          return body(state);
+          return body(context,state);
         },
       ),
     );
   }
 
-  Widget body(QuranQuestionsState state) {
+  Widget body(BuildContext context,QuranQuestionsState state) {
     if (state.isLoading) return const AppCircularProgressIndicator();
 
     //if there is tafseers for current local
     return Column(
       children: [
         VerticalSpace(AppSizes.spaceBetweanWidgets),
-        _title(),
+        _title(context),
         VerticalSpace(AppSizes.spaceBetweanWidgets),
         const Expanded(child: QuranQuestionsResultWidgets()),
       ],
     );
   }
 
-  Text _title() {
+  Text _title(BuildContext context) {
     return Text(
       "اختبر حفظك للقران واختر رقم الصفحة والجزء للآية",
       textAlign: TextAlign.center,
-      style: AppStyles.contentBold,
+      style: AppStyles.contentBold(context),
     );
   }
 }

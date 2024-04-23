@@ -18,7 +18,7 @@ class NoTafseersForCurrentLocalWidget extends StatelessWidget {
           ),
           Text(
             'لا يوجد تفاسير للغة المحددة حاليا ستتم إضافة التفاسير لاحقا ان شاء الله',
-            style: AppStyles.title,
+            style: AppStyles.title(context),
             textAlign: TextAlign.center,
           ),
           AppGifs.sadFace,

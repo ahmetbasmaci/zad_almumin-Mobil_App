@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:zad_almumin/core/utils/resources/app_styles.dart';
 
 import '../../../config/local/l10n.dart';
 import '../../../core/extentions/extentions.dart';
@@ -18,7 +19,7 @@ class SplahTextWidget extends StatelessWidget {
             TyperAnimatedText(
               AppStrings.of(context).appName,
               speed: const Duration(milliseconds: 200),
-              textStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              textStyle: AppStyles.title(context),
             ),
           ],
           isRepeatingAnimation: false,

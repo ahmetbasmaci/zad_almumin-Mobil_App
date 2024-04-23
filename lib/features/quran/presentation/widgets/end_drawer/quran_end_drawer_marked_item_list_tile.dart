@@ -22,7 +22,7 @@ class QuranEndDrawerMarkedItemListTile extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          titleTextStyle: AppStyles.quran,
+          titleTextStyle: AppStyles.quran(context),
           title: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Text(title),

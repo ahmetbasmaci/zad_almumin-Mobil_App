@@ -93,13 +93,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "You can read Hadith and Fast Reminder"),
         "hadithAndFastReminderTitle":
             MessageLookupByLibrary.simpleMessage("Hadith and Fast Reminder"),
-        "hadithBigTitle": MessageLookupByLibrary.simpleMessage(
-            "Praved Muhammed (PBUH) Hadith"),
+        "hadithBigTitle":
+            MessageLookupByLibrary.simpleMessage("P. Muhammed (PBUH) Hadith"),
         "hadithBookName":
             MessageLookupByLibrary.simpleMessage("Hadith Bookname: "),
         "hadithId": MessageLookupByLibrary.simpleMessage("Hadith ID: "),
         "hadithTitle":
-            MessageLookupByLibrary.simpleMessage("Praved Muhammed (PBUH) Said"),
+            MessageLookupByLibrary.simpleMessage("P. Muhammed (PBUH) Said"),
         "hadithTitleAlarm": MessageLookupByLibrary.simpleMessage("Hadith"),
         "hadiths": MessageLookupByLibrary.simpleMessage("Hadiths"),
         "hajZikr": MessageLookupByLibrary.simpleMessage("Haj Azkars"),

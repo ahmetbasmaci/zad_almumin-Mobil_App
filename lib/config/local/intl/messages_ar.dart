@@ -99,8 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "hadithBookName":
             MessageLookupByLibrary.simpleMessage("أسم كتاب الحديث"),
         "hadithId": MessageLookupByLibrary.simpleMessage("رقم الحديث"),
-        "hadithTitle": MessageLookupByLibrary.simpleMessage(
-            "قال رسول الله صلى الله عليه وسلم"),
+        "hadithTitle": MessageLookupByLibrary.simpleMessage("قال رسول الله ﷺ "),
         "hadithTitleAlarm":
             MessageLookupByLibrary.simpleMessage("الحديث الشريف"),
         "hadiths": MessageLookupByLibrary.simpleMessage("الأحاديث"),

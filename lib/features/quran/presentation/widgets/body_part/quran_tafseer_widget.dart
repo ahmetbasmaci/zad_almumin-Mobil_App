@@ -27,7 +27,7 @@ class QuranTafseerWidget extends WidgetSpan {
       child: Text(
         tafseerText,
         textAlign: TextAlign.justify,
-        style: AppStyles.quran,
+        style: AppStyles.quran(context),
       ),
     );
   }

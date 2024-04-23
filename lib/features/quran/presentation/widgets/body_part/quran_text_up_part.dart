@@ -21,11 +21,11 @@ class QuranTextUpPart extends StatelessWidget {
           children: [
             Text(
               '${AppStrings.of(context).juz}   ${context.read<QuranCubit>().state.selectedPageInfo.juz.arabicNumber}',
-              style: AppStyles.contentBold,
+              style: AppStyles.contentBold(context),
             ),
             Text(
               context.read<QuranCubit>().state.selectedPageInfo.surahName,
-              style: AppStyles.contentBold,
+              style: AppStyles.contentBold(context),
             ),
           ],
         ),

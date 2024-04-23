@@ -13,7 +13,7 @@ class QuranRichText extends StatelessWidget {
       textDirection: TextDirection.rtl,
       text: TextSpan(
         children: textSpanChilderen,
-        style: AppStyles.quran,
+        style: AppStyles.quran(context),
       ),
     );
   }

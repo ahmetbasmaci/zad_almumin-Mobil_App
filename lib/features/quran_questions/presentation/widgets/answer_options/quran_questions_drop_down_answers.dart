@@ -100,7 +100,7 @@ class QuranQuestionsDropDownAnswers extends StatelessWidget {
           duration: Duration(milliseconds: context.read<QuranQuestionsCubit>().state.isPressed ? 200 : 0),
           child: Text(
             currectValue.toString(),
-            style: AppStyles.contentBold.copyWith(color: context.themeColors.success),
+            style: AppStyles.contentBold(context).copyWith(color: context.themeColors.success),
           ),
         ),
         DropdownButton<int>(

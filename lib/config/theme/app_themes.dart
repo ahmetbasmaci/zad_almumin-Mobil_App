@@ -52,7 +52,7 @@ class AppThemes {
             ),
       iconTheme: _appIconThemeData(themeColors),
       iconButtonTheme: _appIconButtonThemeData(themeColors),
-      textTheme: _appTextTheme,
+      textTheme: _appTextTheme(themeColors),
       dialogTheme: _appDialogTheme(themeColors),
       listTileTheme: _appListTileThemeData(themeColors),
     );
@@ -74,11 +74,12 @@ class AppThemes {
     );
   }
 
-  static TextTheme get _appTextTheme {
+  static TextTheme _appTextTheme(ThemeColors themeColors) {
     String fontFamily = AppFonts.naskh.name;
     return TextTheme(
+      titleLarge: TextStyle(fontFamily: fontFamily, fontSize: 23),
+      titleMedium: TextStyle(fontFamily: fontFamily, fontSize: 21),
       bodyMedium: TextStyle(fontFamily: fontFamily, fontSize: 17),
-      bodyLarge: TextStyle(fontFamily: fontFamily, fontSize: 19),
     );
   }
 

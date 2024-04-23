@@ -74,7 +74,7 @@ class AppDeveloperPage extends StatelessWidget {
         const Text("تواصل معي عبر الايميل:"),
         SelectableText(
           AppConstants.developerEmail,
-          style: AppStyles.contentBold.copyWith(color: context.themeColors.secondary),
+          style: AppStyles.contentBold(context).copyWith(color: context.themeColors.secondary),
         ),
       ],
     );

@@ -11,7 +11,7 @@ class PrayTimeLeftCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin:  EdgeInsets.only(top: AppSizes.spaceBetweanParts),
+      margin: EdgeInsets.only(top: AppSizes.spaceBetweanParts),
       decoration: _cardDecoration(context),
       width: context.width * .55,
       height: context.height * .25,
@@ -49,14 +49,14 @@ class PrayTimeLeftCard extends StatelessWidget {
         ? const AppCircularProgressIndicator()
         : Text(
             context.read<PrayTimesCubit>().state.timeLeftToNextPrayTime,
-            style: AppStyles.title,
+            style: AppStyles.title(context),
           );
   }
 
   Text _prayTimeNameTitle(BuildContext context) {
     return Text(
       context.read<PrayTimesCubit>().nextPrayModel.prayTimeType.translatedName,
-      style: AppStyles.title2,
+      style: AppStyles.title2(context),
     );
   }
 }

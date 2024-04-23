@@ -372,10 +372,10 @@ class AppStrings {
     );
   }
 
-  /// `Praved Muhammed (PBUH) Hadith`
+  /// `P. Muhammed (PBUH) Hadith`
   String get hadithBigTitle {
     return Intl.message(
-      'Praved Muhammed (PBUH) Hadith',
+      'P. Muhammed (PBUH) Hadith',
       name: 'hadithBigTitle',
       desc: '',
       args: [],
@@ -402,10 +402,10 @@ class AppStrings {
     );
   }
 
-  /// `Praved Muhammed (PBUH) Said`
+  /// `P. Muhammed (PBUH) Said`
   String get hadithTitle {
     return Intl.message(
-      'Praved Muhammed (PBUH) Said',
+      'P. Muhammed (PBUH) Said',
       name: 'hadithTitle',
       desc: '',
       args: [],

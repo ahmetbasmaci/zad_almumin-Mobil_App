@@ -19,12 +19,12 @@ class AppCardCenterPartWidget extends StatelessWidget {
       child: isLoading
           ? const AppLinearProgressIndicator()
           : Text.rich(
+              style: AppStyles.content(context),
               TextSpan(
                 children: [
                   TextSpan(text: content),
                   TextSpan(
                     text: '\n\n$description',
-                    style: AppStyles.contentBold,
                   ),
                 ],
               ),

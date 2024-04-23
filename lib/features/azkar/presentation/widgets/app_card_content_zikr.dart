@@ -111,7 +111,7 @@ class AppCardContentZikr extends StatelessWidget {
     return AppCardTopPart(
       centerWidget: Text(
         title,
-        style: AppStyles.title2.copyWith(color: context.themeColors.primary),
+        style: AppStyles.title2(context).copyWith(color: context.themeColors.primary),
       ),
     );
   }
@@ -155,7 +155,7 @@ class AppCardContentZikr extends StatelessWidget {
       ),
       child: Text(
         count != 0 ? "$count" : AppStrings.of(context).done,
-        style: AppStyles.title2,
+        style: AppStyles.title2(context),
         textAlign: TextAlign.center,
       ),
     );

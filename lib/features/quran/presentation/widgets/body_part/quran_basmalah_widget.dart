@@ -39,7 +39,7 @@ class QuranBasmalahWidget extends WidgetSpan {
           heightFactor: 1.5,
           child: Text(
             ayah.surahName.removeSurahString,
-            style: AppStyles.quran.copyWith(
+            style: AppStyles.quran(context).copyWith(
               fontWeight: FontWeight.bold,
             ),
             // color: MyColors.primary,

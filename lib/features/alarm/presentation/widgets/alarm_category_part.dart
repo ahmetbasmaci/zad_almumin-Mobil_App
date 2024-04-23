@@ -18,7 +18,7 @@ class AlarmCategoryPart extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          leading: Text(alarmPartModel.title, style: AppStyles.title2),
+          leading: Text(alarmPartModel.title, style: AppStyles.title2(context)),
         ),
         Card(
           child: Column(
@@ -119,7 +119,7 @@ class AlarmCategoryPart extends StatelessWidget {
                     ),
                     Text(
                       e.translatedName,
-                      style: AppStyles.title2.copyWith(
+                      style: AppStyles.title2(context).copyWith(
                         color: isSelected ? context.themeColors.primary : null,
                       ),
                     ),

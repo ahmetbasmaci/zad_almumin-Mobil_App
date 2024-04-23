@@ -18,7 +18,7 @@ class QuranFooterResitationSettingsSelectRepeat extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _header(),
+            _header(context),
             _repeatingWidgt(context: context, isRepeatingPart: true),
             _repeatingWidgt(context: context, isRepeatingPart: false),
           ],
@@ -27,7 +27,7 @@ class QuranFooterResitationSettingsSelectRepeat extends StatelessWidget {
     );
   }
 
-  Text _header() => Text('تكرار التلاوة:  ', style: AppStyles.contentBold);
+  Text _header(BuildContext context) => Text('تكرار التلاوة:  ', style: AppStyles.contentBold(context));
 
   Widget _repeatingWidgt({
     required BuildContext context,
@@ -60,7 +60,7 @@ class QuranFooterResitationSettingsSelectRepeat extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         Text(title),
-        _incresDecreasebuttons(opacity, repeatCount, unlimitRepeatall, isRepeatingPart, quranCubit),
+        _incresDecreasebuttons(context, opacity, repeatCount, unlimitRepeatall, isRepeatingPart, quranCubit),
         _checkBoxUnlimitRepeat(context, unlimitRepeatall, isRepeatingPart, quranCubit),
         const Text('لا محدود'),
       ],
@@ -68,13 +68,19 @@ class QuranFooterResitationSettingsSelectRepeat extends StatelessWidget {
   }
 
   AnimatedOpacity _incresDecreasebuttons(
-      double opacity, String repeatCount, bool unlimitRepeatall, bool isRepeatingPart, QuranCubit quranCubit) {
+    BuildContext context,
+    double opacity,
+    String repeatCount,
+    bool unlimitRepeatall,
+    bool isRepeatingPart,
+    QuranCubit quranCubit,
+  ) {
     return AnimatedOpacity(
       opacity: opacity,
       duration: const Duration(milliseconds: 200),
       child: Row(
         children: <Widget>[
-          Text(repeatCount, style: AppStyles.contentBold),
+          Text(repeatCount, style: AppStyles.contentBold(context)),
           _brnIncreaseLimit(unlimitRepeatall, isRepeatingPart, quranCubit),
           _btnDecreaseLimit(unlimitRepeatall, isRepeatingPart, quranCubit),
         ],

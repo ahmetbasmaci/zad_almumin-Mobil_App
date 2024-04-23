@@ -30,7 +30,7 @@ class FavoriteZikrCard extends StatelessWidget {
     return AppCardTopPart(
       centerWidget: Text(
         title,
-        style: AppStyles.title2.copyWith(color: context.themeColors.primary),
+        style: AppStyles.title2(context).copyWith(color: context.themeColors.primary),
       ),
     );
   }

@@ -11,7 +11,7 @@ class HomePageZikrCategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 180,
+      width: AppSizes.homePageZikrCardW,
       decoration: AppDecorations.zikrCard(context),
       margin: EdgeInsets.only(
         right: AppSizes.cardPadding,
@@ -24,7 +24,7 @@ class HomePageZikrCategoryCard extends StatelessWidget {
           children: <Widget>[
             Text(
               zikrCategoryModel.title,
-              style: AppStyles.title2,
+              style: AppStyles.title2(context),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
