@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:share_plus/share_plus.dart';
 import '../../utils/resources/app_icons.dart';
 
 class ShareButton extends StatelessWidget {
@@ -14,8 +14,7 @@ class ShareButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
-        //TODO implement method
-        // Share.share(content);
+        Share.share(content);
 
         onDone?.call();
       },
