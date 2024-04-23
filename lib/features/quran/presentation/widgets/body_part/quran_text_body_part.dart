@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zad_almumin/core/helpers/toats_helper.dart';
 import 'package:zad_almumin/core/utils/resources/app_constants.dart';
 import 'package:zad_almumin/features/tafseer/tafseer.dart';
 
@@ -20,7 +21,11 @@ class QuranTextBodyPart extends StatelessWidget {
       element.isMarked = true;
     }
     var tafseerModel = AppConstants.context.read<TafseerCubit>().state.tafseerDataModel;
-    if (context.read<QuranCubit>().state.showTafseerPage && tafseerModel.surahs.isNotEmpty) {
+    if (context.read<QuranCubit>().state.showTafseerPage) {
+      if (tafseerModel.surahs.isEmpty) {
+        ToatsHelper.show('لا يوجد تفاسير محمّلة');
+        return QuranTextPart(ayahs: ayahs);
+      }
       return QuranTafseerPart(ayahs: ayahs);
     } else {
       return QuranTextPart(ayahs: ayahs);

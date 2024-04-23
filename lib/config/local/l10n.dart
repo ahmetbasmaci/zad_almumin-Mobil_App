@@ -202,10 +202,10 @@ class AppStrings {
     );
   }
 
-  /// `Light`
+  /// `Dark`
   String get dark {
     return Intl.message(
-      'Light',
+      'Dark',
       name: 'dark',
       desc: '',
       args: [],
@@ -512,10 +512,10 @@ class AppStrings {
     );
   }
 
-  /// `Dark`
+  /// `Light`
   String get light {
     return Intl.message(
-      'Dark',
+      'Light',
       name: 'light',
       desc: '',
       args: [],

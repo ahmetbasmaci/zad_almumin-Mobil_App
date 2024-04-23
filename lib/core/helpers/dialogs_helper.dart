@@ -15,7 +15,6 @@ class DialogsHelper {
   DialogsHelper._();
   static Future<bool> showEnableLocationServiceDialog() async {
     bool okHitted = false;
-    //TODO
     await showDialog(
       context: AppConstants.context,
       builder: (context) => AlertDialogOkNo(
@@ -36,7 +35,7 @@ class DialogsHelper {
 
   static Future<bool> showAllowAppToUseLocationDialog() async {
     bool okHitted = false;
-    //TODO
+
     await showDialog(
       context: AppConstants.context,
       builder: (context) => AlertDialogOkNo(
@@ -83,7 +82,6 @@ class DialogsHelper {
   }
 
   static Future<bool> showAddQuranPageMarkDialog(MarkedPage pageProp) async {
-    //TODO
     bool okHitted = false;
     String title = pageProp.isMarked ? 'ازالة علامة قراءة' : 'اضافة علامة قراءة';
     String content =

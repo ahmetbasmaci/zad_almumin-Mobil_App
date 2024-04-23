@@ -70,7 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "The text has been copied to the clipboard"),
         "dailyAzkarTitleAlarm":
             MessageLookupByLibrary.simpleMessage("Daily Azkar"),
-        "dark": MessageLookupByLibrary.simpleMessage("Light"),
+        "dark": MessageLookupByLibrary.simpleMessage("Dark"),
         "diferentAzkar": MessageLookupByLibrary.simpleMessage("Diferent Azkar"),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
         "dropDownMenu": MessageLookupByLibrary.simpleMessage("Drop Down Menu"),
@@ -114,7 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ishaPray": MessageLookupByLibrary.simpleMessage("Isha Pray"),
         "juz": MessageLookupByLibrary.simpleMessage("Juz"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
-        "light": MessageLookupByLibrary.simpleMessage("Dark"),
+        "light": MessageLookupByLibrary.simpleMessage("Light"),
         "low": MessageLookupByLibrary.simpleMessage("Low"),
         "maghrib": MessageLookupByLibrary.simpleMessage("Maghrib"),
         "maghripPray": MessageLookupByLibrary.simpleMessage("Maghrip Pray"),
