@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-
+import 'package:zad_almumin/core/helpers/printer_helper.dart';
 import '../../../../core/error/failure/failure.dart';
 import '../../../../core/utils/params/params.dart';
 import '../datasources/alarm_get_datapart_data_source.dart';
@@ -42,7 +42,7 @@ class AlarmRepository implements IAlarmRepository {
       alarmGetDatapartDataSource.updateAlarmModel(alarmModel);
       return const Right(unit);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }

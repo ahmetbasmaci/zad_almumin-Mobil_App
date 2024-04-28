@@ -1,3 +1,6 @@
+import 'package:zad_almumin/core/extentions/extentions.dart';
+import 'package:zad_almumin/core/utils/enums/enums.dart';
+
 class AppStorageKeys {
   AppStorageKeys._();
   static const String theme = 'theme';
@@ -21,4 +24,6 @@ class AppStorageKeys {
   static const String juzTo = 'JuzTo';
   static const String questionType = 'QuestionType';
   static const String answerType = 'AnswerType';
+  static String downloadedReaderSurah(int surahNumber, QuranReader reader) =>
+      '${reader.translatedName}-${surahNumber.formated3}';
 }

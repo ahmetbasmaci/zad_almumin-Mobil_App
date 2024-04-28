@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-
+import 'package:zad_almumin/core/helpers/printer_helper.dart';
 import '../../../../../../core/utils/params/params.dart';
 import '../../../../home.dart';
 
@@ -19,8 +19,8 @@ class HomeQuranAudioProgressCubit extends Cubit<HomeQuranAudioProgressState> {
       (audioStreamModel) {
         audioStreamModel.position.listen(
           (event) {
-            //TODO
-            print('-----------------------------------------------${event.inMilliseconds}');
+            //TODO change the stram to datasource or audo class to return Stram<double>
+
             emit(HomeQuranAudioProgressState(duration: audioStreamModel.duration, position: event));
           },
         );

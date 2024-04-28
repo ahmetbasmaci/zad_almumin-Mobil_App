@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zad_almumin/core/utils/resources/resources.dart';
-import 'package:zad_almumin/core/widget/progress_indicator/app_circular_progress_indicator.dart';
 import 'package:zad_almumin/features/quran/quran.dart';
 import '../../../features/home/home.dart';
+import '../progress_indicator/progress_indicator.dart';
 
 class AudioPlayPauseButton extends StatelessWidget {
   final bool isSingleAudio;
@@ -35,7 +35,6 @@ class AudioPlayPauseButton extends StatelessWidget {
       builder: (context, stateCard) {
         return _button(
           isPlaying: stateBtn is HomeQuranAudioButtonPlayingState,
-          isLoading: stateBtn is HomeQuranAudioButtonLoadingState,
           onPressed: () => _singleAudioButoonPressed(context),
         );
       },
@@ -47,11 +46,12 @@ class AudioPlayPauseButton extends StatelessWidget {
       builder: (context, buttonState) {
         return BlocBuilder<QuranReaderCubit, QuranReaderState>(
           builder: (context, state) {
-            return _button(
-              isPlaying: buttonState is QuranAudioButtonPlayingState,
-              isLoading: false,
-              onPressed: () => _multibleAudioButoonPressed(context),
-            );
+            return buttonState is QuranAudioButtonLoadingState
+                ? DownloadCircularProgressIndicator(downloadValue: buttonState.downloadValue)
+                : _button(
+                    isPlaying: buttonState is QuranAudioButtonPlayingState,
+                    onPressed: () => _multibleAudioButoonPressed(context),
+                  );
           },
         );
       },
@@ -60,14 +60,13 @@ class AudioPlayPauseButton extends StatelessWidget {
 
   Widget _button({
     required bool isPlaying,
-    required bool isLoading,
     required Function onPressed,
   }) {
     return IconButton(
       icon: SizedBox(
         width: AppSizes.icon,
         height: AppSizes.icon,
-        child: isLoading ? const AppCircularProgressIndicator() : AppIcons.animatedPlayPause(isPlaying),
+        child: AppIcons.animatedPlayPause(isPlaying),
       ),
       onPressed: () => onPressed.call(),
     );

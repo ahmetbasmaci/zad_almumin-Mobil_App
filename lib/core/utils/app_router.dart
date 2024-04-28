@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zad_almumin/core/utils/enums/enums.dart';
 import 'package:zad_almumin/features/app_developer/app_developer.dart';
 import 'package:zad_almumin/features/favorite/presentation/pages/favorite_page.dart';
 import 'package:zad_almumin/features/quran_questions/presentation/pages/quran_questions_page.dart';
@@ -35,6 +36,7 @@ enum AppRoutes {
   prayTimes("/prayTimes"),
   quran("/quran"),
   tafseer("/tafseer"),
+  quranReaderSurahDownloadScreen("/quranReaderSurahDownloadScreen"),
   quranQuestions("/quranQuestions"),
   appDeveloper("/appDeveloper"),
   favorite("/favorite"),
@@ -112,8 +114,15 @@ GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppRoutes.quran.path,
       name: AppRoutes.quran.name,
-      builder: (context, state) => BlocProvider(
-        create: (context) => GetItManager.instance.tafseerCubit,
+      builder: (context, state) => MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => GetItManager.instance.tafseerCubit,
+          ),
+          BlocProvider(
+            create: (context) => GetItManager.instance.quranReaderSurahDownloadCubit,
+          ),
+        ],
         child: const QuranPage(),
       ),
     ),
@@ -121,6 +130,14 @@ GoRouter appRouter = GoRouter(
       path: AppRoutes.tafseer.path,
       name: AppRoutes.tafseer.name,
       builder: (context, state) => const TafseeerPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.quranReaderSurahDownloadScreen.path,
+      name: AppRoutes.quranReaderSurahDownloadScreen.name,
+      builder: (context, state) => BlocProvider(
+        create: (context) => GetItManager.instance.quranReaderSurahDownloadCubit,
+        child: QuranReaderSurahDownloadScreen(reader: state.extra as QuranReader),
+      ),
     ),
     GoRoute(
       path: AppRoutes.quranQuestions.path,

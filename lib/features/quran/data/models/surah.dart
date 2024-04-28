@@ -18,11 +18,27 @@ class Surah {
     this.downloadState = DownloadState.notDownloaded,
   });
 
+  Surah copyWith({
+    String? name,
+    int? startAtPage,
+    int? number,
+    List<Ayah>? ayahs,
+    DownloadState? downloadState,
+  }) {
+    return Surah(
+      name: name ?? this.name,
+      startAtPage: startAtPage ?? this.startAtPage,
+      number: number ?? this.number,
+      ayahs: ayahs ?? this.ayahs,
+      downloadState: downloadState ?? this.downloadState,
+    );
+  }
+
   final String name;
   final int startAtPage;
   final int number;
   final List<Ayah> ayahs;
-  final DownloadState downloadState;
+  DownloadState downloadState;
   factory Surah.fromJson(dynamic json) {
     List<Ayah> ayahs = [];
     for (var ayah in json['ayahs']) {

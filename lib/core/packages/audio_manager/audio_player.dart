@@ -1,6 +1,8 @@
+import 'dart:developer';
+
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:flutter/material.dart';
 import 'package:zad_almumin/core/extentions/extentions.dart';
+import 'package:zad_almumin/core/helpers/printer_helper.dart';
 import 'package:zad_almumin/core/utils/enums/enums.dart';
 import '../../../features/quran/quran.dart';
 import 'audio_manager.dart';
@@ -25,7 +27,6 @@ class AudioPlayer implements IAudioPlayer {
 
   Duration duration = const Duration();
   Duration position = const Duration();
-
 
   @override
   bool get isPlaying => audioPlayerType.isPlaying || assetsAudioPlayer.isPlaying.value;
@@ -293,13 +294,13 @@ class AudioPlayer implements IAudioPlayer {
 
     //add notification open action
     AssetsAudioPlayer.addNotificationOpenAction((notification) {
-      debugPrint('addNotificationOpenAction action');
+      PrinterHelper.print('addNotificationOpenAction action');
       return false;
     });
 
     //set notification open action
     AssetsAudioPlayer.setupNotificationsOpenAction((notification) {
-      debugPrint("setupNotificationsOpenAction action");
+      PrinterHelper.print("setupNotificationsOpenAction action");
       return true;
     });
   }
@@ -320,7 +321,6 @@ class AudioPlayer implements IAudioPlayer {
 
   void _updateAudioPlayerObject() {
     assetsAudioPlayer = AssetsAudioPlayer();
-   
   }
 
   Playlist getPlaylist(List<AudioFile> audioFiles) {

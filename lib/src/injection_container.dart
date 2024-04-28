@@ -4,6 +4,7 @@ import 'package:zad_almumin/core/services/files_service.dart';
 import 'package:zad_almumin/core/services/json_service.dart';
 import 'package:zad_almumin/features/app_developer/app_developer.dart';
 import 'package:zad_almumin/features/favorite/presentation/cubit/favorite_cubit.dart';
+import 'package:zad_almumin/features/quran/data/datasources/quran_download_data_source.dart';
 import 'package:zad_almumin/features/quran_questions/quran_questions.dart';
 import 'package:zad_almumin/features/tafseer/tafseer.dart';
 import '../core/packages/audio_manager/audio_player.dart';
@@ -47,6 +48,9 @@ class GetItManager {
   QuranAudioButtonCubit get quranAudioButtonCubit => _sl<QuranAudioButtonCubit>();
 
   TafseerCubit get tafseerCubit => _sl<TafseerCubit>();
+  QuranReaderSurhDownloadCubit get quranReaderSurahDownloadCubit => _sl<QuranReaderSurhDownloadCubit>();
+  QuranReaderSurhDownloadItemCubit get quranReaderSurhDownloadItemCubit => _sl<QuranReaderSurhDownloadItemCubit>();
+
   TafseerDownloadCubit get tafseerDownloadCubit => _sl<TafseerDownloadCubit>();
 
   QuranQuestionsCubit get quranQuestionsCubit => _sl<QuranQuestionsCubit>();
@@ -68,6 +72,7 @@ class GetItManager {
     await _initPrayTimes();
     await _initHome();
     await _initTafseer();
+    await _initQuranReaderSurahDownload();
     await _initQuranQuestions();
     await _initAppDeveloper();
     await _initFavorite();
@@ -225,9 +230,12 @@ class GetItManager {
   }
 
   Future _initQuran() async {
-    
     //!DataSource
-    QuranDataDataSource quranDataDataSource = QuranDataDataSource(localStorage: _sl(), jsonService: _sl());
+    QuranDataDataSource quranDataDataSource = QuranDataDataSource(
+      localStorage: _sl(),
+      jsonService: _sl(),
+      fileService: _sl(),
+    );
     await quranDataDataSource.loadSurahs();
     _sl.registerLazySingleton<IQuranDataDataSource>(() => quranDataDataSource);
     _sl.registerLazySingleton<IQuranAudioProgressDataSource>(() => QuranAudioProgressDataSource(audioService: _sl()));
@@ -240,13 +248,20 @@ class GetItManager {
         ayahApi: _sl(),
       ),
     );
-   
+    _sl.registerLazySingleton<IQuranDownloadDataSource>(() => QuranDownloadDataSource(
+          apiConsumer: _sl(),
+          fileService: _sl(),
+          ayahApi: _sl(),
+          appInternetConnection: _sl(),
+        ));
+
     //!Repository
     _sl.registerLazySingleton<IQuranDataRepository>(
       () => QuranDataRepository(
         quranDataDataSource: _sl(),
         quranAudioDataSource: _sl(),
         quranAudioProgressDataSource: _sl(),
+        quranDownloadDataSource: _sl(),
       ),
     );
 
@@ -280,6 +295,8 @@ class GetItManager {
       () => QuranAudioButtonCubit(
         playPauseAudioUseCase: _sl(),
         stopAudioUseCase: _sl(),
+        checkIfSurahDownloadedBeforeUsecase: _sl(),
+        downloadReaderSurahUseCase: _sl(),
       ),
     );
   }
@@ -335,6 +352,31 @@ class GetItManager {
         checkTafseerIfDownloadedUseCase: _sl(),
         downloadTafseerUseCase: _sl(),
         tafseerWriteDataIntoFileAsBytesSyncUseCase: _sl(),
+      ),
+    );
+  }
+
+  Future _initQuranReaderSurahDownload() async {
+    //!DataSource
+
+    //!Repository
+
+    //!usecase
+    _sl.registerLazySingleton(() => DownloadReaderSurahUseCase(repository: _sl()));
+    _sl.registerLazySingleton(() => CheckIfSurahDownloadedBeforeUseCase(repository: _sl()));
+    _sl.registerLazySingleton(() => GetAllSurahsUseCase(repository: _sl()));
+
+    //!Cubit
+    _sl.registerFactory(
+      () => QuranReaderSurhDownloadCubit(
+        getAllSurahsUsecase: _sl(),
+      ),
+    );
+
+    _sl.registerFactory(
+      () => QuranReaderSurhDownloadItemCubit(
+        checkIfSurahDownloadedBeforeUsecase: _sl(),
+        downloadReaderSurahUseCase: _sl(),
       ),
     );
   }

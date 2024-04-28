@@ -89,10 +89,9 @@ class AppCardContentZikr extends StatelessWidget {
             onTap: () {},
             onTapUp: () async {
               count--;
-              try {
+              //ckeck if state alive
+              if (context.mounted) {
                 setState(() {});
-              } catch (e) {
-                debugPrint(e.toString());
               }
             },
             useMargin: useMargin,

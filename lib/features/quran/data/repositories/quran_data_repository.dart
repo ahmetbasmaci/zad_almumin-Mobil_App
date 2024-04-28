@@ -1,8 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:zad_almumin/core/error/failure/failure.dart';
+import 'package:zad_almumin/core/helpers/printer_helper.dart';
 import 'package:zad_almumin/core/packages/audio_manager/model/audio_stream_model.dart';
 import 'package:zad_almumin/core/utils/enums/enums.dart';
+import 'package:zad_almumin/features/quran/data/datasources/quran_download_data_source.dart';
 import '../../../../core/error/exceptions/app_exceptions.dart';
 import '../../quran.dart';
 
@@ -10,11 +12,13 @@ class QuranDataRepository implements IQuranDataRepository {
   final IQuranDataDataSource quranDataDataSource;
   final IQuranAudioDataSource quranAudioDataSource;
   final IQuranAudioProgressDataSource quranAudioProgressDataSource;
+  final IQuranDownloadDataSource quranDownloadDataSource;
 
   QuranDataRepository({
     required this.quranDataDataSource,
     required this.quranAudioDataSource,
     required this.quranAudioProgressDataSource,
+    required this.quranDownloadDataSource,
   });
 
   @override
@@ -23,7 +27,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.alSurahs;
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -34,7 +38,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.getAyah(surahNumber, ayahNumber);
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -45,7 +49,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.getAyahsInPage(page);
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -56,7 +60,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.getJuzNumberByPage(page);
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -67,7 +71,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.getMatchedSurah(surahName);
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -78,7 +82,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.getPageInJuz(page);
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -89,7 +93,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.getRandomAyah();
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -100,7 +104,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.getRandomAyahBySureNumber(sureNumber);
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -111,7 +115,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.getSurahByName(surahName);
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -122,7 +126,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.getSurahByNumber(surahNumber);
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -133,7 +137,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.getSurahByPage(page);
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -144,7 +148,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.isEmpty;
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -155,7 +159,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.isNotEmpty;
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -166,7 +170,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.surahsCount;
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -177,7 +181,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.getSavedCurrentPageIndex;
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -188,7 +192,7 @@ class QuranDataRepository implements IQuranDataRepository {
       await quranDataDataSource.saveCurrentPageIndex(page);
       return const Right(null);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -199,7 +203,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.getSavedSearchFilterList;
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -210,7 +214,7 @@ class QuranDataRepository implements IQuranDataRepository {
       await quranDataDataSource.savedSearchFilterList(filterChipModels);
       return const Right(null);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -221,7 +225,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.searchPages(num);
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -232,7 +236,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.searchSurahs(query);
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -243,7 +247,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.searchAyahs(query);
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -254,7 +258,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.getSavedQuranViewMode;
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -265,7 +269,7 @@ class QuranDataRepository implements IQuranDataRepository {
       await quranDataDataSource.saveQuranViewMode(quranViewModeInImages);
       return const Right(null);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -276,7 +280,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.getSavedQuranFontSize;
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -287,7 +291,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.getSavedQuranTafsserMode;
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -298,7 +302,7 @@ class QuranDataRepository implements IQuranDataRepository {
       await quranDataDataSource.saveQuranFontSize(fontSize);
       return const Right(null);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -309,7 +313,7 @@ class QuranDataRepository implements IQuranDataRepository {
       await quranDataDataSource.saveQuranTafsserMode(quranTafsserMode);
       return const Right(null);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -320,7 +324,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.getSavedSelectedReader;
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -331,7 +335,7 @@ class QuranDataRepository implements IQuranDataRepository {
       await quranDataDataSource.savedSelectedReader(quranReader);
       return const Right(null);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -342,7 +346,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.getSavedMarkedPages;
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -353,7 +357,7 @@ class QuranDataRepository implements IQuranDataRepository {
       await quranDataDataSource.savedMarkedPages(markedPages);
       return const Right(null);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -364,7 +368,7 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranDataDataSource.getSavedMarkedAyahs;
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -375,7 +379,7 @@ class QuranDataRepository implements IQuranDataRepository {
       await quranDataDataSource.savedMarkedAyahs(markedAyahs);
       return const Right(null);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
     }
   }
@@ -426,8 +430,30 @@ class QuranDataRepository implements IQuranDataRepository {
       var result = quranAudioDataSource.isAudioPlaying;
       return Right(result);
     } catch (e) {
-      debugPrint(e.toString());
+      PrinterHelper.print(e.toString());
       return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> checkIfSurahDownloadedBefore(int surahNumber, QuranReader reader) async {
+    try {
+      var result = await quranDataDataSource.checkIfSurahDownloadedBefore(surahNumber, reader);
+      return Right(result);
+    } catch (e) {
+      PrinterHelper.print(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Stream<double>>> downloadSurah(int surahNumber, QuranReader reader) async {
+    try {
+      var result = quranDownloadDataSource.downloadSurah(surahNumber, reader);
+      return Right(result);
+    } catch (e) {
+      PrinterHelper.print(e.toString());
+      return Left(ServerFailure(e.toString()));
     }
   }
 }

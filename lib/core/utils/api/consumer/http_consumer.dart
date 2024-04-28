@@ -28,7 +28,6 @@ class HttpConsumer implements ApiConsumer {
   @override
   Future put(String url, {Map<String, dynamic>? body, Map<String, dynamic>? params}) async {
     final response = await http.Client().get(Uri.parse(url));
-    final response2 = await http.put(Uri.parse(url), body: body);
 
     return _handelResponseAsJson(response);
   }
@@ -41,6 +40,7 @@ class HttpConsumer implements ApiConsumer {
   Future<http.StreamedResponse> getStream(String url, {Map<String, dynamic>? params}) async {
     var response = await http.Client().send(http.Request('GET', Uri.parse(url)));
 
+    return response;
     if (response.statusCode == 200) {
       return response;
     }

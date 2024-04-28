@@ -201,3 +201,23 @@ class PlayMultibleAudioParams extends Equatable {
   @override
   List<Object?> get props => [ayahs, quranReader, onComplated];
 }
+
+class CheckIfSurahDownloadedBeforeParams extends Equatable {
+  final int surahNumber;
+  final QuranReader quranReader;
+
+  const CheckIfSurahDownloadedBeforeParams({required this.surahNumber, required this.quranReader});
+
+  @override
+  List<Object?> get props => [surahNumber, quranReader];
+}
+
+class DownloadSurahParams extends Equatable {
+  final int surahNumber;
+  final QuranReader quranReader;
+
+  const DownloadSurahParams({required this.surahNumber, required this.quranReader});
+
+  @override
+  List<Object?> get props => [surahNumber, quranReader];
+}

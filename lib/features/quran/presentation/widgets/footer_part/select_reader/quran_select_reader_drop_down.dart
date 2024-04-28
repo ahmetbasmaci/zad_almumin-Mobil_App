@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zad_almumin/core/extentions/extentions.dart';
+import 'package:zad_almumin/core/helpers/navigator_helper.dart';
+import 'package:zad_almumin/core/utils/app_router.dart';
 
 import '../../../../../../core/utils/enums/enums.dart';
 import '../../../../../../core/utils/resources/resources.dart';
@@ -57,12 +59,7 @@ class QuranSelectReaderDropDown extends StatelessWidget {
     return IconButton(
       icon: AppIcons.info,
       onPressed: () {
-        //TODO
-        // NavigatorHelper.pushNamed(route)
-
-        // .to(() => ReaderQuranDownloadPage(reader: item),
-        //     transition: Transition.cupertinoDialog,
-        //     duration: const Duration(milliseconds: 200));
+         NavigatorHelper.pushNamed(AppRoutes.quranReaderSurahDownloadScreen,extra: item);
       },
     );
   }

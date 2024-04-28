@@ -70,12 +70,14 @@ class QuranCubit extends Cubit<QuranState> {
   void updateCurrentPageInfoBySurah(Surah surah) {
     SelectedPageInfo newSelectedPage = SelectedPageInfo(
       juz: surah.ayahs.first.juz,
-      pageNumber: surah.ayahs.first.page - 1,
+      pageNumber: surah.ayahs.first.page,
       surahNumber: surah.number,
       surahName: surah.name,
     );
-    goToPage(newSelectedPage.pageNumber);
     emit(state.copyWith(selectedPageInfo: newSelectedPage));
+    goToPage(surah.ayahs.first.page - 1);
+
+    _updateSelectStartEndAyahs();
   }
 
   void updateSelectedAyah(Ayah ayah) {
@@ -261,11 +263,14 @@ class QuranCubit extends Cubit<QuranState> {
       (l) => emit(state.copyWith(message: l.message)),
       (ayahsInPage) {
         if (ayahsInPage.isEmpty) return;
+        int pageNumber = tabCtr.index + 1;
+        if (ayahsInPage.first.page == state.selectedPageInfo.pageNumber) return;
+
         Ayah ayah = ayahsInPage.first;
 
         SelectedPageInfo newSelectedPage = state.selectedPageInfo.copyWith(
           juz: ayah.juz,
-          pageNumber: tabCtr.index + 1,
+          pageNumber: pageNumber,
           surahNumber: ayah.surahNumber,
           surahName: ayah.surahName,
         );

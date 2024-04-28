@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/core/helpers/toats_helper.dart';
+import 'package:zad_almumin/core/widget/progress_indicator/progress_indicator.dart';
 
 import '../../../../core/utils/enums/enums.dart';
 import '../../../../core/utils/resources/resources.dart';
@@ -57,9 +57,8 @@ class TafseersListItem extends StatelessWidget {
 
     //donwloading
     if (state is TafseerDownloadDownloadingState && tafseerModel == state.tafseerManagerModel) {
-      return CircularProgressIndicator(
-        value: state.progress / 100,
-        valueColor: AlwaysStoppedAnimation<Color>(context.themeColors.primary),
+      return DownloadCircularProgressIndicator(
+        downloadValue: state.progress / 100,
       );
     }
 

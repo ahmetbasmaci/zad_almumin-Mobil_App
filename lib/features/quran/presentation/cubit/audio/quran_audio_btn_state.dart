@@ -19,4 +19,11 @@ class QuranAudioButtonFieldState extends QuranAudioButtonState {
   List<Object> get props => [];
 }
 
-class QuranAudioButtonLoadingState extends QuranAudioButtonState {}
+class QuranAudioButtonLoadingState extends QuranAudioButtonState {
+  final double downloadValue;
+
+  QuranAudioButtonLoadingState({required this.downloadValue});
+
+  @override
+  List<Object> get props => [downloadValue];
+}

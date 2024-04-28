@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zad_almumin/core/helpers/printer_helper.dart';
 
 class AppBlocObserver extends BlocObserver {
   final bool _enablePrint = false;
@@ -41,7 +41,7 @@ class AppBlocObserver extends BlocObserver {
 
   void _printCubit(String message) {
     if (_enablePrint) {
-      debugPrint(message);
+      PrinterHelper.print(message);
     }
   }
 }

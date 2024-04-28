@@ -1,7 +1,16 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
 class PrinterHelper {
-  PrinterHelper(String variableName, Object value) {
-    debugPrint('debug print:--------------------------------------> $variableName: $value');
+  PrinterHelper._();
+  static void print(String variableName, {Object? value}) {
+    log(
+      'debug print:--------------------------------------> $variableName: $value',
+      time: DateTime.now(),
+      name: 'Zad Almumin',
+    );
   }
+
+  // void print(String variableName) {
+  //   PrinterHelper.print('debug print:--------------------------------------> $variableName: $value');
+  // }
 }
