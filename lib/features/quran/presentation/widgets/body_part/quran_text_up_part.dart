@@ -15,7 +15,7 @@ class QuranTextUpPart extends StatelessWidget {
       alignment: Alignment.topCenter,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: context.width * 0.02),
-        height: kToolbarHeight,
+        height: kToolbarHeight / 2,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

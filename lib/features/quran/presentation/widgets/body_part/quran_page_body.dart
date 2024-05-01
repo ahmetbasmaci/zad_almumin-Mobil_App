@@ -42,7 +42,7 @@ class QuranPageBody extends StatelessWidget {
   QuranBanner _quranPageWidget(bool isMarked, BuildContext context, int page) {
     return QuranBanner(
       isMarked: isMarked,
-      child: InkWell(
+      child: GestureDetector(
         onTap: () => context.read<QuranCubit>().pagePressed(),
         onLongPress: () => context.read<QuranCubit>().showAddQuranPageMarkDialog(),
         child: AnimatedContainer(

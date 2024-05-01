@@ -5,31 +5,31 @@ import 'theme_colors.dart';
 class AppThemes {
   static List<ThemeData> themes = [_light, _dark].toList();
 
-  static final ThemeColors lightColor = ThemeColors(
-    brightness: Brightness.light,
-    background: const Color(0xFFf5f5f5),
-    primary: const Color(0xFFee4e02),
-    secondary: const Color(0xFF02a3ee),
-    third: const Color(0xFFa3ee02),
-    success: const Color.fromARGB(255, 0, 135, 43),
-    error: const Color(0xFFee022d),
-    warning: const Color(0xFFeec302),
-    onError: Colors.white,
-    onSuccess: Colors.white,
-  );
+  static ThemeColors get lightColor => ThemeColors(
+        brightness: Brightness.light,
+        background: const Color(0xFFf5f5f5),
+        primary: const Color.fromARGB(255, 25, 122, 85),
+        secondary: const Color(0xFF02a3ee),
+        third: const Color(0xFFa3ee02),
+        success: const Color.fromARGB(255, 0, 135, 43),
+        error: const Color(0xFFee022d),
+        warning: const Color(0xFFeec302),
+        onError: Colors.white,
+        onSuccess: Colors.white,
+      );
 
-  static final ThemeColors darkColor = ThemeColors(
-    brightness: Brightness.dark,
-    background: const Color(0xFF262626),
-    primary: const Color(0xFFee4e02),
-    secondary: const Color(0xFF02a3ee),
-    third: const Color(0xFFa3ee02),
-    success: const Color(0xFF02ee4d),
-    error: const Color(0xFFee022d),
-    warning: const Color(0xFFeec302),
-    onError: Colors.white,
-    onSuccess: Colors.white,
-  );
+  static ThemeColors get darkColor => ThemeColors(
+        brightness: Brightness.dark,
+        background: const Color.fromARGB(255, 37, 37, 38),
+        primary: const Color.fromARGB(255, 71, 136, 109),
+        secondary: const Color(0xFF02a3ee),
+        third: const Color(0xFFa3ee02),
+        success: const Color(0xFF02ee4d),
+        error: const Color(0xFFee022d),
+        warning: const Color(0xFFeec302),
+        onError: Colors.white,
+        onSuccess: Colors.white,
+      );
 
   static final ThemeData _light = _setTheme(lightColor);
 

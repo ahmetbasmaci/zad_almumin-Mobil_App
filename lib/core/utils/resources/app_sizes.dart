@@ -16,5 +16,5 @@ class AppSizes {
   static double get loadingRowHeight => 30.sp; //Constants.context.height * .04
   static double get homePageZikrCardW => 170.sp;
 
-  static double get icon => 30.0;
+  static double get icon => 25.0;
 }
