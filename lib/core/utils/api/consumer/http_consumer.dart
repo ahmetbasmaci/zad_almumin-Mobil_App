@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:zad_almumin/core/error/exceptions/app_exceptions.dart';
 import 'api_consumer.dart';
 
 class HttpConsumer implements ApiConsumer {
@@ -41,9 +40,5 @@ class HttpConsumer implements ApiConsumer {
     var response = await http.Client().send(http.Request('GET', Uri.parse(url)));
 
     return response;
-    if (response.statusCode == 200) {
-      return response;
-    }
-    throw ServerException('Error while downloading (url) file from server status code: ${response.statusCode}');
   }
 }

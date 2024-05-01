@@ -15,11 +15,13 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   }
 
   void readDataFromDb() {}
-  void _loadFavoriteZikrCategory() {
-    //TODO: implement loadFavoriteZikrCategory
-    // FavoriteZikrCategory.values[getStorage.read('s electedZikrType') ?? 0]
-    emit(state.copyWith(favoriteZikrCategory: FavoriteZikrCategory.all));
-  }
+
+  //TODO: implement loadFavoriteZikrCategory
+  // void _loadFavoriteZikrCategory() {
+
+  //   // FavoriteZikrCategory.values[getStorage.read('s electedZikrType') ?? 0]
+  //   emit(state.copyWith(favoriteZikrCategory: FavoriteZikrCategory.all));
+  // }
 
   List<FavoriteZikrDataModel> getFilteredZikrModels(String searchText) {
     List<FavoriteZikrDataModel> favoriteZikrModels =

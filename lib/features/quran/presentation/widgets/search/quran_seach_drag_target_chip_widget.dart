@@ -17,9 +17,8 @@ class QuranSeachDragTargetChipWidget extends StatelessWidget {
 
         return DragTarget<FilterChipModel>(
           builder: (context, candidateData, rejectedData) => dragChild(context, filterChipModel),
-          onWillAccept: (newFilterChip) => true,
-          onAccept: (newFilterChip) =>
-              context.read<QuranSearchCubit>().updateSearchFilterList(index, filterChipModel, newFilterChip),
+          onWillAcceptWithDetails: (details) => true,
+          onAcceptWithDetails: (details) => context.read<QuranSearchCubit>().updateSearchFilterList(index, filterChipModel, details.data)
         );
       },
     );

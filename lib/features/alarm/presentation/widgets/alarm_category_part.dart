@@ -83,13 +83,17 @@ class AlarmCategoryPart extends StatelessWidget {
           builder: (BuildContext context, Widget? child) => child!,
         );
         if (newTime == null) return;
-        context.read<AlarmCubit>().updateAlarmTime(
-              alarmModel,
-              Time(hour: newTime.hour, minute: newTime.minute),
-            );
+        _callContextUpdateAlarmTime(context, alarmModel, newTime);
         // onChanged(true);
       },
     );
+  }
+
+  void _callContextUpdateAlarmTime(BuildContext context, PeriodicAlarmModel alarmModel, TimeOfDay newTime) {
+    context.read<AlarmCubit>().updateAlarmTime(
+          alarmModel,
+          Time(hour: newTime.hour, minute: newTime.minute),
+        );
   }
 
   Widget _updateAlarmRepeated(BuildContext context, RepeatedAlarmModel alarmModel) {
