@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart';
 import 'package:zad_almumin/core/error/failure/failure.dart';
+import 'package:zad_almumin/core/helpers/printer_helper.dart';
 import '../../tafseer.dart';
 
 class TafseerRepository implements ITafseerRepository {
@@ -41,6 +42,25 @@ class TafseerRepository implements ITafseerRepository {
       return Future.value(Right(result));
     } catch (e) {
       return Future.value(Left(JsonFailure(e.toString())));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> downloadTafseer(int tafseerId) async {
+    try {
+      var result = await tafseerDownloaderDataSource.downloadTafseer(tafseerId);
+      var isFirstDownload = await getSelectedTafseerId;
+      isFirstDownload.fold(
+        (l) => null,
+        (selectedTafseer) {
+          if (selectedTafseer.arabicId == 0 && selectedTafseer.englishId == 0) {
+            updateSelectedTafseer(tafseerId);
+          }
+        },
+      );
+      return Right(result);
+    } catch (e) {
+      return Left(JsonFailure(e.toString()));
     }
   }
 
@@ -86,6 +106,7 @@ class TafseerRepository implements ITafseerRepository {
       var result = await tafseerFileDataSource.getTafseersData(tafseerId);
       return Future.value(Right(result));
     } catch (e) {
+      PrinterHelper.printError(e.toString());
       return Future.value(Left(JsonFailure(e.toString())));
     }
   }

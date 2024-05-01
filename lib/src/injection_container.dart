@@ -310,6 +310,7 @@ class GetItManager {
     _sl.registerLazySingleton<ITafseerDownloaderDataSource>(() => TafseerDownloaderDataSource(
           firebaseStorageConsumer: _sl(),
           apiConsumer: _sl(),
+          filesService: _sl(),
         ));
     _sl.registerLazySingleton<ITafseerFileDataSource>(() => TafseerFileDataSource(
           filesService: _sl(),

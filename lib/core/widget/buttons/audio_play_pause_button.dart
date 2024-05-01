@@ -36,22 +36,25 @@ class AudioPlayPauseButton extends StatelessWidget {
         return _button(
           isPlaying: stateBtn is HomeQuranAudioButtonPlayingState,
           onPressed: () => _singleAudioButoonPressed(context),
+          isLoading: stateBtn is HomeQuranAudioButtonLoadingState,
+          downloadValue: 0, //TODO add download progress
         );
       },
     );
   }
 
   Widget _multiAudioButton(BuildContext context) {
+    //TODO change the progress to be above the buttons and linear insted of circuler
     return BlocBuilder<QuranAudioButtonCubit, QuranAudioButtonState>(
       builder: (context, buttonState) {
         return BlocBuilder<QuranReaderCubit, QuranReaderState>(
           builder: (context, state) {
-            return buttonState is QuranAudioButtonLoadingState
-                ? DownloadCircularProgressIndicator(downloadValue: buttonState.downloadValue)
-                : _button(
-                    isPlaying: buttonState is QuranAudioButtonPlayingState,
-                    onPressed: () => _multibleAudioButoonPressed(context),
-                  );
+            return _button(
+              isPlaying: buttonState is QuranAudioButtonPlayingState,
+              onPressed: () => _multibleAudioButoonPressed(context),
+              isLoading: buttonState is QuranAudioButtonLoadingState,
+              downloadValue: buttonState is QuranAudioButtonLoadingState ? buttonState.downloadValue : 0,
+            );
           },
         );
       },
@@ -61,14 +64,18 @@ class AudioPlayPauseButton extends StatelessWidget {
   Widget _button({
     required bool isPlaying,
     required Function onPressed,
+    required bool isLoading,
+    required double downloadValue,
   }) {
     return IconButton(
       icon: SizedBox(
         width: AppSizes.icon,
         height: AppSizes.icon,
-        child: AppIcons.animatedPlayPause(isPlaying),
+        child: isLoading
+            ? DownloadCircularProgressIndicator(downloadValue: downloadValue)
+            : AppIcons.animatedPlayPause(isPlaying),
       ),
-      onPressed: () => onPressed.call(),
+      onPressed: isLoading ? null : () => onPressed.call(),
     );
   }
 

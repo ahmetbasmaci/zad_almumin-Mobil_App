@@ -338,12 +338,13 @@ class QuranCubit extends Cubit<QuranState> {
   }
 
   void changeShowTafseerPage() async {
-    var result = await tafseerManagerRepository.getTafsers;
+    var result = await tafseerManagerRepository.getSelectedTafseerId;
+
     result.fold(
       (l) => emit(state.copyWith(message: l.message)),
-      (tafseers) {
-        if (tafseers.isEmpty) {
-          ToatsHelper.show('لا يوجد تفاسير محملة');
+      (selectedTafseerId) {
+        if (selectedTafseerId.arabicId == 0 && selectedTafseerId.englishId == 0) {
+          ToatsHelper.show('يجب اختيار تفسير اولا');
           NavigatorHelper.pushNamed(AppRoutes.tafseer);
           return;
         }

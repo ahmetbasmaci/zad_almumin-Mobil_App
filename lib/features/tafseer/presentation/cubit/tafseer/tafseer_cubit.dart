@@ -13,6 +13,7 @@ class TafseerCubit extends Cubit<TafseerState> {
   final TafseerSaveSelectedIdUseCase tafseerSaveSelectedIdUseCase;
   final TafseerGetSelectedTafseerId tafseerGetSelectedTafseerId;
   final TafseerGetTafseerDataUseCase tafseerGetTafseerDataUseCase;
+
   TafseerCubit({
     required this.getTafseersUseCase,
     required this.tafseerSaveSelectedIdUseCase,
@@ -38,15 +39,18 @@ class TafseerCubit extends Cubit<TafseerState> {
   void selectTafseer(TafseerManagerModel tafseerModel) async {
     var selectedTafseerModel = await _updateTafseerData(tafseerModel.id);
     if (AppConstants.context.isArabicLang) {
-      emit(state.copyWith(
-        tafseerDataModel: selectedTafseerModel,
-        selectedTafseerId: state.selectedTafseerId.copyWith(arabicId: tafseerModel.id),
-      ));
+      emit(
+        state.copyWith(
+          tafseerDataModel: selectedTafseerModel,
+          selectedTafseerId: state.selectedTafseerId.copyWith(arabicId: tafseerModel.id),
+        ),
+      );
     } else
       emit(
         state.copyWith(
-            tafseerDataModel: selectedTafseerModel,
-            selectedTafseerId: state.selectedTafseerId.copyWith(englishId: tafseerModel.id)),
+          tafseerDataModel: selectedTafseerModel,
+          selectedTafseerId: state.selectedTafseerId.copyWith(englishId: tafseerModel.id),
+        ),
       );
 
     tafseerSaveSelectedIdUseCase.call(TafseerIdModelParams(tafseerIdModel: state.selectedTafseerId));
@@ -56,11 +60,13 @@ class TafseerCubit extends Cubit<TafseerState> {
     var tafseers = await _loadTafseers();
     var savedTafseerId = await _getSavedSelectedTafseerId();
     var selectedTafseerModel = await _updateTafseerData(selectedTafseerId);
-    emit(state.copyWith(
-      tafseerModels: tafseers,
-      selectedTafseerId: savedTafseerId,
-      tafseerDataModel: selectedTafseerModel,
-    ));
+    emit(
+      state.copyWith(
+        tafseerModels: tafseers,
+        selectedTafseerId: savedTafseerId,
+        tafseerDataModel: selectedTafseerModel,
+      ),
+    );
   }
 
   Future<SelectedTafseerIdModel> _getSavedSelectedTafseerId() async {
@@ -71,9 +77,14 @@ class TafseerCubit extends Cubit<TafseerState> {
   Future<TafseersDataModel> _updateTafseerData(int tafseerId) async {
     var result = await tafseerGetTafseerDataUseCase.call(TafseerIdParams(tafseerId: tafseerId));
 
-    TafseersDataModel tafseerDataModel = result.fold(
-      (l) => TafseersDataModel.init(),
-      (r) => r,
+    TafseersDataModel tafseerDataModel = TafseersDataModel.init();
+    result.fold(
+      (l) {
+        emit(state.copyWith(errorMessage: l.message));
+      },
+      (r) {
+        tafseerDataModel = r;
+      },
     );
     return tafseerDataModel;
   }

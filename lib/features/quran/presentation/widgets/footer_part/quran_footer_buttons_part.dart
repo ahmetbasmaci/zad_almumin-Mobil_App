@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:zad_almumin/core/extentions/dart_extention.dart';
 import 'package:zad_almumin/core/utils/resources/resources.dart';
 import 'package:zad_almumin/core/widget/buttons/audio_play_pause_button.dart';
 import '../../../../../core/helpers/dialogs_helper.dart';
@@ -26,7 +25,11 @@ class QuranFooterButtonsPart extends StatelessWidget {
   Widget _swichQuranTafseerButton(BuildContext context) {
     return _button(
       toolTipMessage: 'التنقل بين القران والتفسير',
-      icon: AppIcons.animatedQuranTafseerView(context.read<QuranCubit>().state.showTafseerPage),
+      icon: BlocBuilder<QuranCubit, QuranState>(
+        builder: (context, state) => AppIcons.animatedQuranTafseerView(
+          context.read<QuranCubit>().state.showTafseerPage,
+        ),
+      ),
       onPressed: () => context.read<QuranCubit>().changeShowTafseerPage(),
     );
   }
@@ -35,7 +38,7 @@ class QuranFooterButtonsPart extends StatelessWidget {
     return BlocBuilder<QuranAudioButtonCubit, QuranAudioButtonState>(
       builder: (context, buttonState) {
         return _button(
-          icon:AppIcons.animatedStop(buttonState is QuranAudioButtonStopedState),
+          icon: AppIcons.animatedStop(buttonState is QuranAudioButtonStopedState),
           onPressed: () {
             context.read<QuranAudioButtonCubit>().stop();
           },

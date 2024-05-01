@@ -17,6 +17,12 @@
 <a href="https://play.google.com/store/apps/details?id=com.ahmet.zad_almumin">
   <img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="80">
 </a>
+</br>
+</br>
+
+<h1>Resources</h1>
+Tafseer: http://api.quran-tafseer.com/en/docs/
+
 
 </br></br>
 <div display: flex>

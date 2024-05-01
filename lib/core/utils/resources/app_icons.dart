@@ -47,8 +47,8 @@ class AppIcons {
   static Icon letterSize = const Icon(CupertinoIcons.textformat_size);
   static Icon close = const Icon(Icons.close);
   static Icon info = const Icon(Icons.info_outline);
-  static Icon stop = const Icon(Icons.stop_circle_outlined);
-  static Icon stopFilled = const Icon(Icons.stop_circle_rounded);
+  static Icon stop = const Icon(Icons.stop_outlined);
+  static Icon stopFilled = const Icon(Icons.stop);
   static Icon plus = const Icon(Icons.add);
   static Icon minus = const Icon(Icons.remove);
   static Icon downArrow = const Icon(Icons.arrow_drop_down);

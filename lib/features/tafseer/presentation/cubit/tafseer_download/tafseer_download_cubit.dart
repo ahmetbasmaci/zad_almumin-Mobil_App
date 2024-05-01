@@ -19,11 +19,19 @@ class TafseerDownloadCubit extends Cubit<TafseerDownloadState> {
   }) : super(TafseerDownloadInitialState());
 
   void downlaodTafseer(TafseerManagerModel tafseerModel) async {
+    emit(TafseerDownloadDownloadingState(progress: -1, tafseerManagerModel: tafseerModel));
     var result = await downloadTafseerUseCase.call(DownloadTafseerParams(tafseerId: tafseerModel.id));
     result.fold(
       (l) => emit(TafseerDownloadErrorState(message: l.message)),
       (response) async {
-        tafseerModel.downloadState = DownloadState.downloading;
+        if (response) {
+          tafseerModel.downloadState = DownloadState.downloaded;
+          emit(TafseerDownloadedState());
+        } else {
+          tafseerModel.downloadState = DownloadState.notDownloaded;
+          emit(const TafseerDownloadErrorState(message: 'Error downloading tafseer'));
+        }
+        /* tafseerModel.downloadState = DownloadState.downloading;
 
         var receivedBytes = 0;
         int contentLength = response.contentLength ?? 0;
@@ -36,10 +44,12 @@ class TafseerDownloadCubit extends Cubit<TafseerDownloadState> {
             );
             writeIntoFileResult.fold(
               (l) => emit(TafseerDownloadErrorState(message: l.message)),
-              (r) => emit(TafseerDownloadDownloadingState(
-                progress: double.parse(progress),
-                tafseerManagerModel: tafseerModel,
-              )),
+              (r) => emit(
+                TafseerDownloadDownloadingState(
+                  progress: double.parse(progress),
+                  tafseerManagerModel: tafseerModel,
+                ),
+              ),
             );
           },
         );
@@ -63,6 +73,7 @@ class TafseerDownloadCubit extends Cubit<TafseerDownloadState> {
             // }
           },
         );
+     */
       },
     );
   }

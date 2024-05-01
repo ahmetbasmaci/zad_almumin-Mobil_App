@@ -23,8 +23,9 @@ class TafseerFileDataSource implements ITafseerFileDataSource {
   }
 
   @override
-  void writeDataIntoFileIntoFileAsBytesSync(int tafseerid, List<int> data) {
-    filesService.writeDataIntoFileAsBytes(filesService.tafseerPath(tafseerid), data);
+  void writeDataIntoFileIntoFileAsBytesSync(int tafseerId, List<int> data) {
+    filesService.writeDataIntoTafseerFileAsBytes(tafseerId, data);
+    
   }
 
   @override
@@ -34,7 +35,7 @@ class TafseerFileDataSource implements ITafseerFileDataSource {
     }
 
     //no loaded data
-    var tafseerMap = await filesService.getFile(filesService.tafseerPath(tafseerId));
+    var tafseerMap = await filesService.getTafseerFile(tafseerId);
     if (tafseerMap == null) throw Exception("File not found");
 
     tafseersData = TafseersDataModel.fromJson(tafseerMap);

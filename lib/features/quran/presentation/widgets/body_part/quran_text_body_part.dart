@@ -24,7 +24,11 @@ class QuranTextBodyPart extends StatelessWidget {
     if (context.read<QuranCubit>().state.showTafseerPage) {
       if (tafseerModel.surahs.isEmpty) {
         ToatsHelper.show('لا يوجد تفاسير محمّلة');
-        return QuranTextPart(ayahs: ayahs);
+        // return QuranTextPart(ayahs: ayahs);
+
+        return const Center(
+          child: Text('لا يوجد تفاسير محمّلة'),
+        );
       }
       return QuranTafseerPart(ayahs: ayahs);
     } else {

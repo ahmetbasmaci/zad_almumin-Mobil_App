@@ -33,7 +33,10 @@ class HomeCardPlayPauseSingleAudioDataSource implements IHomeCardPlayPauseSingle
     try {
       //check if file exist
       bool fileExist = await fileService.checkIfAyahFileDownloaded(
-          quranCardModel.surahNumber, quranCardModel.ayahNumber, quranReader);
+        quranCardModel.surahNumber,
+        quranCardModel.ayahNumber,
+        quranReader,
+      );
       if (!fileExist) {
         //if not exist try to download it
         await _downloadAyah(quranCardModel.surahNumber, quranCardModel.ayahNumber, quranReader);
@@ -62,8 +65,7 @@ class HomeCardPlayPauseSingleAudioDataSource implements IHomeCardPlayPauseSingle
 
     Response response = await apiConsumer.get(url);
     if (response.statusCode == 200) {
-      String filePath = fileService.ayahPath(surahNumber, ayahNumber, quranReader);
-      await fileService.writeDataIntoFileAsBytes(filePath, response.bodyBytes);
+      await fileService.writeDataIntoAyahFileAsBytes(surahNumber, ayahNumber, quranReader, response.bodyBytes);
     }
   }
 }

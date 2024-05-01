@@ -24,7 +24,7 @@ class TafseerSelectedDataSource implements ITafseerSelectedDataSource {
   @override
   Future<SelectedTafseerIdModel> get getSelectedTafseerId async {
     var result = await localStorage.read(AppStorageKeys.selectedTafseerId);
-    if (result.isEmpty) return const SelectedTafseerIdModel.init();
+    if (result == null || result.isEmpty) return const SelectedTafseerIdModel.init();
 
     SelectedTafseerIdModel selectedTafseerIdModel = SelectedTafseerIdModel.fromJson(result);
     return selectedTafseerIdModel;
