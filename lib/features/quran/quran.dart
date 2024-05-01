@@ -1,6 +1,7 @@
 export 'data/datasources/quran_audio_data_source.dart';
 export 'data/datasources/quran_audio_progress_data_source.dart';
 export 'data/datasources/quran_data_data_source.dart';
+export 'data/datasources/quran_download_data_source.dart';
 export 'data/models/ayah.dart';
 export 'data/models/filter_chip_model.dart';
 export 'data/models/marked_page.dart';
@@ -9,7 +10,9 @@ export 'data/models/selected_surah.dart';
 export 'data/models/surah.dart';
 export 'data/repositories/quran_data_repository.dart';
 export 'domain/repositories/i_quran_data_repository.dart';
+export 'domain/usecases/check_if_ayah_downloaded_before_use_case.dart';
 export 'domain/usecases/check_if_surah_downloaded_before_use_case.dart';
+export 'domain/usecases/download_reader_ayah_use_case.dart';
 export 'domain/usecases/download_reader_surah_use_case.dart';
 export 'domain/usecases/get_all_surahs_use_case.dart';
 export 'domain/usecases/quran_play_pause_audio_use_case.dart';

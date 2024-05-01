@@ -12,7 +12,6 @@ import '../../features/home/home.dart';
 import '../../features/pray_times/pray_times.dart';
 import '../../features/quran/quran.dart';
 import '../../features/settings/settings.dart';
-import '../helpers/pages_helper.dart';
 import '../../features/azkar/azkar.dart';
 import '../../features/onboarding/pages/onboarding_page.dart';
 import '../../features/splash/pages/splash_page.dart';

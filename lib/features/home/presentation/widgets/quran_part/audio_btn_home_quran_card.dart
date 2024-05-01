@@ -12,32 +12,13 @@ class AudioBtnHomeQuranCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return homeQuranAudioButtonCubit(
-      child: (stateBtn) {
-        return quranReaderCubit(
+    return quranReaderCubit(
           child: homeQuranCardCubit(
-            stateBtn: stateBtn,
           ),
         );
-      },
-    );
   }
 
-  Widget homeQuranAudioButtonCubit({required Widget Function(HomeQuranAudioButtonState) child}) {
-    return BlocProvider(
-      create: (context) => GetItManager.instance.homeQuranAudioButtonCubit,
-      child: BlocConsumer<HomeQuranAudioButtonCubit, HomeQuranAudioButtonState>(
-        listener: (context, state) {
-          if (state is HomeQuranAudioButtonFieldState) {
-            ToatsHelper.showError(state.message);
-          }
-        },
-        builder: (context, stateBtn) {
-          return child(stateBtn);
-        },
-      ),
-    );
-  }
+
 
   Widget quranReaderCubit({required Widget child}) {
     return BlocBuilder<QuranReaderCubit, QuranReaderState>(
@@ -47,11 +28,9 @@ class AudioBtnHomeQuranCard extends StatelessWidget {
     );
   }
 
-  Widget homeQuranCardCubit({required HomeQuranAudioButtonState stateBtn}) {
+  Widget homeQuranCardCubit() {
     return 
     //Container();
-    AudioPlayPauseButton.single(
-      stateBtn: stateBtn,
-    );
+    AudioPlayPauseButton.single();
   }
 }

@@ -42,6 +42,7 @@ abstract class IQuranDataDataSource {
   List<Ayah> get getSavedMarkedAyahs;
   Future<void> savedMarkedAyahs(List<Ayah> markedAyahs);
   Future<bool> checkIfSurahDownloadedBefore(int surahNumber, QuranReader reader);
+  Future<bool> checkIfAyahDownloadedBefore(int surahNumber, int ayahNumber, QuranReader reader);
 }
 
 class QuranDataDataSource implements IQuranDataDataSource {
@@ -275,9 +276,13 @@ class QuranDataDataSource implements IQuranDataDataSource {
 
   @override
   Future<bool> checkIfSurahDownloadedBefore(int surahNumber, QuranReader reader) async {
-    // bool isDownloadedBefore = _localStorage.read(AppStorageKeys.downloadedReaderSurah(surahNumber, reader)) ?? false;
-    // return isDownloadedBefore;
     bool fileExist = await _fileService.checkIfSurahFileDownloaded(surahNumber, reader);
+    return fileExist;
+  }
+
+  @override
+  Future<bool> checkIfAyahDownloadedBefore(int surahNumber, int ayahNumber, QuranReader reader) async {
+    bool fileExist = await _fileService.checkIfAyahFileDownloaded(surahNumber, ayahNumber, reader);
     return fileExist;
   }
 }

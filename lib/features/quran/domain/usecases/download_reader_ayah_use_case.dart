@@ -4,12 +4,12 @@ import '../../../../core/error/failure/failure.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../../core/utils/params/params.dart';
 
-class DownloadReaderSurahUseCase extends IUseCaseAsync<Stream<double>, DownloadSurahParams> {
+class DownloadReaderAyahUseCase extends IUseCaseAsync<Stream<double>, DownloadAyahParams> {
   final IQuranDataRepository repository;
 
-  DownloadReaderSurahUseCase({required this.repository});
+  DownloadReaderAyahUseCase({required this.repository});
   @override
-  Future<Either<Failure, Stream<double>>> call(DownloadSurahParams params) {
-    return repository.downloadSurah(params.surahNumber, params.quranReader);
+  Future<Either<Failure, Stream<double>>> call(DownloadAyahParams params) {
+    return repository.downloadAyah(params.surahNumber, params.ayahNumber, params.quranReader);
   }
 }

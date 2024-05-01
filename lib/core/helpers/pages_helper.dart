@@ -13,7 +13,7 @@ class PagesHelper {
   //   return _getNewOpendPageId;
   // }
   static AppRoutes get getPagePath {
-    if (_isFirstTime) return AppRoutes.splash;
+    if (_isFirstTime) return AppRoutes.onboarding;
     AppRoutes route = AppRoutes.values.firstWhere((element) => element.path == _getNewOpendPageId);
     return route;
   }

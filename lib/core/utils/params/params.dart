@@ -212,6 +212,18 @@ class CheckIfSurahDownloadedBeforeParams extends Equatable {
   List<Object?> get props => [surahNumber, quranReader];
 }
 
+class CheckIfAyahDownloadedBeforeParams extends Equatable {
+  final int surahNumber;
+  final int ayahNumber;
+  final QuranReader quranReader;
+
+  const CheckIfAyahDownloadedBeforeParams(
+      {required this.surahNumber, required this.ayahNumber, required this.quranReader});
+
+  @override
+  List<Object?> get props => [surahNumber, ayahNumber, quranReader];
+}
+
 class DownloadSurahParams extends Equatable {
   final int surahNumber;
   final QuranReader quranReader;
@@ -220,4 +232,15 @@ class DownloadSurahParams extends Equatable {
 
   @override
   List<Object?> get props => [surahNumber, quranReader];
+}
+
+class DownloadAyahParams extends Equatable {
+  final int surahNumber;
+  final int ayahNumber;
+  final QuranReader quranReader;
+
+  const DownloadAyahParams({required this.surahNumber, required this.ayahNumber, required this.quranReader});
+
+  @override
+  List<Object?> get props => [surahNumber, ayahNumber, quranReader];
 }

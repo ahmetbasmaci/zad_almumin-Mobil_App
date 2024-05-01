@@ -4,6 +4,7 @@ import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/core/helpers/toats_helper.dart';
 import 'package:zad_almumin/core/utils/enums/enums.dart';
 import 'package:zad_almumin/core/utils/params/params.dart';
+import 'package:zad_almumin/features/quran/domain/usecases/check_if_surah_downloaded_before_use_case.dart';
 import 'package:zad_almumin/features/quran/quran.dart';
 
 part 'quran_reader_surh_download_item_state.dart';

@@ -50,5 +50,7 @@ abstract class IQuranDataRepository {
   Future<Either<Failure, AudioStreamModel>> getAudioProgress();
   Either<Failure, bool> get isAudioPlaying;
   Future<Either<Failure, bool>> checkIfSurahDownloadedBefore(int surahNumber, QuranReader reader);
-  Future<Either<Failure,  Stream<double>>> downloadSurah(int surahNumber, QuranReader reader);
+  Future<Either<Failure, bool>> checkIfAyahDownloadedBefore(int surahNumber, int ayahNumber, QuranReader reader);
+  Future<Either<Failure, Stream<double>>> downloadSurah(int surahNumber, QuranReader reader);
+  Future<Either<Failure, Stream<double>>> downloadAyah(int surahNumber, int ayahNumber, QuranReader reader);
 }

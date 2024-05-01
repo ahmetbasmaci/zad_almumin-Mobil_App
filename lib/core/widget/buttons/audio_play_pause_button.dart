@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zad_almumin/core/helpers/toats_helper.dart';
 import 'package:zad_almumin/core/utils/resources/resources.dart';
 import 'package:zad_almumin/features/quran/quran.dart';
+import 'package:zad_almumin/src/injection_container.dart';
 import '../../../features/home/home.dart';
 import '../progress_indicator/progress_indicator.dart';
 
 class AudioPlayPauseButton extends StatelessWidget {
   final bool isSingleAudio;
-  final HomeQuranAudioButtonState? stateBtn;
   final Ayah? startAyah;
   final VoidCallback? onDone;
 
@@ -15,12 +16,10 @@ class AudioPlayPauseButton extends StatelessWidget {
     super.key,
     this.startAyah,
     this.onDone,
-  })  : isSingleAudio = false,
-        stateBtn = null;
+  }) : isSingleAudio = false;
 
   AudioPlayPauseButton.single({
     super.key,
-    required this.stateBtn,
     this.onDone,
   })  : isSingleAudio = true,
         startAyah = Ayah.empty();
@@ -31,29 +30,49 @@ class AudioPlayPauseButton extends StatelessWidget {
   }
 
   Widget _singleAudioButton(BuildContext context) {
-    return BlocBuilder<HomeQuranCardCubit, HomeQuranCardState>(
-      builder: (context, stateCard) {
-        return _button(
-          isPlaying: stateBtn is HomeQuranAudioButtonPlayingState,
-          onPressed: () => _singleAudioButoonPressed(context),
-          isLoading: stateBtn is HomeQuranAudioButtonLoadingState,
-          downloadValue: 0, //TODO add download progress
+    return homeQuranAudioButtonCubit(
+      child: (stateBtn) {
+        return BlocBuilder<HomeQuranCardCubit, HomeQuranCardState>(
+          builder: (context, stateCard) {
+            return _button(
+              isPlaying: stateBtn is HomeQuranAudioButtonPlayingState,
+              onPressed: () => _singleAudioButoonPressed(context,stateBtn),
+              isLoading: stateBtn is HomeQuranAudioButtonLoadingState,
+              downloadValue: stateBtn is HomeQuranAudioButtonLoadingState ? stateBtn.downloadValue : 0,
+            );
+          },
         );
       },
+    );
+  }
+
+  Widget homeQuranAudioButtonCubit({required Widget Function(HomeQuranAudioButtonState) child}) {
+    return BlocProvider(
+      create: (context) => GetItManager.instance.homeQuranAudioButtonCubit,
+      child: BlocConsumer<HomeQuranAudioButtonCubit, HomeQuranAudioButtonState>(
+        listener: (context, state) {
+          if (state is HomeQuranAudioButtonFieldState) {
+            ToatsHelper.showError(state.message);
+          }
+        },
+        builder: (context, stateBtn) {
+          return child(stateBtn);
+        },
+      ),
     );
   }
 
   Widget _multiAudioButton(BuildContext context) {
     //TODO change the progress to be above the buttons and linear insted of circuler
     return BlocBuilder<QuranAudioButtonCubit, QuranAudioButtonState>(
-      builder: (context, buttonState) {
+      builder: (context, stateBtn) {
         return BlocBuilder<QuranReaderCubit, QuranReaderState>(
           builder: (context, state) {
             return _button(
-              isPlaying: buttonState is QuranAudioButtonPlayingState,
+              isPlaying: stateBtn is QuranAudioButtonPlayingState,
               onPressed: () => _multibleAudioButoonPressed(context),
-              isLoading: buttonState is QuranAudioButtonLoadingState,
-              downloadValue: buttonState is QuranAudioButtonLoadingState ? buttonState.downloadValue : 0,
+              isLoading: stateBtn is QuranAudioButtonLoadingState,
+              downloadValue: stateBtn is QuranAudioButtonLoadingState ? stateBtn.downloadValue : 0,
             );
           },
         );
@@ -79,7 +98,7 @@ class AudioPlayPauseButton extends StatelessWidget {
     );
   }
 
-  void _singleAudioButoonPressed(BuildContext context) {
+  void _singleAudioButoonPressed(BuildContext context , HomeQuranAudioButtonState stateBtn) {
     var homeQuranCardCubit = context.read<HomeQuranCardCubit>();
     HomeQuranCardState cardState = homeQuranCardCubit.state;
     QuranCardModel quranCardModel =

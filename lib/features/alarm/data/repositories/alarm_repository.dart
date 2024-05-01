@@ -21,7 +21,7 @@ class AlarmRepository implements IAlarmRepository {
       case AlarmPart.dua:
         return Right(alarmGetDatapartDataSource.getDuaAlarmPartData);
       case AlarmPart.hadith:
-        return Right(alarmGetDatapartDataSource.getDuaAlarmPartData);
+        return Right(alarmGetDatapartDataSource.getHadithAlarmPartData);
       case AlarmPart.dailyAzkar:
         return Right(alarmGetDatapartDataSource.getDailyAzkarAlarmPartData);
       case AlarmPart.quran:

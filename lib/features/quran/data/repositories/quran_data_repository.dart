@@ -455,4 +455,26 @@ class QuranDataRepository implements IQuranDataRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> checkIfAyahDownloadedBefore(int surahNumber, int ayahNumber, QuranReader reader) async {
+    try {
+      var result = await quranDataDataSource.checkIfAyahDownloadedBefore(surahNumber, ayahNumber, reader);
+      return Right(result);
+    } catch (e) {
+      PrinterHelper.print(e.toString());
+      return Left(JsonFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Stream<double>>> downloadAyah(int surahNumber, int ayahNumber, QuranReader reader) async {
+    try {
+      var result = quranDownloadDataSource.downloadAyah(surahNumber, ayahNumber, reader);
+      return Right(result);
+    } catch (e) {
+      PrinterHelper.print(e.toString());
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

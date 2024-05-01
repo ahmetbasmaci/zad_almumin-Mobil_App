@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zad_almumin/features/quran/domain/usecases/check_if_surah_downloaded_before_use_case.dart';
 import '../../../../../../core/utils/enums/enums.dart';
 import '../../../../../../core/utils/params/params.dart';
 import '../../../quran.dart';
@@ -136,4 +137,6 @@ class QuranAudioButtonCubit extends Cubit<QuranAudioButtonState> {
       (r) => emit(operationSuccesState),
     );
   }
+
+
 }

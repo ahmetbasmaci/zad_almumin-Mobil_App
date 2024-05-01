@@ -1,4 +1,3 @@
-import 'package:http/http.dart';
 import 'package:zad_almumin/core/packages/app_internet_connection/app_internet_connection.dart';
 import 'package:zad_almumin/core/services/files_service.dart';
 import 'package:zad_almumin/core/utils/enums/enums.dart';
@@ -31,16 +30,6 @@ class HomeCardPlayPauseSingleAudioDataSource implements IHomeCardPlayPauseSingle
   @override
   Future<bool> playPauseSingleAudio(QuranCardModel quranCardModel, QuranReader quranReader, Function onComplate) async {
     try {
-      //check if file exist
-      bool fileExist = await fileService.checkIfAyahFileDownloaded(
-        quranCardModel.surahNumber,
-        quranCardModel.ayahNumber,
-        quranReader,
-      );
-      if (!fileExist) {
-        //if not exist try to download it
-        await _downloadAyah(quranCardModel.surahNumber, quranCardModel.ayahNumber, quranReader);
-      }
       AudioFile audioFile = AudioFile(
         path: fileService.ayahPath(quranCardModel.surahNumber, quranCardModel.ayahNumber, quranReader),
         metasTitle: quranCardModel.surahName,
@@ -51,21 +40,6 @@ class HomeCardPlayPauseSingleAudioDataSource implements IHomeCardPlayPauseSingle
       return audioComplated;
     } catch (e) {
       throw AudioException(e.toString());
-    }
-  }
-
-  Future<void> _downloadAyah(int surahNumber, int ayahNumber, QuranReader quranReader) async {
-    //check internet connection
-    AppConnectivityResult connectivityResult = await appInternetConnection.checkAppConnectivity();
-    if (connectivityResult == AppConnectivityResult.none) {
-      throw ServerException('No Internet Connection');
-    }
-
-    String url = ayahApi.getAyahDownloadUrl(surahNumber, ayahNumber, quranReader);
-
-    Response response = await apiConsumer.get(url);
-    if (response.statusCode == 200) {
-      await fileService.writeDataIntoAyahFileAsBytes(surahNumber, ayahNumber, quranReader, response.bodyBytes);
     }
   }
 }

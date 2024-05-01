@@ -4,7 +4,6 @@ import 'package:zad_almumin/core/services/files_service.dart';
 import 'package:zad_almumin/core/services/json_service.dart';
 import 'package:zad_almumin/features/app_developer/app_developer.dart';
 import 'package:zad_almumin/features/favorite/presentation/cubit/favorite_cubit.dart';
-import 'package:zad_almumin/features/quran/data/datasources/quran_download_data_source.dart';
 import 'package:zad_almumin/features/quran_questions/quran_questions.dart';
 import 'package:zad_almumin/features/tafseer/tafseer.dart';
 import '../core/packages/audio_manager/audio_player.dart';
@@ -139,6 +138,8 @@ class GetItManager {
     _sl.registerLazySingleton(() => HomeCardGetRandomAyahUseCase(quranDataRepository: _sl()));
     _sl.registerLazySingleton(() => HomeCardGetNextAyahUseCase(quranDataRepository: _sl()));
     _sl.registerLazySingleton(() => HomeCardAudioPorgressUseCase(homeRepository: _sl()));
+    _sl.registerLazySingleton(() => CheckIfAyahDownloadedBeforeUseCase(repository: _sl()));
+    _sl.registerLazySingleton(() => DownloadReaderAyahUseCase(repository: _sl()));
 
     //!Cubit
     _sl.registerFactory(() => HomeCubit());
@@ -149,7 +150,11 @@ class GetItManager {
           homeCardGetRandomAyahUseCase: _sl(),
           homeCardGetNextAyahUseCase: _sl(),
         ));
-    _sl.registerFactory(() => HomeQuranAudioButtonCubit(playPauseSingleAudioUseCase: _sl()));
+    _sl.registerFactory(() => HomeQuranAudioButtonCubit(
+          playPauseSingleAudioUseCase: _sl(),
+          checkIfAyahDownloadedBeforeUsecase: _sl(),
+          downloadReaderAyahUseCase: _sl(),
+        ));
     _sl.registerFactory(() => HomeQuranAudioProgressCubit(homeCardAudioPorgressUseCase: _sl()));
   }
 

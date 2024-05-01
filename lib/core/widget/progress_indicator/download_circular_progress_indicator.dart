@@ -12,21 +12,19 @@ class DownloadCircularProgressIndicator extends StatelessWidget {
       height: AppSizes.icon,
       child: Stack(
         children: [
-          downloadValue >= 0
-              ? Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(3),
-                  child: FittedBox(
-                    child: Text(
-                      "${(downloadValue * 100).toInt()}%",
-                      maxLines: 1,
-                    ),
-                  ),
-                )
-              : Container(),
+          Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.all(3),
+            child: FittedBox(
+              child: Text(
+                "${(downloadValue * 100).toInt()}%",
+                maxLines: 1,
+              ),
+            ),
+          ),
           CircularProgressIndicator(
             strokeWidth: 3,
-            value: downloadValue >= 0 ? downloadValue : null,
+            value: downloadValue,
             color: context.themeColors.secondary,
           ),
         ],

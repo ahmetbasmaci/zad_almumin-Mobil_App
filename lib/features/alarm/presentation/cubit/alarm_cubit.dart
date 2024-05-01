@@ -20,21 +20,8 @@ class AlarmCubit extends Cubit<AlarmState> {
   })  : _updateAlarmModelUseCase = triggerAlarmActivatingUseCase,
         _getAlarmPartDataUseCase = getAlarmPartDataUseCase,
         super(AlarmInitial());
-  AlarmPartModel? _duaAlarmPart;
-  AlarmPartModel? _hadithAlarmPart;
-  AlarmPartModel? _dailyAzkarAlarmPart;
-  AlarmPartModel? _quranAlarmPart;
-  AlarmPartModel? _fastAlarmPart;
-  AlarmPartModel? _prayAlarmPart;
 
   AlarmPartModel getAlarmPart(AlarmPart aLarmType) {
-    if (aLarmType == AlarmPart.dua && _duaAlarmPart != null) return _duaAlarmPart!;
-    if (aLarmType == AlarmPart.hadith && _duaAlarmPart != null) return _hadithAlarmPart!;
-    if (aLarmType == AlarmPart.dailyAzkar && _dailyAzkarAlarmPart != null) return _dailyAzkarAlarmPart!;
-    if (aLarmType == AlarmPart.quran && _quranAlarmPart != null) return _quranAlarmPart!;
-    if (aLarmType == AlarmPart.fast && _fastAlarmPart != null) return _fastAlarmPart!;
-    if (aLarmType == AlarmPart.pray && _prayAlarmPart != null) return _prayAlarmPart!;
-
     var result = _getAlarmPartDataUseCase.call(
       GetAlarmDataPartParams(aLarmType: aLarmType),
     );

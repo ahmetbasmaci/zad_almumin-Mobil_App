@@ -225,7 +225,6 @@ class AlarmGetDatapartDataSource implements IAlarmGetDatapartDataSource {
     for (var alarmPartModel in _allAlarmParts) {
       for (var alarmModel in alarmPartModel.alarmModels) {
         Map<String, dynamic> alarmModelsMap = {'isActive': alarmModel.isActive};
-//TODO
         if (alarmModel is PeriodicAlarmModel) {
           alarmModelsMap.addAll({
             'time': alarmModel.time.formated,

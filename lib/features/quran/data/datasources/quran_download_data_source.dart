@@ -7,7 +7,7 @@ import 'package:zad_almumin/core/utils/enums/enums.dart';
 
 abstract class IQuranDownloadDataSource {
   Stream<double> downloadSurah(int surahNumber, QuranReader quranReader);
-  //TODo add downlaod ayah
+  Stream<double> downloadAyah(int surahNumber, int ayahNumber, QuranReader quranReader);
 }
 
 class QuranDownloadDataSource implements IQuranDownloadDataSource {
@@ -34,7 +34,6 @@ class QuranDownloadDataSource implements IQuranDownloadDataSource {
     if (response.statusCode != 200)
       throw ServerException('Error while downloading file from server status code: ${response.statusCode}');
 
-
     int totalDataLength = response.contentLength ?? 0;
     int downloadedDataLength = 0;
     double progress = 0;
@@ -45,6 +44,30 @@ class QuranDownloadDataSource implements IQuranDownloadDataSource {
       progress = double.parse((downloadedDataLength / totalDataLength * 100).toStringAsFixed(1));
       yield progress / 100;
     }
-    await fileService.unArchiveAndSaveSurah(surahNumber, quranReader,);
+    await fileService.unArchiveAndSaveSurah(surahNumber, quranReader);
+  }
+
+  @override
+  Stream<double> downloadAyah(int surahNumber, int ayahNumber, QuranReader quranReader) async* {
+    AppConnectivityResult connectivityResult = await appInternetConnection.checkAppConnectivity();
+    if (connectivityResult == AppConnectivityResult.none) {
+      throw ServerException('No Internet Connection');
+    }
+
+    String url = ayahApi.getAyahDownloadUrl(surahNumber, ayahNumber, quranReader);
+    var response = await apiConsumer.getStream(url);
+    if (response.statusCode != 200)
+      throw ServerException('Error while downloading file from server status code: ${response.statusCode}');
+
+    int totalDataLength = response.contentLength ?? 0;
+    int downloadedDataLength = 0;
+    double progress = 0;
+
+    await for (var element in response.stream) {
+      await fileService.writeDataIntoAyahFileAsBytes(surahNumber, ayahNumber, quranReader, element);
+      downloadedDataLength += element.length;
+      progress = double.parse((downloadedDataLength / totalDataLength * 100).toStringAsFixed(1));
+      yield progress / 100;
+    }
   }
 }
