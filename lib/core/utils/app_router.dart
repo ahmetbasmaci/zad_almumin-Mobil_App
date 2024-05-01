@@ -47,7 +47,7 @@ enum AppRoutes {
 }
 
 GoRouter appRouter = GoRouter(
-  initialLocation: PagesHelper.getPagePath,
+  initialLocation: AppRoutes.root.path,
   navigatorKey: AppConstants.navigatorKey,
   observers: [
     BotToastNavigatorObserver(), // Add BotToastObserver here

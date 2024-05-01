@@ -1,8 +1,13 @@
 import 'dart:async';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../../../core/helpers/navigator_helper.dart';
-import '../../../core/utils/app_router.dart';
-import '../widget/splah_image_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:zad_almumin/core/helpers/navigator_helper.dart';
+import 'package:zad_almumin/core/helpers/pages_helper.dart';
+import 'package:zad_almumin/features/splash/widget/splah_image_widget.dart';
+import 'package:zad_almumin/src/bloc_observer.dart';
 import '../widget/splah_text_widget.dart';
 
 class SplashPage extends StatefulWidget {
@@ -14,9 +19,10 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   late AnimationController scaleController;
   late Animation<double> scaleAnimation;
 
-  double opacity = 0;
-  bool value = true;
-
+  double _opacity = 0;
+  bool _value = true;
+  final Duration _splashScreenTime = kDebugMode ? const Duration(milliseconds: 0) : const Duration(milliseconds: 2000);
+  final Duration _colorBigingTime = const Duration(milliseconds: 500);
   @override
   void initState() {
     super.initState();
@@ -29,11 +35,13 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   void _setAnimationController() {
     scaleController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 600),
+      duration: _colorBigingTime,
     )..addStatusListener(
         (status) {
           if (status == AnimationStatus.completed) {
-            NavigatorHelper.pushReplacementNamed(AppRoutes.onboarding);
+            //ToatsHelper.show("Ended");
+            NavigatorHelper.pushReplacementNamed(PagesHelper.getPagePath);
+            // NavigatorHelper.pushReplacementNamed(AppRoutes.onboarding);
           }
         },
       );
@@ -42,18 +50,29 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   void _updateVlauesTime() {
     Timer(const Duration(seconds: 1), () {
       setState(() {
-        opacity = 1.0;
-        value = false;
+        _opacity = 1.0;
+        _value = false;
       });
     });
   }
 
-  void _updateAnimationTimer() {
-    Timer(const Duration(milliseconds: 3000), () {
-      setState(() {
-        scaleController.forward();
-      });
-    });
+  void _updateAnimationTimer() async {
+    _setInitMethod();
+
+    Timer(
+      _splashScreenTime,
+      () {
+        setState(() {
+          scaleController.forward();
+        });
+      },
+    );
+  }
+
+  Future<void> _setInitMethod() async {
+    await GetStorage.init();
+    Bloc.observer = AppBlocObserver();
+    await Firebase.initializeApp();
   }
 
   @override
@@ -70,8 +89,8 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
           children: [
             const SplahTextWidget(),
             SplahImageWidget(
-              opacity: opacity,
-              value: value,
+              opacity: _opacity,
+              value: _value,
               scaleAnimation: scaleAnimation,
             ),
           ],

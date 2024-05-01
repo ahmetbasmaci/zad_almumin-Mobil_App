@@ -7,10 +7,15 @@ class PagesHelper {
   static final ILocalStorage _localStorage = LocalStorage();
 
   /// if it's the first time to open the app it will return splash page id else it will return the last opened page id
-  static String get getPagePath {
-    if (_isFirstTime) return AppRoutes.splash.path;
+  // static String get getPagePath {
+  //   if (_isFirstTime) return AppRoutes.splash.path;
 
-    return _getNewOpendPageId;
+  //   return _getNewOpendPageId;
+  // }
+  static AppRoutes get getPagePath {
+    if (_isFirstTime) return AppRoutes.splash;
+    AppRoutes route = AppRoutes.values.firstWhere((element) => element.path == _getNewOpendPageId);
+    return route;
   }
 
   /// set the last opened page id
