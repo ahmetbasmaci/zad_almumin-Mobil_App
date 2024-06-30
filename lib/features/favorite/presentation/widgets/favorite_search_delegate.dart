@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zad_almumin/core/extentions/dart_extention.dart';
 
+import '../../../../src/injection_container.dart';
 import 'favorite_body.dart';
 
 class FavoriteSearchDelegate extends SearchDelegate {
@@ -26,8 +28,21 @@ class FavoriteSearchDelegate extends SearchDelegate {
   Widget? buildLeading(BuildContext context) => IconButton(icon: const Icon(Icons.close), onPressed: () => query = '');
 
   @override
-  Widget buildResults(BuildContext context) => FavoriteBody(searchText: query);
+  Widget buildResults(BuildContext context) => _body();
 
   @override
-  Widget buildSuggestions(BuildContext context) => FavoriteBody(searchText: query);
+  Widget buildSuggestions(BuildContext context) => _body();
+
+  Widget _body() {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => GetItManager.instance.favoriteCubit),
+          BlocProvider(create: (context) => GetItManager.instance.homeQuranCardCubit),
+        ],
+        child: FavoriteBody.withSearchText(searchText: query),
+      ),
+    );
+  }
 }

@@ -44,19 +44,25 @@ class PrayTimeLeftCard extends StatelessWidget {
     );
   }
 
-  StatelessWidget _prayTimeLeft(BuildContext context) {
-    return context.read<PrayTimesCubit>().state.isLoading
-        ? const AppCircularProgressIndicator()
-        : Text(
-            context.read<PrayTimesCubit>().state.timeLeftToNextPrayTime,
-            style: AppStyles.title(context),
-          );
+  Widget _prayTimeLeft(BuildContext context) {
+    return context.read<PrayTimesCubit>().state.isLoading ? const AppCircularProgressIndicator() : _prayTimeLeftTitle();
+  }
+
+  BlocBuilder<PrayTimesCubit, PrayTimesState> _prayTimeLeftTitle() {
+    return BlocBuilder<PrayTimesCubit, PrayTimesState>(
+      builder: (context, state) {
+        return Text(
+          context.read<PrayTimesCubit>().state.timeLeftToNextPrayTime,
+          style: AppStyles.titleLarge(context),
+        );
+      },
+    );
   }
 
   Text _prayTimeNameTitle(BuildContext context) {
     return Text(
       context.read<PrayTimesCubit>().nextPrayModel.prayTimeType.translatedName,
-      style: AppStyles.title2(context),
+      style: AppStyles.titleMedium(context),
     );
   }
 }

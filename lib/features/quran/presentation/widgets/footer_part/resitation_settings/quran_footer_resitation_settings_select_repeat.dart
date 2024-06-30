@@ -27,7 +27,7 @@ class QuranFooterResitationSettingsSelectRepeat extends StatelessWidget {
     );
   }
 
-  Text _header(BuildContext context) => Text('تكرار التلاوة:  ', style: AppStyles.contentBold(context));
+  Text _header(BuildContext context) => Text('تكرار التلاوة:  ', style: AppStyles.bodyMediumBold(context));
 
   Widget _repeatingWidgt({
     required BuildContext context,
@@ -80,7 +80,7 @@ class QuranFooterResitationSettingsSelectRepeat extends StatelessWidget {
       duration: const Duration(milliseconds: 200),
       child: Row(
         children: <Widget>[
-          Text(repeatCount, style: AppStyles.contentBold(context)),
+          Text(repeatCount, style: AppStyles.bodyMediumBold(context)),
           _brnIncreaseLimit(unlimitRepeatall, isRepeatingPart, quranCubit),
           _btnDecreaseLimit(unlimitRepeatall, isRepeatingPart, quranCubit),
         ],

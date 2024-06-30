@@ -12,19 +12,11 @@ class FavoriteSelectZikrType extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        _icon(),
-        _selectZikrTypeDropDown(context),
-      ],
-    );
-  }
-
-  Row _icon() {
-    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         AppIcons.menu,
         HorizontalSpace(AppSizes.spaceBetweanWidgets),
+        _selectZikrTypeDropDown(context),
       ],
     );
   }

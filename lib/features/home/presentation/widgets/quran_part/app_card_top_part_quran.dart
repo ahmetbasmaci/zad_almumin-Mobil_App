@@ -9,13 +9,18 @@ import '../../../../../core/widget/app_card_widgets/app_card_top_part.dart';
 import '../../../../../src/injection_container.dart';
 
 class AppCardTopPartQuran extends StatelessWidget {
+  final String title;
+  final Function? onReferesh;
+
   const AppCardTopPartQuran({
     super.key,
     required this.title,
     required this.onReferesh,
   });
-  final String title;
-  final Function onReferesh;
+  const AppCardTopPartQuran.fromFavotire({
+    super.key,
+    required this.title,
+  }) : onReferesh = null;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -38,9 +43,11 @@ class AppCardTopPartQuran extends StatelessWidget {
   }
 
   Widget _refereshBtn(BuildContext context) {
-    return RefereshBtnRounded(
-      onPress: () async => onReferesh.call(),
-    );
+    return onReferesh == null
+        ? Container()
+        : RefereshBtnRounded(
+            onPress: () async => onReferesh?.call(),
+          );
   }
 
   Widget _titleAndProgress(BuildContext context) {
@@ -50,7 +57,7 @@ class AppCardTopPartQuran extends StatelessWidget {
       children: [
         Text(
           title,
-          style: AppStyles.title2(context),
+          style: AppStyles.titleMedium(context),
         ),
         SizedBox(
           width: context.width * .8,

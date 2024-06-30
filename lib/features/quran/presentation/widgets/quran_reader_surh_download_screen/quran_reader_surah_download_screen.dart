@@ -109,13 +109,13 @@ class QuranReaderSurahDownloadScreen extends StatelessWidget {
 
   Text _itemSubtitle(BuildContext context, Surah surah) {
     return Text.rich(
-      style: AppStyles.content(context),
+      style: AppStyles.bodyMedium(context),
       TextSpan(
         children: [
           TextSpan(text: '${'ألجزء'}: ${surah.ayahs[0].juz}'),
           TextSpan(
             text: ' | ',
-            style: AppStyles.contentBold(context).copyWith(color: context.themeColors.primary),
+            style: AppStyles.bodyMediumBold(context).copyWith(color: context.themeColors.primary),
           ),
           TextSpan(text: '${'عدد الآيات'}: ${surah.ayahs.length}'),
         ],
@@ -126,7 +126,7 @@ class QuranReaderSurahDownloadScreen extends StatelessWidget {
   Text _itemTitle(Surah surah, BuildContext context) {
     return Text(
       surah.name.removeTashkil,
-      style: AppStyles.contentBold(context).copyWith(color: context.themeColors.primary),
+      style: AppStyles.bodyMediumBold(context).copyWith(color: context.themeColors.primary),
     );
   }
 }

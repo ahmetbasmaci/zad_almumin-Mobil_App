@@ -43,5 +43,5 @@ class HomePageZikrSliderWithTitle extends StatelessWidget {
     );
   }
 
-  Text _title(BuildContext context) => Text(title, style: AppStyles.title(context));
+  Text _title(BuildContext context) => Text(title, style: AppStyles.titleLarge(context));
 }

@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zad_almumin/core/widget/buttons/audio_play_pause_button.dart';
 
-import '../../../../../core/helpers/toats_helper.dart';
-import '../../../../../src/injection_container.dart';
 import '../../../../quran/quran.dart';
-import '../../../home.dart';
 
 class AudioBtnHomeQuranCard extends StatelessWidget {
   const AudioBtnHomeQuranCard({super.key});
@@ -13,12 +10,9 @@ class AudioBtnHomeQuranCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return quranReaderCubit(
-          child: homeQuranCardCubit(
-          ),
-        );
+      child: homeQuranCardCubit(),
+    );
   }
-
-
 
   Widget quranReaderCubit({required Widget child}) {
     return BlocBuilder<QuranReaderCubit, QuranReaderState>(
@@ -29,8 +23,8 @@ class AudioBtnHomeQuranCard extends StatelessWidget {
   }
 
   Widget homeQuranCardCubit() {
-    return 
-    //Container();
-    AudioPlayPauseButton.single();
+    return
+        //Container();
+        AudioPlayPauseButton.single();
   }
 }

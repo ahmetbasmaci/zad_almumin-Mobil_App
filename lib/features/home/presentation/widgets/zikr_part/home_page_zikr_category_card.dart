@@ -24,7 +24,7 @@ class HomePageZikrCategoryCard extends StatelessWidget {
           children: <Widget>[
             Text(
               zikrCategoryModel.title,
-              style: AppStyles.title2(context),
+              style: AppStyles.titleMedium(context),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

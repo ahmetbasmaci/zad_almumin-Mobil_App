@@ -38,7 +38,7 @@ class QuranQuestionsButtonAnswerItem extends StatelessWidget {
       context.read<QuranQuestionsCubit>().state.questionType == QuestionType.ayahInJuzAndPage
           ? '${'الجزء'} : ${quranQuestionButtonModel.juz}\n${'الصفحة'} : ${quranQuestionButtonModel.page}'
           : '${'الجزء'} : ${quranQuestionButtonModel.juz}',
-      style: AppStyles.content(context).copyWith(color: quranQuestionButtonModel.textColor),
+      style: AppStyles.bodyMedium(context).copyWith(color: quranQuestionButtonModel.textColor),
     );
   }
 }

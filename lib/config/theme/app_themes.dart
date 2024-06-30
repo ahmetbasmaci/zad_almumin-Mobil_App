@@ -42,17 +42,17 @@ class AppThemes {
               primary: themeColors.primary,
               error: themeColors.error,
               secondary: themeColors.secondary,
-              background: themeColors.background,
+              surface: themeColors.background,
             )
           : ColorScheme.light(
               primary: themeColors.primary,
               error: themeColors.error,
               secondary: themeColors.secondary,
-              background: themeColors.background,
+              surface: themeColors.background,
             ),
       iconTheme: _appIconThemeData(themeColors),
       iconButtonTheme: _appIconButtonThemeData(themeColors),
-      textTheme: _appTextTheme(themeColors),
+      // textTheme: _appTextTheme(themeColors),
       dialogTheme: _appDialogTheme(themeColors),
       listTileTheme: _appListTileThemeData(themeColors),
     );
@@ -68,20 +68,20 @@ class AppThemes {
   static IconButtonThemeData _appIconButtonThemeData(ThemeColors themeColors) {
     return IconButtonThemeData(
       style: ButtonStyle(
-        iconSize: MaterialStateProperty.all<double>(AppSizes.icon),
-        foregroundColor: MaterialStateProperty.all<Color>(themeColors.primary),
+        iconSize: WidgetStateProperty.all<double>(AppSizes.icon),
+        foregroundColor: WidgetStateProperty.all<Color>(themeColors.primary),
       ),
     );
   }
 
-  static TextTheme _appTextTheme(ThemeColors themeColors) {
-    String fontFamily = AppFonts.naskh.name;
-    return TextTheme(
-      titleLarge: TextStyle(fontFamily: fontFamily, fontSize: 23),
-      titleMedium: TextStyle(fontFamily: fontFamily, fontSize: 21),
-      bodyMedium: TextStyle(fontFamily: fontFamily, fontSize: 17),
-    );
-  }
+  // static TextTheme _appTextTheme(ThemeColors themeColors) {
+  //   String fontFamily = AppFonts.naskh.name;
+  //   return TextTheme(
+  //     titleLarge: TextStyle(fontFamily: fontFamily, fontSize: 23),
+  //     titleMedium: TextStyle(fontFamily: fontFamily, fontSize: 21),
+  //     bodyMedium: TextStyle(fontFamily: fontFamily, fontSize: 17),
+  //   );
+  // }
 
   static ListTileThemeData _appListTileThemeData(ThemeColors themeColors) {
     return ListTileThemeData(

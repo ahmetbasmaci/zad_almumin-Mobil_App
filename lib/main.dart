@@ -6,4 +6,5 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetItManager.instance.init();
   runApp(const App());
+  // runApp(DevicePreview(enabled: true, builder: (context) => const App()));
 }

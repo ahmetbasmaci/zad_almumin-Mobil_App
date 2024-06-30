@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../../features/alarm/data/models/alarm_model.dart';
+import '../../../features/favorite/favorite.dart';
 import '../../../features/home/home.dart';
 import '../../../features/quran/quran.dart';
 import '../../../features/tafseer/tafseer.dart';
@@ -162,12 +163,12 @@ class AddNewUserMessageParams extends Equatable {
 }
 
 class FavoriteParams extends Equatable {
-  final String content;
+  final BaseFavoriteEntities item;
 
-  const FavoriteParams({required this.content});
+  const FavoriteParams({required this.item});
 
   @override
-  List<Object?> get props => [content];
+  List<Object?> get props => [item];
 }
 
 class PlayAudioParams extends Equatable {

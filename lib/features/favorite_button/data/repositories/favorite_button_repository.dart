@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:zad_almumin/core/error/failure/failure.dart';
+import 'package:zad_almumin/features/favorite/favorite.dart';
 import '../../favorite_button.dart';
 
 class FavoriteButtonRepository implements IFavoriteButtonRepository {
@@ -12,9 +13,9 @@ class FavoriteButtonRepository implements IFavoriteButtonRepository {
   });
 
   @override
-  Future<Either<Failure, Unit>> addItem(String content) async {
+  Future<Either<Failure, Unit>> addItem(BaseFavoriteEntities item) async {
     try {
-      await readWriteDataSource.addItem(content);
+      await readWriteDataSource.addItem(item);
       return const Right(unit);
     } catch (e) {
       return Left(SqliteFailure(e.toString()));
@@ -22,9 +23,9 @@ class FavoriteButtonRepository implements IFavoriteButtonRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> checkItemIfFavorite(String contentId) async {
+  Future<Either<Failure, bool>> checkItemIfFavorite(BaseFavoriteEntities itemModel) async {
     try {
-      final result = await checkContentIfFavoriteDataSource.checkItemIfFavorite(contentId);
+      final result = await checkContentIfFavoriteDataSource.checkItemIfFavorite(itemModel);
       return Right(result);
     } catch (e) {
       return Left(SqliteFailure(e.toString()));
@@ -32,9 +33,9 @@ class FavoriteButtonRepository implements IFavoriteButtonRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> removeItem(String content) async {
+  Future<Either<Failure, Unit>> removeItem(BaseFavoriteEntities item) async {
     try {
-      await readWriteDataSource.removeItem(content);
+      await readWriteDataSource.removeItem(item);
       return const Right(unit);
     } catch (e) {
       return Left(SqliteFailure(e.toString()));

@@ -11,6 +11,6 @@ class FavoriteButtonRemoveItemUseCase extends IUseCaseAsync<Unit, FavoriteParams
   FavoriteButtonRemoveItemUseCase({required this.favoriteRepository});
   @override
   Future<Either<Failure, Unit>> call(params) async {
-    return await favoriteRepository.removeItem(params.content);
+    return await favoriteRepository.removeItem(params.item);
   }
 }

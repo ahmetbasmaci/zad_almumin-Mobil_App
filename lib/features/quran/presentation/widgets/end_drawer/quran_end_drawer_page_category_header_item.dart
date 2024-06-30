@@ -43,7 +43,7 @@ class QuranEndDrawerPageCategoryHeaderItem extends StatelessWidget {
         ),
         Text(
           title,
-          style: AppStyles.content(context).copyWith(
+          style: AppStyles.bodyMedium(context).copyWith(
             color: _itemsColor(context),
           ),
         )

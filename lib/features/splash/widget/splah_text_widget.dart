@@ -19,7 +19,7 @@ class SplahTextWidget extends StatelessWidget {
             TyperAnimatedText(
               AppStrings.of(context).appName,
               speed: const Duration(milliseconds: 100),
-              textStyle: AppStyles.title(context),
+              textStyle: AppStyles.titleLarge(context),
             ),
           ],
           isRepeatingAnimation: false,

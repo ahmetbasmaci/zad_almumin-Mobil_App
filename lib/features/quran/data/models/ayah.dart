@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:zad_almumin/core/extentions/dart_extention.dart';
 
 class Ayah extends Equatable {
+  final int numberInQuran;
   final int number;
   final String text;
   final int juz;
@@ -12,6 +13,7 @@ class Ayah extends Equatable {
   final bool isBasmalah;
   bool isMarked;
   Ayah({
+    required this.numberInQuran,
     required this.number,
     required this.text,
     required this.juz,
@@ -23,7 +25,8 @@ class Ayah extends Equatable {
     required this.isMarked,
   });
   Ayah.empty()
-      : number = 0,
+      : numberInQuran = 0,
+        number = 0,
         text = '',
         juz = 0,
         page = 0,
@@ -34,6 +37,7 @@ class Ayah extends Equatable {
         isMarked = false;
 
   Ayah copyWith({
+    int? numberInQuran,
     int? number,
     String? audioUrl,
     String? text,
@@ -47,6 +51,7 @@ class Ayah extends Equatable {
     bool? isMarked,
   }) {
     return Ayah(
+      numberInQuran: numberInQuran ?? this.numberInQuran,
       number: number ?? this.number,
       text: text ?? this.text,
       juz: juz ?? this.juz,
@@ -61,6 +66,7 @@ class Ayah extends Equatable {
 
   factory Ayah.fromJson(dynamic json) {
     return Ayah(
+      numberInQuran: json['numberInQuran'] ?? 0,
       number: json['numberInSurah'] ?? 0,
       text: json['text'].toString().isBasmalah ? '\n${json['text']}\n' : json['text'],
       juz: json['juz'],
@@ -74,6 +80,7 @@ class Ayah extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
+        'numberInQuran': numberInQuran,
         'numberInSurah': number,
         'text': text,
         'juz': juz,
@@ -86,5 +93,5 @@ class Ayah extends Equatable {
       };
 
   @override
-  List<Object?> get props => [text];
+  List<Object?> get props => [numberInQuran];
 }

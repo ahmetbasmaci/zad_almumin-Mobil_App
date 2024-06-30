@@ -11,6 +11,6 @@ class FavoriteButtonCheckContentIfFavoriteUseCase extends IUseCaseAsync<bool, Fa
   FavoriteButtonCheckContentIfFavoriteUseCase({required this.favoriteRepository});
   @override
   Future<Either<Failure, bool>> call(params) async {
-    return await favoriteRepository.checkItemIfFavorite(params.content);
+    return await favoriteRepository.checkItemIfFavorite(params.item);
   }
 }

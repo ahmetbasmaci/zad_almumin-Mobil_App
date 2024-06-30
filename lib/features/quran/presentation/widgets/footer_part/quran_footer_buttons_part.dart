@@ -71,7 +71,7 @@ class QuranFooterButtonsPart extends StatelessWidget {
   void showResitationSettingsDialog(BuildContext context) {
     DialogsHelper.showCostumDialog(
       context: context,
-      title: Text('اعدادات القراءة', style: AppStyles.contentBold(context)),
+      title: Text('اعدادات القراءة', style: AppStyles.bodyMediumBold(context)),
       child: const QuranFooterResitationSettingsBody(),
     );
   }

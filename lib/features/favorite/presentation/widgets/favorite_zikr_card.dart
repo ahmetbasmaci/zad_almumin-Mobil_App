@@ -30,7 +30,7 @@ class FavoriteZikrCard extends StatelessWidget {
     return AppCardTopPart(
       centerWidget: Text(
         title,
-        style: AppStyles.title2(context).copyWith(color: context.themeColors.primary),
+        style: AppStyles.titleMedium(context).copyWith(color: context.themeColors.primary),
       ),
     );
   }
@@ -43,6 +43,7 @@ class FavoriteZikrCard extends StatelessWidget {
   }
 
   Widget _footerPartWidget(BuildContext context, String title, String content) {
-    return AppCardContentFooterPartButtons(isFavorite: true, content: content);
+    //TODOreturn AppCardContentFooterPartButtons( content: content);
+    return Container();
   }
 }

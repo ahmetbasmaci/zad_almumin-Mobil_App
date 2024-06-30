@@ -19,7 +19,7 @@ class AppCardCenterPartWidget extends StatelessWidget {
       child: isLoading
           ? const AppLinearProgressIndicator()
           : Text.rich(
-              style: AppStyles.content(context),
+              style: AppStyles.bodyMedium(context),
               TextSpan(
                 children: [
                   TextSpan(text: content),

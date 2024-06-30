@@ -25,7 +25,7 @@ class QuranQuestionAnswersInfo extends StatelessWidget {
         children: [
           Text(
             isCorrect ? 'الاجابات الصحيحة:' : 'الاجابات الخاطئة:',
-            style: AppStyles.contentBold(context).copyWith(
+            style: AppStyles.bodyMediumBold(context).copyWith(
               color: isCorrect ? context.themeColors.success : context.themeColors.error,
             ),
           ),
@@ -35,7 +35,7 @@ class QuranQuestionAnswersInfo extends StatelessWidget {
                 isCorrect
                     ? '${context.read<QuranQuestionsCubit>().state.trueAnswersCounter}'
                     : '${context.read<QuranQuestionsCubit>().state.wrongAnwersCounter}',
-                style: AppStyles.contentBold(context).copyWith(
+                style: AppStyles.bodyMediumBold(context).copyWith(
                   color: isCorrect ? context.themeColors.success : context.themeColors.error,
                 ),
               );

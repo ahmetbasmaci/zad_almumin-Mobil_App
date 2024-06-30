@@ -11,6 +11,6 @@ class FavoriteButtonAddItemUseCase extends IUseCaseAsync<Unit, FavoriteParams> {
   FavoriteButtonAddItemUseCase({required this.favoriteRepository});
   @override
   Future<Either<Failure, Unit>> call(params) async {
-    return await favoriteRepository.addItem(params.content);
+    return await favoriteRepository.addItem(params.item);
   }
 }

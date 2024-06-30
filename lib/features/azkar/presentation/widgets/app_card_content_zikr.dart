@@ -110,7 +110,7 @@ class AppCardContentZikr extends StatelessWidget {
     return AppCardTopPart(
       centerWidget: Text(
         title,
-        style: AppStyles.title2(context).copyWith(color: context.themeColors.primary),
+        style: AppStyles.titleMedium(context).copyWith(color: context.themeColors.primary),
       ),
     );
   }
@@ -131,7 +131,7 @@ class AppCardContentZikr extends StatelessWidget {
       padding: EdgeInsets.only(top: AppSizes.cardPadding * 2),
       child: Column(
         children: [
-          AppCardContentFooterPartButtons(isFavorite: false, content: content),
+          //TODO AppCardContentFooterPartButtons( content: content),
           count > 0 ? _counterWidget(context, count) : Container(),
         ],
       ),
@@ -154,7 +154,7 @@ class AppCardContentZikr extends StatelessWidget {
       ),
       child: Text(
         count != 0 ? "$count" : AppStrings.of(context).done,
-        style: AppStyles.title2(context),
+        style: AppStyles.titleMedium(context),
         textAlign: TextAlign.center,
       ),
     );

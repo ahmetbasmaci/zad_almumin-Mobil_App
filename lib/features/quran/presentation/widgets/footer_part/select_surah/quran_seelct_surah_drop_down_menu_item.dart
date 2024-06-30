@@ -15,8 +15,8 @@ class QuranSeelctSurahDropDownMenuItem extends StatelessWidget {
       surah.name.toString().removeTashkil,
       // surah.name.toString().removeTashkil,
       style: context.read<QuranCubit>().state.selectedPageInfo.surahName == surah.name
-          ? AppStyles.contentBold(context)
-          : AppStyles.content(context),
+          ? AppStyles.bodyMediumBold(context)
+          : AppStyles.bodyMedium(context),
     );
   }
 }

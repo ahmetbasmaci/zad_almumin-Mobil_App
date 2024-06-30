@@ -6,7 +6,6 @@ class HadithCardModel {
     required this.hadithText,
     required this.hadithSanad,
     required this.hadithId,
-    this.isFavorite = false,
   });
   final String hadithBookName;
   final String chapterBookname;
@@ -14,5 +13,4 @@ class HadithCardModel {
   final String hadithText;
   final String hadithSanad;
   final int hadithId;
-  final bool isFavorite;
 }

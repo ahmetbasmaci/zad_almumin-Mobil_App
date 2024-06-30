@@ -50,8 +50,8 @@ class QuranSelectReaderDropDown extends StatelessWidget {
     return Text(
       item.translatedName,
       style: context.read<QuranReaderCubit>().state.selectedQuranReader == item
-          ? AppStyles.contentBold(context)
-          : AppStyles.content(context),
+          ? AppStyles.bodyMediumBold(context)
+          : AppStyles.bodyMedium(context),
     );
   }
 
@@ -59,7 +59,7 @@ class QuranSelectReaderDropDown extends StatelessWidget {
     return IconButton(
       icon: AppIcons.info,
       onPressed: () {
-         NavigatorHelper.pushNamed(AppRoutes.quranReaderSurahDownloadScreen,extra: item);
+        NavigatorHelper.pushNamed(AppRoutes.quranReaderSurahDownloadScreen, extra: item);
       },
     );
   }

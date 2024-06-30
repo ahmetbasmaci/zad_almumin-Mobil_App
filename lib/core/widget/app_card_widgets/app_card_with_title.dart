@@ -31,7 +31,7 @@ class AppCardWithTitle extends StatelessWidget {
   Widget _buildTitle(BuildContext context) {
     return Text(
       outsideTitle,
-      style: AppStyles.title(context),
+      style: AppStyles.titleLarge(context),
     );
   }
 }

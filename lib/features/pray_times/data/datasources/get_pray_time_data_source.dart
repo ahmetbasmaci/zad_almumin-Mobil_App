@@ -21,7 +21,7 @@ class GetPrayTimeDataSource implements IGetPrayTimeDataSource {
       throw ServerException('No Internet Connection');
     }
     String apiUrl = AdhanApi.timings(position: position, date: date);
-    var json = await apiConsumer.get(apiUrl);
+    var json = await apiConsumer.get(apiUrl, convertToJson: true);
     PraiesInDayModel praiesInDayModel = PraiesInDayModel.fromJson(json);
     return praiesInDayModel;
   }

@@ -5,17 +5,20 @@ abstract class FavoriteButtonState extends Equatable {
   const FavoriteButtonState({required this.isFavorite});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [isFavorite];
 }
 
 class FavoriteButtonInitialState extends FavoriteButtonState {
   const FavoriteButtonInitialState({bool? isFavorite}) : super(isFavorite: isFavorite ?? false);
+
+  @override
+  List<Object> get props => [isFavorite];
 }
 
 class FavoriteButtonErrorState extends FavoriteButtonState {
-  const FavoriteButtonErrorState() : super(isFavorite: false);
-}
+  final String message;
+  const FavoriteButtonErrorState({required this.message}) : super(isFavorite: false);
 
-class FavoriteButtonInitial extends FavoriteButtonState {
-  const FavoriteButtonInitial() : super(isFavorite: false);
+  @override
+  List<Object> get props => [message, isFavorite];
 }

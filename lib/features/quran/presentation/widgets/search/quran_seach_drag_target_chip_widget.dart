@@ -16,10 +16,10 @@ class QuranSeachDragTargetChipWidget extends StatelessWidget {
         FilterChipModel filterChipModel = context.read<QuranSearchCubit>().state.searchFilterList[index];
 
         return DragTarget<FilterChipModel>(
-          builder: (context, candidateData, rejectedData) => dragChild(context, filterChipModel),
-          onWillAcceptWithDetails: (details) => true,
-          onAcceptWithDetails: (details) => context.read<QuranSearchCubit>().updateSearchFilterList(index, filterChipModel, details.data)
-        );
+            builder: (context, candidateData, rejectedData) => dragChild(context, filterChipModel),
+            onWillAcceptWithDetails: (details) => true,
+            onAcceptWithDetails: (details) =>
+                context.read<QuranSearchCubit>().updateSearchFilterList(index, filterChipModel, details.data));
       },
     );
   }
@@ -50,7 +50,7 @@ class QuranSeachDragTargetChipWidget extends StatelessWidget {
     return FilterChip(
       label: Text(
         filterChipModel.text,
-        style: AppStyles.content(context).copyWith(
+        style: AppStyles.bodyMedium(context).copyWith(
           color: filterChipModel.isSelected ? Colors.white : context.themeColors.onBackground,
         ),
       ),

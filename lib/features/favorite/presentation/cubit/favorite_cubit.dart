@@ -1,42 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:zad_almumin/core/extentions/dart_extention.dart';
 import 'package:zad_almumin/core/utils/enums/enums.dart';
+import 'package:zad_almumin/core/utils/params/params.dart';
 
+import '../../../home/home.dart';
+import '../../domain/usecases/favorite_get_all_use_case.dart';
 import '../../favorite.dart';
 part 'favorite_state.dart';
 
 class FavoriteCubit extends Cubit<FavoriteState> {
-  FavoriteCubit() : super(const FavoriteState.init());
   final GlobalKey<AnimatedListState> listKey = GlobalKey();
+  final FavoriteGetAllUseCase favoriteGetAllUseCase;
+
+  FavoriteCubit({required this.favoriteGetAllUseCase}) : super(const FavoriteState.init());
 
   void changeFavoriteZikrCategory(FavoriteZikrCategory newFavoriteZikrCategory) {
     emit(state.copyWith(favoriteZikrCategory: newFavoriteZikrCategory));
   }
 
-  void readDataFromDb() {}
+  Future<List<BaseFavoriteEntities>> getAllSavedData() async {
+    var result = await favoriteGetAllUseCase.call(NoParams());
 
-  //TODO: implement loadFavoriteZikrCategory
-  // void _loadFavoriteZikrCategory() {
+    return result.fold(
+      (l) => [],
+      (r) {
+        if (state.favoriteZikrCategory == FavoriteZikrCategory.all) return r;
 
-  //   // FavoriteZikrCategory.values[getStorage.read('s electedZikrType') ?? 0]
-  //   emit(state.copyWith(favoriteZikrCategory: FavoriteZikrCategory.all));
-  // }
-
-  List<FavoriteZikrDataModel> getFilteredZikrModels(String searchText) {
-    List<FavoriteZikrDataModel> favoriteZikrModels =
-        state.favoriteZikrModels.where((element) => element.category == state.favoriteZikrCategory).toList();
-    if (searchText.isNotEmpty) {
-      favoriteZikrModels.removeWhere((element) => !element.content.contains(searchText));
-    }
-    favoriteZikrModels.add(
-      FavoriteZikrDataModel(
-        title: 'اللهم صلي على سيدنا محمد',
-        content: 'اللهم صلي على سيدنا محمد',
-        description: 'اللهم صلي على سيدنا محمد',
-        category: FavoriteZikrCategory.all,
-      ),
+        return r.where((element) => element.zikrCategory == state.favoriteZikrCategory).toList();
+      },
     );
-    return favoriteZikrModels;
+  }
+
+  Future<List<BaseFavoriteEntities>> getFilteredZikrModels(String searchText) async {
+    var result = await getAllSavedData();
+
+    if (result.isEmpty) return [];
+
+    return result.where(
+      (element) {
+        if (element is QuranCardModel) {
+          return (element.content.removeTashkil.contains(searchText.removeTashkil) ||
+              element.surahName.removeTashkil.contains(searchText.removeTashkil));
+        } //TODO add other models
+        return false;
+      },
+    ).toList();
   }
 }

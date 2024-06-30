@@ -8,7 +8,6 @@ import '../../../../../core/utils/resources/app_styles.dart';
 import '../../../../../src/injection_container.dart';
 import '../../../data/models/hadith/hadith_card_model.dart';
 import '../../../../../config/local/l10n.dart';
-import '../../../../../core/widget/app_card_widgets/app_card_content_footer_part_buttons.dart';
 import '../../../../../core/widget/space/horizontal_space.dart';
 import '../../cubit/cubit_hadith/home_hadith_card_cubit.dart';
 import 'app_card_top_part_hadith.dart';
@@ -38,7 +37,7 @@ class AppCardContentHadith extends StatelessWidget {
     );
   }
 
-  AppCardTopPartHadith _toppartWidget(BuildContext context) {
+  Widget _toppartWidget(BuildContext context) {
     return AppCardTopPartHadith(
       title: AppStrings.of(context).hadithTitle,
       onReferesh: () {
@@ -81,17 +80,17 @@ class AppCardContentHadith extends StatelessWidget {
   Widget _hadithPropItem(BuildContext context, String title, String value) {
     return Wrap(
       children: <Widget>[
-        Text('$title:', style: AppStyles.contentBold(context)),
+        Text('$title:', style: AppStyles.bodyMediumBold(context)),
         const HorizontalSpace(20),
         Text(value),
       ],
     );
   }
 
-  AppCardContentFooterPartButtons _footerPartWidget(HomeHadithCardState state) {
-    return AppCardContentFooterPartButtons(
-      content: state is HomeHadithCardLoadedState ? state.hadithCardModel.hadithText : '',
-      isFavorite: false,
-    );
+  Widget _footerPartWidget(HomeHadithCardState state) {
+    //TODOreturn AppCardContentFooterPartButtons(
+    //   content: state is HomeHadithCardLoadedState ? state.hadithCardModel.hadithText : '',
+    // );
+    return Container();
   }
 }

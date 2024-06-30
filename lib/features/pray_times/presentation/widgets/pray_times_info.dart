@@ -86,7 +86,7 @@ class PrayTimesInfo extends StatelessWidget {
         children: [
           Text(
             title,
-            style: AppStyles.content(context).copyWith(fontWeight: FontWeight.bold),
+            style: AppStyles.bodyMedium(context).copyWith(fontWeight: FontWeight.bold),
           ),
           Text(time),
         ],

@@ -24,7 +24,7 @@ class QuranQuestionSelectQuestionTypeWidget extends StatelessWidget {
     );
   }
 
-  Text _title(BuildContext context) => Text('اختر طريقة الاجابة:', style: AppStyles.contentBold(context));
+  Text _title(BuildContext context) => Text('اختر طريقة الاجابة:', style: AppStyles.bodyMediumBold(context));
 
   DropdownButton<AyahsAnswersType> _ansertTypeDropDown(BuildContext context) {
     return DropdownButton<AyahsAnswersType>(

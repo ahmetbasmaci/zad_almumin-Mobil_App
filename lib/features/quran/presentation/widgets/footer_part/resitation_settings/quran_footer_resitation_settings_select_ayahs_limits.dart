@@ -42,13 +42,13 @@ class QuranFooterResitationSettingsSelectAyahsLimits extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('تحديد المقطع:', style: AppStyles.contentBold(context)),
+        Text('تحديد المقطع:', style: AppStyles.bodyMediumBold(context)),
         Text(
           context
               .read<QuranCubit>()
               .getSurahByNumber(context.read<QuranCubit>().state.selectedPageInfo.surahNumber)
               .name,
-          style: AppStyles.contentBold(context),
+          style: AppStyles.bodyMediumBold(context),
         ),
       ],
     );
@@ -63,12 +63,12 @@ class QuranFooterResitationSettingsSelectAyahsLimits extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Text('$title:', style: AppStyles.contentBold(context)),
+        Text('$title:', style: AppStyles.bodyMediumBold(context)),
         InkWell(
           onTap: () => _selectAyahFromDialogClick(context, ayah.text, isStartAyah),
           child: Row(
             children: [
-              Text('${ayah.number} - ', style: AppStyles.contentBold(context)),
+              Text('${ayah.number} - ', style: AppStyles.bodyMediumBold(context)),
               SizedBox(
                 width: context.width * .3,
                 child: SingleChildScrollView(
@@ -96,8 +96,8 @@ class QuranFooterResitationSettingsSelectAyahsLimits extends StatelessWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('اختر الآية:  ', style: AppStyles.contentBold(context)),
-          Text(context.read<QuranCubit>().state.selectedPageInfo.surahName, style: AppStyles.contentBold(context)),
+          Text('اختر الآية:  ', style: AppStyles.bodyMediumBold(context)),
+          Text(context.read<QuranCubit>().state.selectedPageInfo.surahName, style: AppStyles.bodyMediumBold(context)),
         ],
       ),
       child: _selectAyahFromDialog(context, ayahText, isStartAyah),
@@ -132,7 +132,7 @@ class QuranFooterResitationSettingsSelectAyahsLimits extends StatelessWidget {
     required bool isStartAyah,
   }) {
     return ListTile(
-      leading: Text('${ayah.number} - ', style: AppStyles.contentBold(context)),
+      leading: Text('${ayah.number} - ', style: AppStyles.bodyMediumBold(context)),
       title: SingleChildScrollView(
         padding: null,
         scrollDirection: Axis.horizontal,

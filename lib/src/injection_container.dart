@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:zad_almumin/core/database/database_manager.dart';
+import 'package:zad_almumin/core/database/i_database_manager.dart';
 import 'package:zad_almumin/core/packages/app_internet_connection/app_internet_connection.dart';
 import 'package:zad_almumin/core/services/files_service.dart';
 import 'package:zad_almumin/core/services/json_service.dart';
@@ -14,6 +16,10 @@ import '../core/utils/api/consumer/consumer.dart';
 import '../core/utils/firebase/firebase.dart';
 import '../features/alarm/alarm.dart';
 import '../features/azkar/azkar.dart';
+import '../features/favorite/data/datasources/favorite_get_all_data_source.dart';
+import '../features/favorite/data/repositories/favorite_repository.dart';
+import '../features/favorite/domain/repositories/i_favorite_repository.dart';
+import '../features/favorite/domain/usecases/favorite_get_all_use_case.dart';
 import '../features/favorite_button/favorite_button.dart';
 import '../features/home/home.dart';
 import '../features/locale/locale.dart';
@@ -88,6 +94,7 @@ class GetItManager {
     _sl.registerLazySingleton<ILocationDetector>(() => LocationDetector());
     _sl.registerLazySingleton<IJsonService>(() => JsonService());
     _sl.registerLazySingleton<IFilesService>(() => FilesService());
+    _sl.registerLazySingleton<IDatabaseManager>(() => DatabaseManager());
     _sl.registerLazySingleton<IFirebaseStorageConsumer>(() => FirebaseStorageConsumer());
   }
 
@@ -480,15 +487,31 @@ class GetItManager {
   }
 
   Future _initFavorite() async {
+    //!DataSource
+    _sl.registerLazySingleton<IFavoriteGetAllDataSource>(() => FavoriteGetAllDataSource(
+          databaseManager: _sl(),
+        ));
+
+    //!Repository
+    _sl.registerLazySingleton<IFavoriteRepository>(
+      () => FavoriteRepository(
+        getAllDataSource: _sl(),
+      ),
+    );
+
+    //!usecase
+    _sl.registerLazySingleton(() => FavoriteGetAllUseCase(favoriteRepository: _sl()));
+
     //!Cubit
-    _sl.registerFactory(() => FavoriteCubit());
+    _sl.registerFactory(() => FavoriteCubit(favoriteGetAllUseCase: _sl()));
   }
 
   Future _initFavoriteButton() async {
     //!DataSource
-    _sl.registerLazySingleton<IFavoriteButtonReadWriteDataSource>(() => FavoriteButtonReadWriteDataSource());
+    _sl.registerLazySingleton<IFavoriteButtonReadWriteDataSource>(
+        () => FavoriteButtonReadWriteDataSource(databaseManager: _sl()));
     _sl.registerLazySingleton<IFavoriteButtonCheckContentIfFavoriteDataSource>(
-        () => FavoriteButtonCheckContentIfFavoriteDataSource());
+        () => FavoriteButtonCheckContentIfFavoriteDataSource(databaseManager: _sl()));
 
     //!Repository
     _sl.registerLazySingleton<IFavoriteButtonRepository>(
@@ -504,10 +527,12 @@ class GetItManager {
     _sl.registerLazySingleton(() => FavoriteButtonRemoveItemUseCase(favoriteRepository: _sl()));
 
     //!Cubit
-    _sl.registerFactory(() => FavoriteButtonCubit(
-          favoriteButtonAddItemUseCase: _sl(),
-          favoriteButtonCheckContentIfFavoriteUseCase: _sl(),
-          favoriteButtonRemoveItemUseCase: _sl(),
-        ));
+    _sl.registerFactory(
+      () => FavoriteButtonCubit(
+        favoriteButtonAddItemUseCase: _sl(),
+        favoriteButtonCheckContentIfFavoriteUseCase: _sl(),
+        favoriteButtonRemoveItemUseCase: _sl(),
+      ),
+    );
   }
 }

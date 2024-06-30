@@ -15,6 +15,7 @@ class MyContentConfig extends ContentConfig {
           pathImage: pathImage,
           styleTitle:
               context.theme.textTheme.headlineSmall, //MyTexts.quranStyle(fontSize: 25, color: MyColors.whiteBlack),
-          styleDescription: AppStyles.content(context), //MyTexts.quranStyle(fontSize: 20, color: MyColors.whiteBlack),
+          styleDescription:
+              AppStyles.bodyMedium(context), //MyTexts.quranStyle(fontSize: 20, color: MyColors.whiteBlack),
         );
 }

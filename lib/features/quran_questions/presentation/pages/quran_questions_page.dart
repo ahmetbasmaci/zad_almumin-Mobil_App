@@ -17,13 +17,13 @@ class QuranQuestionsPage extends StatelessWidget {
       leading: const QuranQuestionOptionsButton(),
       body: BlocBuilder<QuranQuestionsCubit, QuranQuestionsState>(
         builder: (context, state) {
-          return body(context,state);
+          return body(context, state);
         },
       ),
     );
   }
 
-  Widget body(BuildContext context,QuranQuestionsState state) {
+  Widget body(BuildContext context, QuranQuestionsState state) {
     if (state.isLoading) return const AppCircularProgressIndicator();
 
     //if there is tafseers for current local
@@ -41,7 +41,7 @@ class QuranQuestionsPage extends StatelessWidget {
     return Text(
       "اختبر حفظك للقران واختر رقم الصفحة والجزء للآية",
       textAlign: TextAlign.center,
-      style: AppStyles.contentBold(context),
+      style: AppStyles.bodyMediumBold(context),
     );
   }
 }

@@ -24,13 +24,19 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => GetItManager.instance.quranReaderCubit),
         BlocProvider(create: (context) => GetItManager.instance.quranAudioButtonCubit),
         BlocProvider(create: (context) => GetItManager.instance.tafseerCubit..initTafseerPage()),
-        BlocProvider(create: (context) => GetItManager.instance.quranQuestionsCubit)
+        BlocProvider(create: (context) => GetItManager.instance.quranQuestionsCubit),
+        BlocProvider(create: (context) => GetItManager.instance.homeQuranCardCubit),
+        
       ],
-      child: BlocBuilder<LocaleCubit, LocaleState>(
-        builder: (context, lcoaleState) => BlocBuilder<ThemeCubit, ThemeState>(
-          builder: (context, themeState) => BlocBuilder<TafseerCubit, TafseerState>(
-            builder: (context, tafseerState) => _materialWidget(lcoaleState, themeState),
-          ),
+      child: _buildChild(),
+    );
+  }
+
+  BlocBuilder<LocaleCubit, LocaleState> _buildChild() {
+    return BlocBuilder<LocaleCubit, LocaleState>(
+      builder: (context, lcoaleState) => BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, themeState) => BlocBuilder<TafseerCubit, TafseerState>(
+          builder: (context, tafseerState) => _materialWidget(lcoaleState, themeState),
         ),
       ),
     );
@@ -41,10 +47,13 @@ class App extends StatelessWidget {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (_, child) {
+      builder: (context, child) {
         return MaterialApp.router(
-          routerConfig: appRouter,
+          // locale: DevicePreview.locale(context),
+          // builder: DevicePreview.appBuilder,
           builder: BotToastInit(), // Call BotToastInit
+          locale: Locale(lcoaleState.locale),
+          routerConfig: appRouter,
           localizationsDelegates: [
             AppStrings.delegate,
             const AppLocalizationDelegate(),
@@ -53,7 +62,6 @@ class App extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: AppStrings.delegate.supportedLocales,
-          locale: Locale(lcoaleState.locale),
           theme: themeState.theme,
           debugShowCheckedModeBanner: false,
         );
@@ -63,10 +71,8 @@ class App extends StatelessWidget {
 }
 /*
 
-TODO- add quran reader page
+
 TODO- favorite button
-TODO- fix padding in azkar page
-TODO- fix pray json response error
 TODO- add download progress when downloading quran
 TODO- isPlaying listenere must set in audio player after change package
 TODO- localizations

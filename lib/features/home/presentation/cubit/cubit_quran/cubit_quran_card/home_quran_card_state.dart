@@ -21,4 +21,3 @@ class HomeQuranCardErrorState extends HomeQuranCardState {
   HomeQuranCardErrorState({required this.message});
 }
 
-class HomeQuranCardAudioPlayingState extends HomeQuranCardState {}

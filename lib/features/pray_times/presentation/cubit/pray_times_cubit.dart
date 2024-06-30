@@ -146,10 +146,12 @@ class PrayTimesCubit extends Cubit<PrayTimesState> {
       _updateNextPrayTime(currentTime);
 
       // Get.find<AlarmsCtr>().setAzanAlarm(nextPrayType: nextPrayType.value);
-    } else {
-      _updateCurrentTime();
     }
+    //  else {
+    //   _updateCurrentTime();
+    // }
     emit(state.copyWith(timeLeftToNextPrayTime: timeLeftToNextPrayTime));
+    _updateCurrentTime();
   }
 
   void _updateNextPrayTime(Time currentTime) {
