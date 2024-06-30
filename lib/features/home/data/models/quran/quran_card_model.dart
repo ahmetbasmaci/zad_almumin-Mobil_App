@@ -4,7 +4,7 @@ import '../../../../../core/utils/enums/enums.dart';
 import '../../../../favorite/favorite.dart';
 
 class QuranCardModel extends BaseFavoriteEntities {
-  final int dataId;
+  final int ayahId;
   final String content;
   final String surahName;
   final int juz;
@@ -12,7 +12,7 @@ class QuranCardModel extends BaseFavoriteEntities {
   final int surahNumber;
   QuranCardModel({
     super.id = 0,
-    required this.dataId,
+    required this.ayahId,
     required this.content,
     required this.surahName,
     required this.juz,
@@ -23,7 +23,7 @@ class QuranCardModel extends BaseFavoriteEntities {
 
   factory QuranCardModel.fromAyahModel(Ayah ayah) {
     return QuranCardModel(
-      dataId: ayah.numberInQuran,
+      ayahId: ayah.numberInQuran,
       content: ayah.text,
       surahName: ayah.surahName,
       juz: ayah.juz,
@@ -33,7 +33,7 @@ class QuranCardModel extends BaseFavoriteEntities {
   }
 
   QuranCardModel.empty()
-      : dataId = 0,
+      : ayahId = 0,
         content = '',
         surahName = '',
         juz = 0,
@@ -44,7 +44,7 @@ class QuranCardModel extends BaseFavoriteEntities {
   @override
   Map<String, dynamic> toJson() {
     return {
-      'dataId': dataId,
+      'ayahId': ayahId,
       'content': content,
       'surahName': surahName,
       'juz': juz,
@@ -57,7 +57,7 @@ class QuranCardModel extends BaseFavoriteEntities {
   factory QuranCardModel.fromJson(Map<String, dynamic> json) {
     return QuranCardModel(
       id: json['id'] ?? 0,
-      dataId: json['dataId'] ?? 0,
+      ayahId: json['ayahId'] ?? 0,
       content: json['content'] ?? '',
       surahName: json['surahName'] ?? '',
       juz: json['juz'] ?? 0,

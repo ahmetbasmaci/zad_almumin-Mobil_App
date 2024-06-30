@@ -1,9 +1,7 @@
 import 'package:zad_almumin/core/database/i_database_manager.dart';
-import 'package:zad_almumin/features/home/data/models/quran/quran_card_model.dart';
-
-import '../../../../core/database/tables/favorite_table.dart';
-import '../../../../core/database/tables/quran_favorite_table.dart';
+import '../../../../core/database/tables/tables.dart';
 import '../../../favorite/favorite.dart';
+import '../../../home/home.dart';
 
 abstract class IFavoriteButtonCheckContentIfFavoriteDataSource {
   Future<bool> checkItemIfFavorite(BaseFavoriteEntities itemModel);
@@ -19,16 +17,22 @@ class FavoriteButtonCheckContentIfFavoriteDataSource implements IFavoriteButtonC
     if (itemModel is QuranCardModel) {
       final result = await databaseManager.getFirstRowWhere(
         tableName: QuranFavoriteTable.tableName,
-        column: QuranFavoriteTable.dataId,
-        value: itemModel.dataId,
+        column: QuranFavoriteTable.ayahId,
+        value: itemModel.ayahId,
       );
       return result.isNotEmpty;
-    } //TODO add other categories
+    }
+    if (itemModel is HadithCardModel) {
+      final result = await databaseManager.getFirstRowWhere(
+        tableName: HadithFavoriteTable.tableName,
+        column: HadithFavoriteTable.hadithId,
+        value: itemModel.hadithId,
+      );
+      return result.isNotEmpty;
+    }
 
-    final result = await databaseManager.getRowById(
-      tableName: FavoriteTable.tableName,
-      id: itemModel.id,
-    );
-    return result != null;
+    //TODO add other categories
+
+    return false;
   }
 }

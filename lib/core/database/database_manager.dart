@@ -1,11 +1,10 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:zad_almumin/core/database/tables/quran_favorite_table.dart';
-import 'package:zad_almumin/core/helpers/printer_helper.dart';
 
+import '../helpers/printer_helper.dart';
 import 'database_query_helper.dart';
 import 'i_database_manager.dart';
-import 'tables/favorite_table.dart';
+import 'tables/tables.dart';
 
 class DatabaseManager implements IDatabaseManager {
   static const int _databaseVersion = 2;
@@ -13,9 +12,7 @@ class DatabaseManager implements IDatabaseManager {
 
   Database? _database;
 
-  DatabaseManager() {
-    //deleteDB();
-  }
+  DatabaseManager();
 
   Future<Database> get _getDatabase async {
     _database ??= await _initDB();
@@ -24,19 +21,20 @@ class DatabaseManager implements IDatabaseManager {
   }
 
   Future<Database> _initDB() async {
+    // await deleteDB();
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, _databaseName);
     return await openDatabase(
       path,
       onCreate: (Database db, int version) async {
         //? Add new table creation here
-        onCreate(db, version, FavoriteTable.onCreateString);
         onCreate(db, version, QuranFavoriteTable.onCreateString);
+        onCreate(db, version, HadithFavoriteTable.onCreateString);
       },
       onUpgrade: (Database db, int oldVersion, int newVersion) async {
         //? Add new table upgrade here
-        onUpgrade(db, oldVersion, newVersion, FavoriteTable.tableName, FavoriteTable.onCreateString);
         onUpgrade(db, oldVersion, newVersion, QuranFavoriteTable.tableName, QuranFavoriteTable.onCreateString);
+        onUpgrade(db, oldVersion, newVersion, HadithFavoriteTable.tableName, HadithFavoriteTable.onCreateString);
       },
       version: _databaseVersion,
     );

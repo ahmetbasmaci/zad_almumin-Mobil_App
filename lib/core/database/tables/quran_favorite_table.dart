@@ -5,7 +5,7 @@ class QuranFavoriteTable {
 
   //Columns
   static const String id = 'id';
-  static const String dataId = 'dataId';
+  static const String ayahId = 'ayahId';
   static const String content = 'content';
   static const String surahname = 'surahName';
   static const String juz = 'juz';
@@ -17,7 +17,7 @@ class QuranFavoriteTable {
         tableName,
         {
           id: DatabaseQueryHelper.intPrimaryKey,
-          dataId: DatabaseQueryHelper.intNotNull,
+          ayahId: DatabaseQueryHelper.intNotNull,
           content: DatabaseQueryHelper.textNotNull,
           surahname: DatabaseQueryHelper.textNotNull,
           juz: DatabaseQueryHelper.intNotNull,

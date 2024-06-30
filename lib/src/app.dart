@@ -76,7 +76,7 @@ TODO- favorite button
 TODO- add download progress when downloading quran
 TODO- isPlaying listenere must set in audio player after change package
 TODO- localizations
-TODO- 
+TODO- make text styles(font size) responsive
 TODO- 
 TODO- 
 TODO- 

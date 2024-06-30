@@ -6,7 +6,6 @@ import 'package:zad_almumin/core/utils/enums/enums.dart';
 import 'package:zad_almumin/core/utils/params/params.dart';
 
 import '../../../home/home.dart';
-import '../../domain/usecases/favorite_get_all_use_case.dart';
 import '../../favorite.dart';
 part 'favorite_state.dart';
 
@@ -43,7 +42,11 @@ class FavoriteCubit extends Cubit<FavoriteState> {
         if (element is QuranCardModel) {
           return (element.content.removeTashkil.contains(searchText.removeTashkil) ||
               element.surahName.removeTashkil.contains(searchText.removeTashkil));
-        } //TODO add other models
+        } else if (element is HadithCardModel) {
+          return (element.hadithText.removeTashkil.contains(searchText.removeTashkil) ||
+              element.hadithSanad.removeTashkil.contains(searchText.removeTashkil) ||
+              element.hadithBookName.removeTashkil.contains(searchText.removeTashkil));
+        } // TODO other add other categories
         return false;
       },
     ).toList();

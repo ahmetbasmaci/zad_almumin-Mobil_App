@@ -22,7 +22,12 @@ class FavoriteButton extends StatelessWidget {
         builder: (context, state) => FutureBuilder(
           future: context.read<FavoriteButtonCubit>().checkIfItemIsFavorite(item),
           builder: (context, snapshot) => IconButton(
-            onPressed: () => context.read<FavoriteButtonCubit>().changeFavoriteStatus(item),
+            onPressed: () async {
+              await context.read<FavoriteButtonCubit>().changeFavoriteStatus(item);
+              if (state is FavoriteButtonInitialState) {
+                ToatsHelper.showSuccess(state.isFavorite ? 'Removed from favorite' : 'Added to favorite');
+              }
+            },
             icon: AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               child: state.isFavorite ? AppIcons.favoriteFilled : AppIcons.favorite,

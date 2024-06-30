@@ -4,7 +4,6 @@ import '../../../../../config/local/l10n.dart';
 import '../../../../../core/widget/app_card_widgets/app_card_widgets.dart';
 
 import '../../../home.dart';
-import 'quran_card_widget.dart';
 
 class AppCardContentQuran extends StatelessWidget {
   const AppCardContentQuran({super.key});

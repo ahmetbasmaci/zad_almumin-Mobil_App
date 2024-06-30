@@ -5,7 +5,7 @@ import 'package:zad_almumin/core/widget/animations/animated_list_item_down_to_up
 import 'package:zad_almumin/core/widget/progress_indicator/app_circular_progress_indicator.dart';
 import 'package:zad_almumin/features/home/home.dart';
 import '../../../../core/widget/app_card_widgets/app_card_widgets.dart';
-import '../../../home/presentation/widgets/quran_part/quran_card_widget.dart';
+import '../../../home/presentation/widgets/hadith_part/hadith_card_widget.dart';
 import '../../favorite.dart';
 
 class FavoriteBody extends StatelessWidget {
@@ -50,8 +50,12 @@ class FavoriteBody extends StatelessWidget {
   Widget _zikrCards(BuildContext context, List<BaseFavoriteEntities> filteredModels) {
     List<Widget> cards = [];
     for (var model in filteredModels) {
-      if (model is QuranCardModel) cards.add(QuranCardWidget.fromFavorite(quranCardModel: model));
-      //TODO add other models
+      if (model is QuranCardModel) {
+        cards.add(QuranCardWidget.fromFavorite(quranCardModel: model));
+      } else if (model is HadithCardModel) {
+        cards.add(HadithCardWidget.fromFavorite(hadithCardModel: model));
+      }
+      //TODO add other categories
     }
 
     return Expanded(

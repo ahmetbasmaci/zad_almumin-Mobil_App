@@ -30,6 +30,7 @@ class HomeCardGetRandomHadithDataSource implements IHomeCardGetRandomHadithDataS
     int randomHadith = Random().nextInt(hadiths.length);
     Hadith hadith = hadiths.elementAt(randomHadith);
     return HadithCardModel(
+
       hadithBookName: 'Albukhari book',
       chapterBookname: hadithData.bookName,
       chapterName: chapter.chapterName,
