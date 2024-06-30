@@ -14,8 +14,28 @@ class FavoriteSearchDelegate extends SearchDelegate {
         scaffoldBackgroundColor: context.themeColors.background,
         iconTheme: IconThemeData(color: context.themeColors.primary),
         appBarTheme: AppBarTheme(
-            color: context.themeColors.background, iconTheme: IconThemeData(color: context.themeColors.primary)),
-        textTheme: TextTheme(labelLarge: TextStyle(color: context.themeColors.primary)),
+          color: context.themeColors.background,
+          iconTheme: IconThemeData(color: context.themeColors.primary),
+          titleTextStyle: TextStyle(color: context.themeColors.primary),
+          toolbarTextStyle: TextStyle(color: context.themeColors.primary),
+        ),
+        textTheme: TextTheme(
+          bodySmall: TextStyle(color: context.themeColors.onBackground),
+          bodyMedium: TextStyle(color: context.themeColors.onBackground),
+          bodyLarge: TextStyle(color: context.themeColors.onBackground),
+          titleSmall: TextStyle(color: context.themeColors.onBackground),
+          titleMedium: TextStyle(color: context.themeColors.onBackground), //dropdown
+          titleLarge: TextStyle(color: context.themeColors.onBackground), //search text
+          displaySmall: TextStyle(color: context.themeColors.onBackground),
+          displayMedium: TextStyle(color: context.themeColors.onBackground),
+          displayLarge: TextStyle(color: context.themeColors.onBackground),
+          headlineSmall: TextStyle(color: context.themeColors.onBackground),
+          headlineMedium: TextStyle(color: context.themeColors.onBackground),
+          headlineLarge: TextStyle(color: context.themeColors.onBackground),
+          labelSmall: TextStyle(color: context.themeColors.onBackground),
+          labelMedium: TextStyle(color: context.themeColors.onBackground),
+          labelLarge: TextStyle(color: context.themeColors.onBackground),
+        ),
         textSelectionTheme: TextSelectionThemeData(cursorColor: context.themeColors.primary),
         inputDecorationTheme: const InputDecorationTheme(focusedBorder: InputBorder.none, border: InputBorder.none),
       );
@@ -34,15 +54,12 @@ class FavoriteSearchDelegate extends SearchDelegate {
   Widget buildSuggestions(BuildContext context) => _body();
 
   Widget _body() {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => GetItManager.instance.favoriteCubit),
-          BlocProvider(create: (context) => GetItManager.instance.homeQuranCardCubit),
-        ],
-        child: FavoriteBody.withSearchText(searchText: query),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => GetItManager.instance.favoriteCubit),
+        BlocProvider(create: (context) => GetItManager.instance.homeQuranCardCubit),
+      ],
+      child: FavoriteBody.withSearchText(searchText: query),
     );
   }
 }
