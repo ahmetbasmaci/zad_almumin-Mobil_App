@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:zad_almumin/core/extentions/dart_extention.dart';
+import 'package:zad_almumin/core/extentions/extentions.dart';
 import 'package:zad_almumin/core/utils/enums/enums.dart';
 import 'package:zad_almumin/core/utils/params/params.dart';
 import '../../../azkar/azkar.dart';
@@ -53,34 +53,44 @@ class FavoriteCubit extends Cubit<FavoriteState> {
       },
       (r) {
         var filteredList = <BaseFavoriteEntities>[];
-        filteredList.addAll(
-          r.where(
-            (BaseFavoriteEntities element) {
-              if (element is QuranCardModel) {
-                element.content.removeTashkil.contains(searchText.removeTashkil) ||
-                    element.surahName.removeTashkil.contains(searchText.removeTashkil);
-              } else if (element is HadithCardModel) {
-                return element.hadithText.removeTashkil.contains(searchText.removeTashkil) ||
-                    element.hadithSanad.removeTashkil.contains(searchText.removeTashkil) ||
-                    element.hadithBookName.removeTashkil.contains(searchText.removeTashkil);
-              } else if (element is ZikrCardModel) {
-                return element.title.removeTashkil.contains(searchText.removeTashkil) ||
-                    element.content.removeTashkil.contains(searchText.removeTashkil) ||
-                    element.description.removeTashkil.contains(searchText.removeTashkil);
-              } else if (element is AllahNamesCardModel) {
-                return element.name.removeTashkil.contains(searchText.removeTashkil) ||
-                    element.content.removeTashkil.contains(searchText.removeTashkil);
-              }
-
-              return false;
-            },
-          ),
-        );
+        if (searchText.isEmpty) {
+          filteredList = r;
+        } else {
+          filteredList.addAll(_filterList(r, searchText));
+        }
 
         emit(FavoriteLoadedState(favoriteZikrModels: filteredList, favoriteZikrCategory: state.favoriteZikrCategory));
       },
     );
   }
 
+  List<BaseFavoriteEntities> _filterList(List<BaseFavoriteEntities> list, String searchText) {
+    bool showQuran = state.favoriteZikrCategory == FavoriteZikrCategory.quran ||
+        state.favoriteZikrCategory == FavoriteZikrCategory.all;
+    bool showHadith = state.favoriteZikrCategory == FavoriteZikrCategory.hadiths ||
+        state.favoriteZikrCategory == FavoriteZikrCategory.all;
+    bool showAzkar = state.favoriteZikrCategory == FavoriteZikrCategory.azkar ||
+        state.favoriteZikrCategory == FavoriteZikrCategory.all;
+    bool showAllahNames = state.favoriteZikrCategory == FavoriteZikrCategory.allahNames ||
+        state.favoriteZikrCategory == FavoriteZikrCategory.all;
 
+    return list.where(
+      (element) {
+        if (element is QuranCardModel && showQuran) {
+          return element.zikrCategory == state.favoriteZikrCategory &&
+                  element.content.removeTashkil.contains(searchText) ||
+              element.surahName.contains(searchText);
+        } else if (element is HadithCardModel && showHadith) {
+          return element.hadithText.contains(searchText) ||
+              element.hadithBookName.contains(searchText) ||
+              element.chapterBookname.contains(searchText);
+        } else if (element is ZikrCardModel && showAzkar) {
+          return element.content.contains(searchText) || element.description.contains(searchText);
+        } else if (element is AllahNamesCardModel && showAllahNames) {
+          return element.name.contains(searchText) || element.content.contains(searchText);
+        } else
+          return false;
+      },
+    ).toList();
+  }
 }
