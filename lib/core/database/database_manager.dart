@@ -12,7 +12,7 @@ class DatabaseManager implements IDatabaseManager {
   static const int _databaseVersion = 2;
   static const String _databaseName = "zad-almumin.db";
   static Database? _database;
-
+  static const String _databaseNotOpenErrorMessage = 'Error: Database is not open !!!';
   Future<Database> get _getDatabase async {
     _database ??= await _initDB();
 
@@ -20,9 +20,9 @@ class DatabaseManager implements IDatabaseManager {
   }
 
   Future<Database> _initDB() async {
-    await deleteDB();
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, _databaseName);
+
     return await openDatabase(
       path,
       onCreate: (Database db, int version) async {
@@ -65,8 +65,9 @@ class DatabaseManager implements IDatabaseManager {
     required String tableName,
     required Map<String, dynamic> values,
   }) async {
-    final db = await _getDatabase;
     try {
+      final db = await _getDatabase;
+      if (!db.isOpen) throw Exception(_databaseNotOpenErrorMessage);
       return await db.insert(
         tableName,
         values,
@@ -85,6 +86,7 @@ class DatabaseManager implements IDatabaseManager {
     required int id,
   }) async {
     final db = await _getDatabase;
+    if (!db.isOpen) throw Exception(_databaseNotOpenErrorMessage);
     return await db.update(
       tableName,
       values,
@@ -100,6 +102,7 @@ class DatabaseManager implements IDatabaseManager {
     required int id,
   }) async {
     final db = await _getDatabase;
+    if (!db.isOpen) throw Exception(_databaseNotOpenErrorMessage);
     return await db.delete(
       tableName,
       where: 'id = ?',
@@ -113,6 +116,7 @@ class DatabaseManager implements IDatabaseManager {
     required int id,
   }) async {
     final db = await _getDatabase;
+    if (!db.isOpen) throw Exception(_databaseNotOpenErrorMessage);
     final query = await db.query(
       tableName,
       where: "id = ?",
@@ -127,6 +131,7 @@ class DatabaseManager implements IDatabaseManager {
   @override
   Future<List<Map<String, dynamic>>> getAllRows({required String tableName}) async {
     final db = await _getDatabase;
+    if (!db.isOpen) throw Exception(_databaseNotOpenErrorMessage);
     return db.query(tableName, orderBy: 'id');
   }
 
@@ -137,6 +142,7 @@ class DatabaseManager implements IDatabaseManager {
     required dynamic value,
   }) async {
     final db = await _getDatabase;
+    if (!db.isOpen) throw Exception(_databaseNotOpenErrorMessage);
     return db.query(
       tableName,
       where: '$column = ?',
@@ -158,12 +164,14 @@ class DatabaseManager implements IDatabaseManager {
   @override
   Future<List<Map<String, dynamic>>> rawQuery(String query) async {
     final db = await _getDatabase;
+    if (!db.isOpen) throw Exception(_databaseNotOpenErrorMessage);
     return db.rawQuery(query);
   }
 
   @override
   Future<int> getRowCount({required String tableName}) async {
     final db = await _getDatabase;
+    if (!db.isOpen) throw Exception(_databaseNotOpenErrorMessage);
     int? count = Sqflite.firstIntValue(await db.rawQuery('${DatabaseQueryHelper.selectCountFrom} $tableName'));
     return count ?? -1;
   }
@@ -183,10 +191,20 @@ class DatabaseManager implements IDatabaseManager {
     required dynamic value,
   }) async {
     final db = await _getDatabase;
+    if (!db.isOpen) throw Exception(_databaseNotOpenErrorMessage);
     return await db.delete(
       tableName,
       where: '$column = ?',
       whereArgs: [value],
     );
+  }
+
+  @override
+  Future<void> closeDatabase() async {
+    PrinterHelper.print('Database is closed');
+    if (_database != null) {
+      await _database!.close();
+      _database = null; // Ensure the reference is cleared to prevent leaks
+    }
   }
 }

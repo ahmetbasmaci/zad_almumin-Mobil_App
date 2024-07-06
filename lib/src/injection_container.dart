@@ -94,7 +94,11 @@ class GetItManager {
     _sl.registerLazySingleton<ILocationDetector>(() => LocationDetector());
     _sl.registerLazySingleton<IJsonService>(() => JsonService());
     _sl.registerLazySingleton<IFilesService>(() => FilesService());
-    _sl.registerLazySingleton<IDatabaseManager>(() => DatabaseManager());
+    _sl.registerLazySingleton<IDatabaseManager>(
+      () => DatabaseManager(),
+      // () => DatabaseManager()..deleteDB(),//when you want to delete the database
+      dispose: (databaseManager) => databaseManager.closeDatabase(),
+    );
     _sl.registerLazySingleton<IFirebaseStorageConsumer>(() => FirebaseStorageConsumer());
   }
 

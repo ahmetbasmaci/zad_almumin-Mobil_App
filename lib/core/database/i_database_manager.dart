@@ -50,4 +50,5 @@ abstract class IDatabaseManager {
   Future<void> onCreate(Database db, int version, String creatString);
 
   Future<void> onUpgrade(Database db, int oldVersion, int newVersion, String tableName, String creatString);
+  Future<void> closeDatabase();
 }

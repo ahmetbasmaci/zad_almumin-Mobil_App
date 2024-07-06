@@ -26,7 +26,6 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => GetItManager.instance.tafseerCubit..initTafseerPage()),
         BlocProvider(create: (context) => GetItManager.instance.quranQuestionsCubit),
         BlocProvider(create: (context) => GetItManager.instance.homeQuranCardCubit),
-        
       ],
       child: _buildChild(),
     );
