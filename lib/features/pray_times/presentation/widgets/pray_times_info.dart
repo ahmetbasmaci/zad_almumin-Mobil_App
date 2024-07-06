@@ -13,12 +13,16 @@ class PrayTimesInfo extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(AppSizes.cardPadding),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(AppSizes.cardRadius)),
-      child: Column(
-        children: <Widget>[
-          _datesAndDayName(context),
-          const Divider(thickness: 2),
-          _prayerTimesCards(context),
-        ],
+      child: BlocBuilder<PrayTimesCubit, PrayTimesState>(
+        builder: (context, state) {
+          return Column(
+            children: <Widget>[
+              _datesAndDayName(context),
+              const Divider(thickness: 2),
+              _prayerTimesCards(context),
+            ],
+          );
+        },
       ),
     );
   }

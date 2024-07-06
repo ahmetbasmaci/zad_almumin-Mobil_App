@@ -10,18 +10,24 @@ class PrayTimeLeftCard extends StatelessWidget {
   const PrayTimeLeftCard({super.key});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: AppSizes.spaceBetweanParts),
-      decoration: _cardDecoration(context),
-      width: context.width * .55,
-      height: context.height * .25,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          _prayTimeNameTitle(context),
-          _prayTimeLeft(context),
-        ],
-      ),
+    return BlocBuilder<PrayTimesCubit, PrayTimesState>(
+      builder: (context, state) {
+        return Container(
+          margin: EdgeInsets.only(top: AppSizes.spaceBetweanParts),
+          decoration: _cardDecoration(context),
+          width: context.width * .55,
+          height: context.height * .25,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Expanded(child: Center(child: _prayTimeNameTitle(context))),
+              Expanded(
+                child: Center(child: _prayTimeLeft(context)),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -45,17 +51,16 @@ class PrayTimeLeftCard extends StatelessWidget {
   }
 
   Widget _prayTimeLeft(BuildContext context) {
-    return context.read<PrayTimesCubit>().state.isLoading ? const AppCircularProgressIndicator() : _prayTimeLeftTitle();
+    return context.read<PrayTimesCubit>().state.isLoading
+        ? const AppCircularProgressIndicator()
+        : _prayTimeLeftTitle(context);
   }
 
-  BlocBuilder<PrayTimesCubit, PrayTimesState> _prayTimeLeftTitle() {
-    return BlocBuilder<PrayTimesCubit, PrayTimesState>(
-      builder: (context, state) {
-        return Text(
-          context.read<PrayTimesCubit>().state.timeLeftToNextPrayTime,
-          style: AppStyles.titleLarge(context),
-        );
-      },
+  Widget _prayTimeLeftTitle(BuildContext context) {
+    return Text(
+      context.read<PrayTimesCubit>().state.timeLeftToNextPrayTime,
+      textAlign: TextAlign.center,
+      style: AppStyles.titleLarge(context),
     );
   }
 
