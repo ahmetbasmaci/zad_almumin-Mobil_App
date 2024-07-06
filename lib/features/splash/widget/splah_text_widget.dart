@@ -16,10 +16,14 @@ class SplahTextWidget extends StatelessWidget {
         padding: EdgeInsets.only(top: context.height * 0.1),
         child: AnimatedTextKit(
           animatedTexts: [
-            TyperAnimatedText(
+            FadeAnimatedText(
               AppStrings.of(context).appName,
-              speed: const Duration(milliseconds: 100),
-              textStyle: AppStyles.titleLarge(context),
+              textStyle: AppStyles.titleLarge(context).copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+              duration: const Duration(milliseconds: 1500),
+              fadeInEnd: .6,
+              fadeOutBegin: .9,
             ),
           ],
           isRepeatingAnimation: false,

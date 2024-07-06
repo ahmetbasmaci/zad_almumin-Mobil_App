@@ -8,12 +8,15 @@ class SplahImageWidget extends StatelessWidget {
   final double opacity;
   final bool value;
   final Animation<double> scaleAnimation;
+  final Duration _opacityDuration = const Duration(milliseconds: 1000);
+  final Duration _containerDuration = const Duration(milliseconds: 700);
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: AnimatedOpacity(
         curve: Curves.fastLinearToSlowEaseIn,
-        duration: const Duration(seconds: 1),
+        duration: _opacityDuration,
         opacity: opacity,
         child: Container(
           decoration: BoxDecoration(
@@ -30,7 +33,7 @@ class SplahImageWidget extends StatelessWidget {
           padding: const EdgeInsets.all(50),
           child: AnimatedContainer(
             curve: Curves.fastLinearToSlowEaseIn,
-            duration: const Duration(seconds: 1),
+            duration: _containerDuration,
             height: value ? context.height * 0.05 : context.height * 0.15,
             width: value ? context.height * 0.05 : context.height * 0.15,
             decoration: BoxDecoration(

@@ -21,8 +21,9 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
   double _opacity = 0;
   bool _value = true;
-  final Duration _splashScreenTime = kDebugMode ? const Duration(milliseconds: 0) : const Duration(milliseconds: 2000);
-  final Duration _colorBigingTime = const Duration(milliseconds: 500);
+  final Duration _splashScreenTime =
+      kDebugMode ? const Duration(milliseconds: 0) : const Duration(milliseconds: 1000);
+  final Duration _colorBigingTime = const Duration(milliseconds: 350);
   @override
   void initState() {
     super.initState();
@@ -48,12 +49,15 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   }
 
   void _updateVlauesTime() {
-    Timer(const Duration(seconds: 1), () {
-      setState(() {
-        _opacity = 1.0;
-        _value = false;
-      });
-    });
+    Timer(
+      const Duration(milliseconds: 500),
+      () => setState(
+        () {
+          _opacity = 1.0;
+          _value = false;
+        },
+      ),
+    );
   }
 
   void _updateAnimationTimer() async {
@@ -78,6 +82,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   @override
   void dispose() {
     scaleController.dispose();
+
     super.dispose();
   }
 
