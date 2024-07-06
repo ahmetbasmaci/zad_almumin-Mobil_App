@@ -77,17 +77,17 @@ class FavoriteCubit extends Cubit<FavoriteState> {
     return list.where(
       (element) {
         if (element is QuranCardModel && showQuran) {
-          return element.zikrCategory == state.favoriteZikrCategory &&
-                  element.content.removeTashkil.contains(searchText) ||
-              element.surahName.contains(searchText);
+          return element.content.removeTashkil.contains(searchText) ||
+              element.surahName.removeTashkil.contains(searchText);
         } else if (element is HadithCardModel && showHadith) {
-          return element.hadithText.contains(searchText) ||
-              element.hadithBookName.contains(searchText) ||
-              element.chapterBookname.contains(searchText);
+          return element.hadithText.removeTashkil.contains(searchText) ||
+              element.hadithBookName.removeTashkil.contains(searchText) ||
+              element.chapterBookname.removeTashkil.contains(searchText);
         } else if (element is ZikrCardModel && showAzkar) {
-          return element.content.contains(searchText) || element.description.contains(searchText);
+          return element.content.removeTashkil.contains(searchText) ||
+              element.description.removeTashkil.contains(searchText);
         } else if (element is AllahNamesCardModel && showAllahNames) {
-          return element.name.contains(searchText) || element.content.contains(searchText);
+          return element.name.removeTashkil.contains(searchText) || element.content.removeTashkil.contains(searchText);
         } else
           return false;
       },
