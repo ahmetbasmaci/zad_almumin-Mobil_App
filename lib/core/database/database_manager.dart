@@ -132,7 +132,7 @@ class DatabaseManager implements IDatabaseManager {
   Future<List<Map<String, dynamic>>> getAllRows({required String tableName}) async {
     final db = await _getDatabase;
     if (!db.isOpen) throw Exception(_databaseNotOpenErrorMessage);
-    return db.query(tableName, orderBy: 'id');
+    return await db.query(tableName, orderBy: 'id');
   }
 
   @override
@@ -143,7 +143,7 @@ class DatabaseManager implements IDatabaseManager {
   }) async {
     final db = await _getDatabase;
     if (!db.isOpen) throw Exception(_databaseNotOpenErrorMessage);
-    return db.query(
+    return await db.query(
       tableName,
       where: '$column = ?',
       whereArgs: [value],
@@ -165,7 +165,7 @@ class DatabaseManager implements IDatabaseManager {
   Future<List<Map<String, dynamic>>> rawQuery(String query) async {
     final db = await _getDatabase;
     if (!db.isOpen) throw Exception(_databaseNotOpenErrorMessage);
-    return db.rawQuery(query);
+    return await db.rawQuery(query);
   }
 
   @override

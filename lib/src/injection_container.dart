@@ -97,7 +97,9 @@ class GetItManager {
     _sl.registerLazySingleton<IDatabaseManager>(
       () => DatabaseManager(),
       // () => DatabaseManager()..deleteDB(),//when you want to delete the database
-      dispose: (databaseManager) => databaseManager.closeDatabase(),
+      dispose: (databaseManager) async {
+        await databaseManager.closeDatabase();
+      },
     );
     _sl.registerLazySingleton<IFirebaseStorageConsumer>(() => FirebaseStorageConsumer());
   }
