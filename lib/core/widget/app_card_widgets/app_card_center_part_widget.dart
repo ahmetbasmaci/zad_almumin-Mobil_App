@@ -23,9 +23,7 @@ class AppCardCenterPartWidget extends StatelessWidget {
               TextSpan(
                 children: [
                   TextSpan(text: content),
-                  TextSpan(
-                    text: '\n\n$description',
-                  ),
+                  TextSpan(text: '\n\n$description'),
                 ],
               ),
               textAlign: TextAlign.center,

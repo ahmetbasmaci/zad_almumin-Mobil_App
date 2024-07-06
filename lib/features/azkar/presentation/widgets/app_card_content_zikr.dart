@@ -9,19 +9,42 @@ import '../../../../core/utils/enums/enums.dart';
 import '../../../../core/widget/animations/animated_list_item_down_to_up.dart';
 import '../../../../core/widget/app_card_widgets/app_card_widgets.dart';
 
-class AppCardContentZikr extends StatelessWidget {
-  AppCardContentZikr({
+class ZikrCardWidget extends StatelessWidget {
+  ZikrCardWidget.zikr({
     super.key,
-    this.zikrModel,
-    this.allahNamesModel,
-    required this.currentIndex,
+    required this.zikrCardModel,
     required this.zikrCategoty,
-  });
-  final ZikrCardModel? zikrModel;
-  final AllahNamesModel? allahNamesModel;
-  final int currentIndex;
+  })  : isFromFavorite = false,
+        allahNamesCardModel = null;
+
+  ZikrCardWidget.zikrFromFavorite({
+    super.key,
+    this.zikrCardModel,
+  })  : isFromFavorite = true,
+        zikrCategoty = ZikrCategories.wakeUp, //TODO meybe should change this to real category
+        allahNamesCardModel = null;
+
+  ZikrCardWidget.allahNames({
+    super.key,
+    required this.allahNamesCardModel,
+  })  : isFromFavorite = false,
+        zikrCardModel = null,
+        zikrCategoty = ZikrCategories.allahNames;
+
+  ZikrCardWidget.allahNamesFromFavorite({
+    super.key,
+    required this.allahNamesCardModel,
+  })  : isFromFavorite = true,
+        zikrCardModel = null,
+        zikrCategoty = ZikrCategories.allahNames;
+
+  final ZikrCardModel? zikrCardModel;
+  final AllahNamesCardModel? allahNamesCardModel;
+
   final ZikrCategories zikrCategoty;
+  final bool isFromFavorite;
   int totalIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     totalIndex = 0;
@@ -32,41 +55,41 @@ class AppCardContentZikr extends StatelessWidget {
     return _appCardContent(
       context: context,
       useMargin: true,
-      title: allahNamesModel!.name,
-      content: allahNamesModel!.content,
+      title: allahNamesCardModel!.name,
+      content: allahNamesCardModel!.content,
       description: '',
       count: -1,
     );
   }
 
   Widget _azkarsBody(BuildContext context) {
-    if (zikrModel!.haveList) {
+    if (zikrCardModel!.haveList) {
       return ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: zikrModel!.list.length,
+          itemCount: zikrCardModel!.list.length,
           itemBuilder: (context, index2) {
             if (index2 > 0) {
-              zikrModel!.title = "${zikrModel!.title} ${index2 + 1}";
+              zikrCardModel!.title = "${zikrCardModel!.title} ${index2 + 1}";
             }
-            zikrModel!.content = zikrModel!.list[index2]['zekr'] ?? "";
+            zikrCardModel!.content = zikrCardModel!.list[index2]['zekr'] ?? "";
             return _appCardContent(
               context: context,
               useMargin: true,
-              title: zikrModel!.title,
-              content: '${zikrModel!.content}\n${zikrModel!.description}',
-              description: zikrModel!.description,
-              count: zikrModel!.count,
+              title: zikrCardModel!.title,
+              content: zikrCardModel!.content,
+              description: zikrCardModel!.description,
+              count: zikrCardModel!.count,
             );
           });
     } else {
       return _appCardContent(
         context: context,
         useMargin: true,
-        title: zikrModel!.title,
-        content: '${zikrModel!.content}\n${zikrModel!.description}',
-        description: zikrModel!.description,
-        count: zikrModel!.count,
+        title: zikrCardModel!.title,
+        content: zikrCardModel!.content,
+        description: zikrCardModel!.description,
+        count: zikrCardModel!.count,
       );
     }
   }
@@ -82,27 +105,33 @@ class AppCardContentZikr extends StatelessWidget {
     totalIndex++;
     return AnimatedListItemDownToUp(
       index: totalIndex,
-      child: StatefulBuilder(
-        builder: (BuildContext context, setState) {
-          return AppCardWithTappingAnimation(
-            canTap: count > 0 || count == -1,
-            onTap: () {},
-            onTapUp: () async {
-              count--;
-              //ckeck if state alive
-              if (context.mounted) {
-                setState(() {});
-              }
-            },
-            useMargin: useMargin,
-            child: AppCardContent(
+      child: isFromFavorite
+          ? AppCardContent(
               topPartWidget: _topPartWidget(context, title, count),
               centerPartWidget: _centerPartWidget(content, description),
               footerPartWidget: _footerPartWidget(context, title, content, count),
+            )
+          : StatefulBuilder(
+              builder: (BuildContext context, setState) {
+                return AppCardWithTappingAnimation(
+                  canTap: count > 0 || count == -1,
+                  onTap: () {},
+                  onTapUp: () async {
+                    count--;
+                    //ckeck if state alive
+                    if (context.mounted) {
+                      setState(() {});
+                    }
+                  },
+                  useMargin: useMargin,
+                  child: AppCardContent(
+                    topPartWidget: _topPartWidget(context, title, count),
+                    centerPartWidget: _centerPartWidget(content, description),
+                    footerPartWidget: _footerPartWidget(context, title, content, count),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 
@@ -131,7 +160,10 @@ class AppCardContentZikr extends StatelessWidget {
       padding: EdgeInsets.only(top: AppSizes.cardPadding * 2),
       child: Column(
         children: [
-          //TODO AppCardContentFooterPartButtons( content: content),
+          AppCardContentFooterPartButtons(
+            content: content,
+            item: zikrCardModel ?? allahNamesCardModel!,
+          ),
           count > 0 ? _counterWidget(context, count) : Container(),
         ],
       ),

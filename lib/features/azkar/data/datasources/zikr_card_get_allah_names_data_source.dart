@@ -3,16 +3,16 @@ import '../../../../core/utils/resources/resources.dart';
 import '../../azkar.dart';
 
 abstract class IZikrCardGetAllahNamesDataSource {
-  Future<List<AllahNamesModel>> getAllahNamesModels();
+  Future<List<AllahNamesCardModel>> getAllahNamesModels();
 }
 
 class ZikrCardGetAllahNamesDataSource implements IZikrCardGetAllahNamesDataSource {
   IJsonService jsonService;
 
   ZikrCardGetAllahNamesDataSource({required this.jsonService});
-  List<AllahNamesModel> result = [];
+  List<AllahNamesCardModel> result = [];
   @override
-  Future<List<AllahNamesModel>> getAllahNamesModels() async {
+  Future<List<AllahNamesCardModel>> getAllahNamesModels() async {
     if (result.isEmpty) await _loadAllahNamesDataList();
 
     return result;
@@ -23,7 +23,7 @@ class ZikrCardGetAllahNamesDataSource implements IZikrCardGetAllahNamesDataSourc
     List<dynamic> mapList = data['list'];
 
     for (var model in mapList) {
-      result.add(AllahNamesModel.fromJson(model));
+      result.add(AllahNamesCardModel.fromJson(model));
     }
   }
 }

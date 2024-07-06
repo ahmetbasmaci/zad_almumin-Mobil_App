@@ -51,12 +51,9 @@ class AzkarPage extends StatelessWidget {
         itemCount: currentListLength,
         physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         itemBuilder: (context, index) {
-          return AppCardContentZikr(
-            zikrModel: zikrCategoryModel.category != ZikrCategories.allahNames ? zikrDataList[index] : null,
-            allahNamesModel: zikrCategoryModel.category == ZikrCategories.allahNames ? allahNamesDataList[index] : null,
-            currentIndex: index,
-            zikrCategoty: zikrCategoryModel.category,
-          );
+          return zikrCategoryModel.category == ZikrCategories.allahNames
+              ? ZikrCardWidget.allahNames(allahNamesCardModel: allahNamesDataList[index])
+              : ZikrCardWidget.zikr(zikrCardModel: zikrDataList[index], zikrCategoty: zikrCategoryModel.category);
         },
       ),
     );

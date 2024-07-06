@@ -6,5 +6,5 @@ import '../../azkar.dart';
 
 abstract class IAzkarRepository {
   Future<Either<Failure, List<ZikrCardModel>>> getAllZikrModels(ZikrCategories zikrCategory);
-  Future<Either<Failure, List<AllahNamesModel>>> getAllahNamesModels();
+  Future<Either<Failure, List<AllahNamesCardModel>>> getAllahNamesModels();
 }

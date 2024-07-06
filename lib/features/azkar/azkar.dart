@@ -1,6 +1,6 @@
 export 'data/datasources/zikr_card_get_allah_names_data_source.dart';
 export 'data/datasources/zikr_card_get_zikr_data_source.dart';
-export 'data/models/allah_names_model.dart';
+export 'data/models/allah_names_card_model.dart';
 export 'data/models/zikr_card_model.dart';
 export 'data/models/zikr_category_model.dart';
 export 'data/repositories/azkar_repository.dart';

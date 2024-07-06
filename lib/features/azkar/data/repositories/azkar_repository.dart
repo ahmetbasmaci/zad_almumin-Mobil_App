@@ -24,7 +24,7 @@ class AzkarRepository implements IAzkarRepository {
   }
 
   @override
-  Future<Either<Failure, List<AllahNamesModel>>> getAllahNamesModels() async {
+  Future<Either<Failure, List<AllahNamesCardModel>>> getAllahNamesModels() async {
     try {
       var result = await zikrCardGetAllahNamesDataSource.getAllahNamesModels();
       return Right(result);

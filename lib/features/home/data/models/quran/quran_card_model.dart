@@ -63,7 +63,7 @@ class QuranCardModel extends BaseFavoriteEntities {
       juz: json['juz'] ?? 0,
       ayahNumber: json['ayahNumber'] ?? 0,
       surahNumber: json['surahNumber'] ?? 0,
-      date: DateTime.parse(json['date']),
+      date: DateTime.parse(json['date'] ?? DateTime.now().toString()),
     );
   }
 }

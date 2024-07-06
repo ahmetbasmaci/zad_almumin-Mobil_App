@@ -1,6 +1,9 @@
 import 'package:zad_almumin/core/database/tables/hadith_favorite_table.dart';
 import 'package:zad_almumin/core/database/tables/quran_favorite_table.dart';
 import '../../../../core/database/i_database_manager.dart';
+import '../../../../core/database/tables/allah_names_favorite_table.dart';
+import '../../../../core/database/tables/azkar_favorite_table.dart';
+import '../../../azkar/azkar.dart';
 import '../../../home/home.dart';
 import '../../favorite.dart';
 
@@ -17,9 +20,9 @@ class FavoriteGetAllDataSource implements IFavoriteGetAllDataSource {
   Future<List<BaseFavoriteEntities>> getAllFavoriteItems() async {
     final quranResult = await databaseManager.getAllRows(tableName: QuranFavoriteTable.tableName);
     final hadithResult = await databaseManager.getAllRows(tableName: HadithFavoriteTable.tableName);
-    //TODO add other categories
+    final azkarResult = await databaseManager.getAllRows(tableName: AzkarFavoriteTable.tableName);
+    final allahNamesResult = await databaseManager.getAllRows(tableName: AllahNamesFavoriteTable.tableName);
 
-    if (quranResult.isEmpty && hadithResult.isEmpty) return [];
     List<BaseFavoriteEntities> totalResult = [];
     if (quranResult.isNotEmpty) {
       totalResult.addAll(quranResult.map((e) => QuranCardModel.fromJson(e)).toList());
@@ -27,9 +30,14 @@ class FavoriteGetAllDataSource implements IFavoriteGetAllDataSource {
     if (hadithResult.isNotEmpty) {
       totalResult.addAll(hadithResult.map((e) => HadithCardModel.fromJson(e)).toList());
     }
-    //TODO add other categories
-    totalResult.sort((a, b) => a.date == null || b.date == null ? 0 : b.date!.compareTo(a.date!));
+    if (azkarResult.isNotEmpty) {
+      totalResult.addAll(azkarResult.map((e) => ZikrCardModel.fromJson(e)).toList());
+    }
+    if (allahNamesResult.isNotEmpty) {
+      totalResult.addAll(allahNamesResult.map((e) => AllahNamesCardModel.fromJson(e)).toList());
+    }
 
+    totalResult.sort((a, b) => a.date == null || b.date == null ? 0 : b.date!.compareTo(a.date!));
     return totalResult;
   }
 }

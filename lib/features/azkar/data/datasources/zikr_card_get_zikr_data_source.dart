@@ -1,7 +1,6 @@
 import '../../../../core/services/json_service.dart';
 import '../../../../core/utils/resources/app_json_paths.dart';
 
-
 import '../../../../core/utils/enums/enums.dart';
 import '../../azkar.dart';
 

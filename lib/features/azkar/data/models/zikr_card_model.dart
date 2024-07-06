@@ -1,44 +1,50 @@
-class ZikrCardModel {
+import '../../../../core/utils/enums/enums.dart';
+import '../../../favorite/domain/entities/base_favorite_entities.dart';
+
+class ZikrCardModel extends BaseFavoriteEntities {
   ZikrCardModel({
-    // required this.zikrCategory,
+    super.id = 0,
     this.title = '',
     this.content = '',
     this.description = '',
     this.count = 1,
     this.haveList = false,
-    this.list,
-    this.isFavorite = false,
-  });
-  // ZikrCategories zikrCategory;
+    this.list = const [],
+    super.date,
+  }) : super(zikrCategory: FavoriteZikrCategory.azkar);
 
   String title;
   String content;
-  bool isFavorite;
   String description;
-
   int count;
   bool haveList;
-  dynamic list = [];
+  dynamic list;
 
+  @override
   Map<String, dynamic> toJson() => {
         'title': title,
         'content': content,
-        'isFavorite': isFavorite,
         'description': description,
         'count': count,
         'haveList': haveList,
         'list': list,
-        // 'zikrCategory': zikrCategory.name
+        'date': DateTime.now().toString(),
       };
 
-  factory ZikrCardModel.fromJson(Map<String, dynamic> json) => ZikrCardModel(
-        title: json['title'],
-        content: json['zekr'] ?? '',
-        isFavorite: json['isFavorite'] ?? false,
-        description: json['description'] ?? '',
-        count: int.parse(json['count'] ?? '0'),
-        haveList: json['haveList'] ?? false,
-        list: json['list'] ?? [],
-        // zikrCategory: ZikrCategories.values.firstWhere((element) => element.name == json['zikrCategory']),
-      );
+  factory ZikrCardModel.fromJson(Map<String, dynamic> json) {
+    var count = json['count'] ?? 0;
+    int intCount = (count.runtimeType == String) ? int.parse(count) : count;
+    var haveList = json['haveList'] ?? false;
+    bool boolHaveList = (haveList.runtimeType == int) ? haveList != 0 : haveList;
+    return ZikrCardModel(
+      id: json['id'] ?? 0,
+      title: json['title'],
+      content: json['content'] ?? '',
+      description: json['description'] ?? '',
+      count: intCount,
+      haveList: boolHaveList,
+      list: json['list'] ?? [],
+      date: DateTime.parse(json['date'] ?? DateTime.now().toString()),
+    );
+  }
 }

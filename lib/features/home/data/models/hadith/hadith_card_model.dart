@@ -3,7 +3,6 @@ import 'package:zad_almumin/features/favorite/domain/entities/entities.dart';
 import '../../../../../core/utils/enums/enums.dart';
 
 class HadithCardModel extends BaseFavoriteEntities {
-
   final String hadithBookName;
   final String chapterBookname;
   final String chapterName;
@@ -44,7 +43,7 @@ class HadithCardModel extends BaseFavoriteEntities {
       hadithText: json['hadithText'] ?? '',
       hadithSanad: json['hadithSanad'] ?? '',
       hadithId: json['hadithId'] ?? 0,
-      date: DateTime.parse(json['date']),
+      date: DateTime.parse(json['date']?? DateTime.now().toString()),
     );
   }
 }

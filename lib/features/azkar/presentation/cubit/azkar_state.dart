@@ -13,11 +13,11 @@ class AzkarpageLoadingState extends AzkarState {}
 
 class AzkarpageLoadedState extends AzkarState {
   final List<ZikrCardModel> zikrDataList;
-  final List<AllahNamesModel> allahNamesDataList;
+  final List<AllahNamesCardModel> allahNamesDataList;
 
   AzkarpageLoadedState({
     List<ZikrCardModel>? zikrDataList,
-    List<AllahNamesModel>? allahNamesDataList,
+    List<AllahNamesCardModel>? allahNamesDataList,
   })  : zikrDataList = zikrDataList ?? [],
         allahNamesDataList = allahNamesDataList ?? [];
 }
@@ -25,5 +25,5 @@ class AzkarpageLoadedState extends AzkarState {
 class AzkarpageFieldState extends AzkarState {
   final String message;
 
-  AzkarpageFieldState(this.message);
+  const AzkarpageFieldState(this.message);
 }

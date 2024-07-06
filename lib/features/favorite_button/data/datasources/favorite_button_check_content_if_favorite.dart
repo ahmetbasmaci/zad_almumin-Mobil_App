@@ -1,4 +1,7 @@
 import 'package:zad_almumin/core/database/i_database_manager.dart';
+import 'package:zad_almumin/features/azkar/azkar.dart';
+import '../../../../core/database/tables/allah_names_favorite_table.dart';
+import '../../../../core/database/tables/azkar_favorite_table.dart';
 import '../../../../core/database/tables/tables.dart';
 import '../../../favorite/favorite.dart';
 import '../../../home/home.dart';
@@ -30,8 +33,22 @@ class FavoriteButtonCheckContentIfFavoriteDataSource implements IFavoriteButtonC
       );
       return result.isNotEmpty;
     }
-
-    //TODO add other categories
+    if (itemModel is ZikrCardModel) {
+      final result = await databaseManager.getFirstRowWhere(
+        tableName: AzkarFavoriteTable.tableName,
+        column: AzkarFavoriteTable.content,
+        value: itemModel.content,
+      );
+      return result.isNotEmpty;
+    }
+    if (itemModel is AllahNamesCardModel) {
+      final result = await databaseManager.getFirstRowWhere(
+        tableName: AllahNamesFavoriteTable.tableName,
+        column: AllahNamesFavoriteTable.name,
+        value: itemModel.name,
+      );
+      return result.isNotEmpty;
+    }
 
     return false;
   }

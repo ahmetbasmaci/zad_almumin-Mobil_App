@@ -1,5 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:zad_almumin/core/database/tables/allah_names_favorite_table.dart';
+import 'package:zad_almumin/core/database/tables/azkar_favorite_table.dart';
 
 import '../helpers/printer_helper.dart';
 import 'database_query_helper.dart';
@@ -9,10 +11,7 @@ import 'tables/tables.dart';
 class DatabaseManager implements IDatabaseManager {
   static const int _databaseVersion = 2;
   static const String _databaseName = "zad-almumin.db";
-
-  Database? _database;
-
-  DatabaseManager();
+  static Database? _database;
 
   Future<Database> get _getDatabase async {
     _database ??= await _initDB();
@@ -21,20 +20,25 @@ class DatabaseManager implements IDatabaseManager {
   }
 
   Future<Database> _initDB() async {
-    // await deleteDB();
+    await deleteDB();
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, _databaseName);
     return await openDatabase(
       path,
       onCreate: (Database db, int version) async {
         //? Add new table creation here
-        onCreate(db, version, QuranFavoriteTable.onCreateString);
-        onCreate(db, version, HadithFavoriteTable.onCreateString);
+        await onCreate(db, version, QuranFavoriteTable.onCreateString);
+        await onCreate(db, version, HadithFavoriteTable.onCreateString);
+        await onCreate(db, version, AzkarFavoriteTable.onCreateString);
+        await onCreate(db, version, AllahNamesFavoriteTable.onCreateString);
       },
       onUpgrade: (Database db, int oldVersion, int newVersion) async {
         //? Add new table upgrade here
-        onUpgrade(db, oldVersion, newVersion, QuranFavoriteTable.tableName, QuranFavoriteTable.onCreateString);
-        onUpgrade(db, oldVersion, newVersion, HadithFavoriteTable.tableName, HadithFavoriteTable.onCreateString);
+        await onUpgrade(db, oldVersion, newVersion, QuranFavoriteTable.tableName, QuranFavoriteTable.onCreateString);
+        await onUpgrade(db, oldVersion, newVersion, HadithFavoriteTable.tableName, HadithFavoriteTable.onCreateString);
+        await onUpgrade(db, oldVersion, newVersion, AzkarFavoriteTable.tableName, AzkarFavoriteTable.onCreateString);
+        await onUpgrade(
+            db, oldVersion, newVersion, AllahNamesFavoriteTable.tableName, AllahNamesFavoriteTable.onCreateString);
       },
       version: _databaseVersion,
     );
