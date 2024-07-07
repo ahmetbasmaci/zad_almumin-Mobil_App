@@ -44,7 +44,7 @@ class QuranState extends Equatable {
       resitationSettings: ResitationSettings.initial(),
       markedPages: [],
       markedAyahs: [],
-      isAudioPlaying : false,
+      isAudioPlaying: false,
     );
   }
 

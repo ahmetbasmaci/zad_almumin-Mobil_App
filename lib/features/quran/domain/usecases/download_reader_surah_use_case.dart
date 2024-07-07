@@ -10,6 +10,6 @@ class DownloadReaderSurahUseCase extends IUseCaseAsync<Stream<double>, DownloadS
   DownloadReaderSurahUseCase({required this.repository});
   @override
   Future<Either<Failure, Stream<double>>> call(DownloadSurahParams params) {
-    return repository.downloadSurah(params.surahNumber, params.quranReader);
+    return repository.downloadSurahStraem(params.surahNumber, params.quranReader);
   }
 }

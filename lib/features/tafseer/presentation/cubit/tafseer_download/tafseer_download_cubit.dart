@@ -3,78 +3,56 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../../core/utils/enums/enums.dart';
 import '../../../../../core/utils/params/params.dart';
+import '../../../domain/usecases/tafseer_download_stream_use_case.dart';
 import '../../../tafseer.dart';
 
 part 'tafseer_download_state.dart';
 
 class TafseerDownloadCubit extends Cubit<TafseerDownloadState> {
-  final TafseerDownloadUseCase downloadTafseerUseCase;
+  final TafseerDownloadUseCase tafseerDownloadUseCase;
   final TafseerCheckIfDownloadedUseCase checkTafseerIfDownloadedUseCase;
+  final TafseerDownloadStreamUseCase tafseerDownloadStreamUseCase;
   final TafseerWriteDataIntoFileAsBytesSyncUseCase tafseerWriteDataIntoFileAsBytesSyncUseCase;
 
   TafseerDownloadCubit({
-    required this.downloadTafseerUseCase,
+    required this.tafseerDownloadUseCase,
     required this.checkTafseerIfDownloadedUseCase,
+    required this.tafseerDownloadStreamUseCase,
     required this.tafseerWriteDataIntoFileAsBytesSyncUseCase,
   }) : super(TafseerDownloadInitialState());
 
   void downlaodTafseer(TafseerManagerModel tafseerModel) async {
-    emit(TafseerDownloadDownloadingState(progress: -1, tafseerManagerModel: tafseerModel));
-    var result = await downloadTafseerUseCase.call(DownloadTafseerParams(tafseerId: tafseerModel.id));
+    emit(TafseerDownloadDownloadingState(progress: 0, tafseerManagerModel: tafseerModel));
+
+    var result = await tafseerDownloadStreamUseCase.call(DownloadTafseerParams(tafseerId: tafseerModel.id));
     result.fold(
       (l) => emit(TafseerDownloadErrorState(message: l.message)),
-      (response) async {
-        if (response) {
-          tafseerModel.downloadState = DownloadState.downloaded;
-          emit(TafseerDownloadedState());
-        } else {
-          tafseerModel.downloadState = DownloadState.notDownloaded;
-          emit(const TafseerDownloadErrorState(message: 'Error downloading tafseer'));
-        }
-        /* tafseerModel.downloadState = DownloadState.downloading;
-
-        var receivedBytes = 0;
-        int contentLength = response.contentLength ?? 0;
-        await response.stream.forEach(
-          (data) {
-            receivedBytes += data.length;
-            final String progress = (receivedBytes / contentLength * 100).toStringAsFixed(1);
-            var writeIntoFileResult = tafseerWriteDataIntoFileAsBytesSyncUseCase.call(
-              WriteDataIntoFileAsBytesSyncParams(tafseerId: tafseerModel.id, data: data),
-            );
-            writeIntoFileResult.fold(
-              (l) => emit(TafseerDownloadErrorState(message: l.message)),
-              (r) => emit(
-                TafseerDownloadDownloadingState(
-                  progress: double.parse(progress),
-                  tafseerManagerModel: tafseerModel,
-                ),
-              ),
-            );
+      (Stream<double> downloadStream) async {
+        downloadStream.listen(
+          (value) async {
+            if (value >= 1) {
+              //downlaod complated
+              tafseerModel.downloadState = DownloadState.downloaded;
+              emit(TafseerDownloadedState());
+            } else {
+              emit(TafseerDownloadDownloadingState(tafseerManagerModel: tafseerModel, progress: value));
+            }
           },
         );
-
-        var checkTafseerIfDownloadedResult = await checkTafseerIfDownloadedUseCase.call(
-          TafseerIdParams(tafseerId: tafseerModel.id),
-        );
-
-        checkTafseerIfDownloadedResult.fold(
-          (l) {
-            tafseerModel.downloadState = DownloadState.notDownloaded;
-            emit(TafseerDownloadErrorState(message: l.message));
-          },
-          (r) {
-            tafseerModel.downloadState = DownloadState.downloaded;
-            emit(TafseerDownloadedState());
-//TODO
-            //        if (tafseersCtr.selectedTafseerId == 0) {
-            //   tafseersCtr.updateSelectedTafseerId(tafseerModel.id);
-            //   await JsonService.loadTafseer();
-            // }
-          },
-        );
-     */
       },
     );
+
+    // result.fold(
+    //   (l) => emit(TafseerDownloadErrorState(message: l.message)),
+    //   (response) async {
+    //     if (response) {
+    //       tafseerModel.downloadState = DownloadState.downloaded;
+    //       emit(TafseerDownloadedState());
+    //     } else {
+    //       tafseerModel.downloadState = DownloadState.notDownloaded;
+    //       emit(const TafseerDownloadErrorState(message: 'Error downloading tafseer'));
+    //     }
+    //   },
+    // );
   }
 }

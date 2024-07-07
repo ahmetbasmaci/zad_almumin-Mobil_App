@@ -9,14 +9,16 @@ class QuranTafseerPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScrollablePositionedList.builder(
-      itemCount: ayahs.length,
-      shrinkWrap: true,
-      itemScrollController: context.read<QuranCubit>().itemScrollController,
-      scrollDirection: Axis.vertical,
-      itemBuilder: (context, index) {
-        return _basmalahOrAyahOrTafseer(context, ayahs[index]);
-      },
+    return Scrollbar(
+      child: ScrollablePositionedList.builder(
+        itemCount: ayahs.length,
+        shrinkWrap: true,
+        itemScrollController: context.read<QuranCubit>().itemScrollController,
+        scrollDirection: Axis.vertical,
+        itemBuilder: (context, index) {
+          return _basmalahOrAyahOrTafseer(context, ayahs[index]);
+        },
+      ),
     );
   }
 

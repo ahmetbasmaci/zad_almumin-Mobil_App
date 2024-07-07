@@ -6,24 +6,24 @@ import 'package:zad_almumin/core/utils/api/consumer/consumer.dart';
 import 'package:zad_almumin/core/utils/enums/enums.dart';
 
 abstract class IQuranDownloadDataSource {
-  Stream<double> downloadSurah(int surahNumber, QuranReader quranReader);
-  Stream<double> downloadAyah(int surahNumber, int ayahNumber, QuranReader quranReader);
+  Stream<double> downloadSurahStraem(int surahNumber, QuranReader quranReader);
+  Stream<double> downloadAyahStraem(int surahNumber, int ayahNumber, QuranReader quranReader);
 }
 
 class QuranDownloadDataSource implements IQuranDownloadDataSource {
   QuranDownloadDataSource({
     required this.apiConsumer,
-    required this.fileService,
+    required this.filesService,
     required this.ayahApi,
     required this.appInternetConnection,
   });
   final ApiConsumer apiConsumer;
-  final IFilesService fileService;
+  final IFilesService filesService;
   final IAyahApi ayahApi;
   final IAppInternetConnection appInternetConnection;
 
   @override
-  Stream<double> downloadSurah(int surahNumber, QuranReader quranReader) async* {
+  Stream<double> downloadSurahStraem(int surahNumber, QuranReader quranReader) async* {
     AppConnectivityResult connectivityResult = await appInternetConnection.checkAppConnectivity();
     if (connectivityResult == AppConnectivityResult.none) {
       throw ServerException('No Internet Connection');
@@ -39,16 +39,16 @@ class QuranDownloadDataSource implements IQuranDownloadDataSource {
     double progress = 0;
 
     await for (var element in response.stream) {
-      await fileService.writeDataIntoSurahFileAsBytes(surahNumber, quranReader, element);
+      await filesService.writeDataIntoSurahFileAsBytes(surahNumber, quranReader, element);
       downloadedDataLength += element.length;
       progress = double.parse((downloadedDataLength / totalDataLength * 100).toStringAsFixed(1));
       yield progress / 100;
     }
-    await fileService.unArchiveAndSaveSurah(surahNumber, quranReader);
+    await filesService.unArchiveAndSaveSurah(surahNumber, quranReader);
   }
 
   @override
-  Stream<double> downloadAyah(int surahNumber, int ayahNumber, QuranReader quranReader) async* {
+  Stream<double> downloadAyahStraem(int surahNumber, int ayahNumber, QuranReader quranReader) async* {
     AppConnectivityResult connectivityResult = await appInternetConnection.checkAppConnectivity();
     if (connectivityResult == AppConnectivityResult.none) {
       throw ServerException('No Internet Connection');
@@ -64,7 +64,7 @@ class QuranDownloadDataSource implements IQuranDownloadDataSource {
     double progress = 0;
 
     await for (var element in response.stream) {
-      await fileService.writeDataIntoAyahFileAsBytes(surahNumber, ayahNumber, quranReader, element);
+      await filesService.writeDataIntoAyahFileAsBytes(surahNumber, ayahNumber, quranReader, element);
       downloadedDataLength += element.length;
       progress = double.parse((downloadedDataLength / totalDataLength * 100).toStringAsFixed(1));
       yield progress / 100;

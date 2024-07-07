@@ -1,13 +1,11 @@
-import 'package:zad_almumin/core/extentions/extentions.dart';
-import 'package:zad_almumin/core/services/files_service.dart';
-import 'package:zad_almumin/core/utils/resources/app_constants.dart';
-import 'package:zad_almumin/features/tafseer/tafseer.dart';
+import '../../../../core/services/files_service.dart';
 import '../../../../core/services/json_service.dart';
 import '../../../../core/utils/enums/enums.dart';
 import '../../../../core/utils/resources/resources.dart';
+import '../../tafseer.dart';
 
 abstract class ITafseerManagertaSource {
-  Future<List<TafseerManagerModel>> get getTafsers;
+  Future<List<TafseerManagerModel>> get getAllTafsers;
 }
 
 class TafseerManagerDataSource implements ITafseerManagertaSource {
@@ -20,11 +18,11 @@ class TafseerManagerDataSource implements ITafseerManagertaSource {
 
   List<TafseerManagerModel> allTafseerData = [];
   @override
-  Future<List<TafseerManagerModel>> get getTafsers async {
+  Future<List<TafseerManagerModel>> get getAllTafsers async {
     if (allTafseerData.isEmpty) await _loadTafseerData();
     await _updateTafseersDownloadState();
     //return tafseers by selected language
-    return allTafseerData.where((element) => element.language == AppConstants.context.localeCode).toList();
+    return allTafseerData;
   }
 
   Future<void> _loadTafseerData() async {

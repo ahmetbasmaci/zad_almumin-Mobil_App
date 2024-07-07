@@ -348,7 +348,14 @@ class QuranCubit extends Cubit<QuranState> {
           NavigatorHelper.pushNamed(AppRoutes.tafseer);
           return;
         }
-        emit(state.copyWith(showTafseerPage: !state.showTafseerPage));
+        bool newQuranViewModeInImages = state.quranViewModeInImages;
+        if (!state.showTafseerPage && state.quranViewModeInImages) newQuranViewModeInImages = false;
+        emit(
+          state.copyWith(
+            showTafseerPage: !state.showTafseerPage,
+            quranViewModeInImages: newQuranViewModeInImages,
+          ),
+        );
       },
     );
   }

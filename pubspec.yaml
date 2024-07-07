@@ -7,33 +7,34 @@ environment:
   sdk: ">=2.17.1 <3.0.0"
 dependencies:
   animated_text_kit: ^4.2.2
-  archive: ^3.4.10
+  archive: ^3.6.1
   assets_audio_player: ^3.1.1
   bot_toast: ^4.1.3
-  cloud_firestore: ^4.17.0
+  cloud_firestore: ^5.0.2
   connectivity_plus: ^5.0.2
   cupertino_icons: ^1.0.8
   dartz: ^0.10.1
   device_preview: ^1.2.0
   equatable: ^2.0.5
-  firebase_core: ^2.30.0
-  firebase_storage: ^11.7.2
+  firebase_app_check: ^0.3.0
+  firebase_core: ^3.1.1
+  firebase_storage: ^12.1.0
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.1.5
+  flutter_bloc: ^8.1.6
   flutter_custom_clippers: ^2.1.0
   flutter_launcher_icons: ^0.13.1
-  flutter_local_notifications: ^17.1.0
+  flutter_local_notifications: ^17.2.1
   flutter_localizations:
     sdk: flutter
-  flutter_screenutil: ^5.9.0
+  flutter_screenutil: ^5.9.3
   flutter_staggered_animations: ^1.1.1
   flutter_toastr: ^1.0.3
-  fluttertoast: ^8.2.5
-  geolocator: ^11.0.0
+  fluttertoast: ^8.2.6
+  geolocator: ^12.0.0
   get_it: ^7.7.0
   get_storage: ^2.1.1
-  go_router: ^13.2.4
+  go_router: ^14.2.0
   http: ^1.2.1
   intl: ^0.19.0
   intl_utils: ^2.8.7
@@ -44,10 +45,10 @@ dependencies:
   rename: ^3.0.2
   scrollable_positioned_list: ^0.3.8
   share_plus: ^9.0.0
-  sqflite: ^2.3.3+1
+  sqflite: ^2.3.3
 
 dev_dependencies:
-  flutter_lints: ^3.0.2
+  flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter
 

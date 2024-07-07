@@ -9,7 +9,8 @@ abstract class IAppInternetConnection {
 class AppInternetConnection implements IAppInternetConnection {
   @override
   Future<AppConnectivityResult> checkAppConnectivity() async {
-    ConnectivityResult connecivity = await Connectivity().checkConnectivity();
+    Connectivity connectivity = Connectivity();
+    ConnectivityResult connecivity = await connectivity.checkConnectivity();
 
     var connectingType =
         AppConnectivityResult.values.firstWhere((element) => element.name.toString() == connecivity.name.toString());

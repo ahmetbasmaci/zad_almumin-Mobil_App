@@ -23,7 +23,7 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => GetItManager.instance.quranCubit),
         BlocProvider(create: (context) => GetItManager.instance.quranReaderCubit),
         BlocProvider(create: (context) => GetItManager.instance.quranAudioButtonCubit),
-        BlocProvider(create: (context) => GetItManager.instance.tafseerCubit..initTafseerPage()),
+        BlocProvider(create: (context) => GetItManager.instance.tafseerCubit),
         BlocProvider(create: (context) => GetItManager.instance.quranQuestionsCubit),
         BlocProvider(create: (context) => GetItManager.instance.homeQuranCardCubit),
       ],
@@ -75,7 +75,7 @@ TODO- add download progress when downloading quran
 TODO- isPlaying listenere must set in audio player after change package
 TODO- localizations
 TODO- make text styles(font size) responsive
-TODO- 
+TODO- error in quran page when tafseer open and go to next page (ScrollPositionList.Builder )
 TODO- 
 TODO- 
 TODO- 

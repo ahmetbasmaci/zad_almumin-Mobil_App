@@ -1432,6 +1432,16 @@ class AppStrings {
     );
   }
 
+  /// `Change Tafseer Language`
+  String get changeTafseerLanguage {
+    return Intl.message(
+      'Change Tafseer Language',
+      name: 'changeTafseerLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `s`
   String get s {
     return Intl.message(

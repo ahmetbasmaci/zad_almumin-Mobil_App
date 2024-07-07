@@ -63,6 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "categoryBookname": MessageLookupByLibrary.simpleMessage("أسم الفئة"),
         "changeLanguage":
             MessageLookupByLibrary.simpleMessage("تغيير لغة التطبيق"),
+        "changeTafseerLanguage":
+            MessageLookupByLibrary.simpleMessage("تغيير لغة التفسير"),
         "changeTheme":
             MessageLookupByLibrary.simpleMessage("تغيير ثيم التطبيق"),
         "chapterName": MessageLookupByLibrary.simpleMessage("أسم الباب"),

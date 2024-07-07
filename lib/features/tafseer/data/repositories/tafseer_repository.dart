@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:http/http.dart';
 import 'package:zad_almumin/core/error/failure/failure.dart';
 import 'package:zad_almumin/core/helpers/printer_helper.dart';
 import '../../tafseer.dart';
@@ -16,9 +15,9 @@ class TafseerRepository implements ITafseerRepository {
     required this.tafseerSelectedDataSource,
   });
   @override
-  Future<Either<Failure, List<TafseerManagerModel>>> get getTafsers async {
+  Future<Either<Failure, List<TafseerManagerModel>>> get getAllTafsers async {
     try {
-      var result = await tafseerManagerDataSource.getTafsers;
+      var result = await tafseerManagerDataSource.getAllTafsers;
       return Future.value(Right(result));
     } catch (e) {
       return Future.value(Left(JsonFailure(e.toString())));
@@ -36,9 +35,9 @@ class TafseerRepository implements ITafseerRepository {
   }
 
   @override
-  Future<Either<Failure, StreamedResponse>> downloadTafseerStream(int tafseerId) async {
+  Future<Either<Failure, Stream<double>>> downloadTafseerStream(int tafseerId) async {
     try {
-      var result = await tafseerDownloaderDataSource.downloadTafseerStream(tafseerId);
+      var result = tafseerDownloaderDataSource.downloadTafseerStream(tafseerId);
       return Future.value(Right(result));
     } catch (e) {
       return Future.value(Left(JsonFailure(e.toString())));

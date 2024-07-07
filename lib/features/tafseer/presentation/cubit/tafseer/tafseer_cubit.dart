@@ -9,18 +9,18 @@ import '../../../tafseer.dart';
 part 'tafseer_state.dart';
 
 class TafseerCubit extends Cubit<TafseerState> {
-  final TafseerGetManagerUseCase getTafseersUseCase;
+  final TafseerGetAllManagerUseCase getAllTafseersUseCase;
   final TafseerSaveSelectedIdUseCase tafseerSaveSelectedIdUseCase;
   final TafseerGetSelectedTafseerId tafseerGetSelectedTafseerId;
   final TafseerGetTafseerDataUseCase tafseerGetTafseerDataUseCase;
 
   TafseerCubit({
-    required this.getTafseersUseCase,
+    required this.getAllTafseersUseCase,
     required this.tafseerSaveSelectedIdUseCase,
     required this.tafseerGetSelectedTafseerId,
     required this.tafseerGetTafseerDataUseCase,
   }) : super(TafseerState.init()) {
-    // initTafseerPage();
+    //initTafseerPage();
   }
 
   int get selectedTafseerId {
@@ -30,9 +30,16 @@ class TafseerCubit extends Cubit<TafseerState> {
       return state.selectedTafseerId.englishId;
   }
 
-  Future<List<TafseerManagerModel>> _loadTafseers() async {
-    var result = await getTafseersUseCase.call(NoParams());
-    List<TafseerManagerModel> tafseers = result.fold((l) => [], (r) => r);
+  Future<List<TafseerManagerModel>> _getTafseers({String? newLocale}) async {
+    var result = await getAllTafseersUseCase.call(NoParams());
+    List<TafseerManagerModel> tafseers = result.fold(
+      (l) => [],
+      (r) {
+        newLocale ??= state.locale.isNotEmpty ? state.locale : AppConstants.context.localeCode;
+        return r.where((element) => element.language == newLocale).toList();
+      },
+    );
+
     return tafseers;
   }
 
@@ -57,7 +64,7 @@ class TafseerCubit extends Cubit<TafseerState> {
   }
 
   void initTafseerPage() async {
-    var tafseers = await _loadTafseers();
+    var tafseers = await _getTafseers();
     var savedTafseerId = await _getSavedSelectedTafseerId();
     var selectedTafseerModel = await _updateTafseerData(selectedTafseerId);
     emit(
@@ -87,5 +94,11 @@ class TafseerCubit extends Cubit<TafseerState> {
       },
     );
     return tafseerDataModel;
+  }
+
+  Future<void> changeLocale(String newValue) async {
+    var tafseers = await _getTafseers(newLocale: newValue);
+
+    emit(state.copyWith(locale: newValue, tafseerModels: tafseers));
   }
 }

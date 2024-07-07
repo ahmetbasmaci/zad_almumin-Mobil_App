@@ -5,13 +5,13 @@ import 'package:zad_almumin/features/tafseer/tafseer.dart';
 
 import '../../../../core/utils/params/params.dart';
 
-class TafseerGetManagerUseCase extends IUseCaseAsync<List<TafseerManagerModel>, NoParams> {
+class TafseerDownloadStreamUseCase extends IUseCaseAsync<Stream<double>, DownloadTafseerParams> {
   ITafseerRepository tafseerRepository;
 
-  TafseerGetManagerUseCase({required this.tafseerRepository});
+  TafseerDownloadStreamUseCase({required this.tafseerRepository});
 
   @override
-  Future<Either<Failure, List<TafseerManagerModel>>> call(NoParams params) {
-    return tafseerRepository.getTafsers;
+  Future<Either<Failure, Stream<double>>> call(DownloadTafseerParams params) {
+    return tafseerRepository.downloadTafseerStream(params.tafseerId);
   }
 }

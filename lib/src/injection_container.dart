@@ -25,6 +25,7 @@ import '../features/home/home.dart';
 import '../features/locale/locale.dart';
 import '../features/pray_times/pray_times.dart';
 import '../features/quran/quran.dart';
+import '../features/tafseer/domain/usecases/tafseer_download_stream_use_case.dart';
 import '../features/theme/theme.dart';
 
 class GetItManager {
@@ -268,7 +269,7 @@ class GetItManager {
     );
     _sl.registerLazySingleton<IQuranDownloadDataSource>(() => QuranDownloadDataSource(
           apiConsumer: _sl(),
-          fileService: _sl(),
+          filesService: _sl(),
           ayahApi: _sl(),
           appInternetConnection: _sl(),
         ));
@@ -349,9 +350,10 @@ class GetItManager {
     );
 
     //!usecase
-    _sl.registerLazySingleton(() => TafseerGetManagerUseCase(tafseerRepository: _sl()));
+    _sl.registerLazySingleton(() => TafseerGetAllManagerUseCase(tafseerRepository: _sl()));
     _sl.registerLazySingleton(() => TafseerCheckIfDownloadedUseCase(tafseerRepository: _sl()));
     _sl.registerLazySingleton(() => TafseerDownloadUseCase(tafseerRepository: _sl()));
+    _sl.registerLazySingleton(() => TafseerDownloadStreamUseCase(tafseerRepository: _sl()));
     _sl.registerLazySingleton(() => TafseerWriteDataIntoFileAsBytesSyncUseCase(tafseerRepository: _sl()));
     _sl.registerLazySingleton(() => TafseerSaveSelectedIdUseCase(tafseerRepository: _sl()));
     _sl.registerLazySingleton(() => TafseerGetSelectedTafseerId(tafseerRepository: _sl()));
@@ -360,7 +362,7 @@ class GetItManager {
     //!Cubit
     _sl.registerFactory(
       () => TafseerCubit(
-        getTafseersUseCase: _sl(),
+        getAllTafseersUseCase: _sl(),
         tafseerSaveSelectedIdUseCase: _sl(),
         tafseerGetSelectedTafseerId: _sl(),
         tafseerGetTafseerDataUseCase: _sl(),
@@ -369,7 +371,8 @@ class GetItManager {
     _sl.registerFactory(
       () => TafseerDownloadCubit(
         checkTafseerIfDownloadedUseCase: _sl(),
-        downloadTafseerUseCase: _sl(),
+        tafseerDownloadUseCase: _sl(),
+        tafseerDownloadStreamUseCase: _sl(),
         tafseerWriteDataIntoFileAsBytesSyncUseCase: _sl(),
       ),
     );

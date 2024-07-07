@@ -9,6 +9,10 @@ class TafseeerPage extends StatelessWidget {
   const TafseeerPage({super.key});
   @override
   Widget build(BuildContext context) {
+    
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<TafseerCubit>().initTafseerPage();
+    });
     return BlocConsumer<TafseerCubit, TafseerState>(
       listener: (context, state) {
         if (state.errorMessage.isNotEmpty) {
@@ -28,10 +32,7 @@ class TafseeerPage extends StatelessWidget {
   Widget body(TafseerState state) {
     if (state.loading) return const AppCircularProgressIndicator();
 
-    //if no tafseers for current local
-    if (state.tafseerModels.isEmpty) return const NoTafseersForCurrentLocalWidget();
-
     //if there is tafseers for current local
-    return TafssersListWidget(tafseerModels: state.tafseerModels);
+    return const TafssersListWidget();
   }
 }

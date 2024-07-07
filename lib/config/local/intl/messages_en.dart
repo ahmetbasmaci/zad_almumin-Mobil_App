@@ -64,6 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Category Bookname: "),
         "changeLanguage":
             MessageLookupByLibrary.simpleMessage("Change app language"),
+        "changeTafseerLanguage":
+            MessageLookupByLibrary.simpleMessage("Change Tafseer Language"),
         "changeTheme": MessageLookupByLibrary.simpleMessage("Change app theme"),
         "chapterName": MessageLookupByLibrary.simpleMessage("Chapter Name: "),
         "copiedToClipboard": MessageLookupByLibrary.simpleMessage(

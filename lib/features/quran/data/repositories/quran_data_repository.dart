@@ -3,7 +3,6 @@ import 'package:zad_almumin/core/error/failure/failure.dart';
 import 'package:zad_almumin/core/helpers/printer_helper.dart';
 import 'package:zad_almumin/core/packages/audio_manager/model/audio_stream_model.dart';
 import 'package:zad_almumin/core/utils/enums/enums.dart';
-import 'package:zad_almumin/features/quran/data/datasources/quran_download_data_source.dart';
 import '../../../../core/error/exceptions/app_exceptions.dart';
 import '../../quran.dart';
 
@@ -446,9 +445,9 @@ class QuranDataRepository implements IQuranDataRepository {
   }
 
   @override
-  Future<Either<Failure, Stream<double>>> downloadSurah(int surahNumber, QuranReader reader) async {
+  Future<Either<Failure, Stream<double>>> downloadSurahStraem(int surahNumber, QuranReader reader) async {
     try {
-      var result = quranDownloadDataSource.downloadSurah(surahNumber, reader);
+      var result = quranDownloadDataSource.downloadSurahStraem(surahNumber, reader);
       return Right(result);
     } catch (e) {
       PrinterHelper.print(e.toString());
@@ -468,9 +467,10 @@ class QuranDataRepository implements IQuranDataRepository {
   }
 
   @override
-  Future<Either<Failure, Stream<double>>> downloadAyah(int surahNumber, int ayahNumber, QuranReader reader) async {
+  Future<Either<Failure, Stream<double>>> downloadAyahStraem(
+      int surahNumber, int ayahNumber, QuranReader reader) async {
     try {
-      var result = quranDownloadDataSource.downloadAyah(surahNumber, ayahNumber, reader);
+      var result = quranDownloadDataSource.downloadAyahStraem(surahNumber, ayahNumber, reader);
       return Right(result);
     } catch (e) {
       PrinterHelper.print(e.toString());

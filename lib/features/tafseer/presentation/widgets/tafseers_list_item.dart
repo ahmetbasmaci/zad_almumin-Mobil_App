@@ -15,7 +15,9 @@ class TafseersListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool itemSelected = context.read<TafseerCubit>().selectedTafseerId == tafseerModel.id;
+
     return ListTile(
+      tileColor: Colors.transparent,
       title: Text("${tafseerModel.name} - ${tafseerModel.bookName}"),
       subtitle: Text(tafseerModel.author),
       selected: itemSelected,
@@ -58,7 +60,7 @@ class TafseersListItem extends StatelessWidget {
     //donwloading
     if (state is TafseerDownloadDownloadingState && tafseerModel == state.tafseerManagerModel) {
       return DownloadCircularProgressIndicator(
-        downloadValue: state.progress / 100,
+        downloadValue: state.progress,
       );
     }
 

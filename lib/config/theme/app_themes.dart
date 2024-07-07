@@ -85,7 +85,7 @@ class AppThemes {
 
   static ListTileThemeData _appListTileThemeData(ThemeColors themeColors) {
     return ListTileThemeData(
-      tileColor: themeColors.background,
+      tileColor: themeColors.background.withOpacity(0.1),
       selectedColor: themeColors.primary,
     );
   }
